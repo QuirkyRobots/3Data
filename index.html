@@ -66,6 +66,47 @@
             </div>
           </div>
         </div>
+        <script>
+          // Background colour picker
+
+          document
+            .getElementById("backgroundColourPicker")
+            .addEventListener("input", function () {
+              var colour = this.value;
+              document.getElementById("selectedBackgroundColour").innerText =
+                colour;
+              document.body.style.backgroundImage =
+                "radial-gradient(" + colour + ", transparent)";
+            });
+
+          // Cube colour picker
+
+          document
+            .getElementById("cubeColourPicker")
+            .addEventListener("input", function () {
+              var colour = this.value;
+              document.getElementById("selectedCubeColour").innerText =
+                colour;
+            });
+
+          // Text colour picker
+
+          document
+            .getElementById("textColourPicker")
+            .addEventListener("input", function () {
+              var colour = this.value;
+              document.getElementById("selectedTextColour").innerText =
+                colour;
+            });
+        </script>
+        <h3>Notes</h3>
+        <div class="pc-note">
+          <p>Data is updated once every 30m, or on browser refresh.</p>
+          <p>
+            Cube spin is basic. A more real-life, object based spin is coming
+            soon.
+          </p>
+        </div>
       </div>
     </div>
     <div id="container"></div>
