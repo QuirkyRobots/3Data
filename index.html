@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live ARRR Data 3D Cube</title>
+    <meta
+      name="description"
+      content="Explore real-time ARRR cryptocurrency data in an interactive 3D Cube format. Get the latest ARRR insights and trends visually."
+    />
+    <meta
+      property="og:image"
+      content="https://piratechain.net/wp-content/uploads/pc.jpg"
+    />
+    <meta property="og:title" content="Live ARRR Data 3D Cube" />
+    <meta
+      property="og:description"
+      content="Discover real time ARRR cryptocurrency data with our Live ARRR Data 3D Cube. Visualise Pirate Chain analytics in a unique and engaging way."
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="pirate-pannel">
+        <div class="ARRRcontrols">
+          <img
+            alt="Pirate Image"
+            src="https://piratechain.net/wp-content/uploads/Pirate_Logo_Wordmark_Gold.svg"
+            class="pirate-img"
+          />
+          <div class="pirateForm">
+            <h3>Custom Text</h3>
+            <input
+              type="text"
+              id="textInput"
+              placeholder="Enter Text"
+              value="Pirate Chain"
+            />
+            <h3>Selection</h3>
+            <div class="selection-buttons">
+              
+              <span id="ARRRpriceDollar" class="view-selection">ARRR/$</span>
+              <span id="ARRRpriceBTC" class="view-selection">ARRR/BTC</span>
+              <span id="ARRR24High" class="view-selection">24 Hour High</span>
+              <span id="ARRR24low" class="view-selection">24 Hour Low</span>
+              <span id="ARRR24Vol" class="view-selection">24 Hour Vol</span>
+              <span id="customText" class="view-selection">Custom Text</span>
+            </div>
+          </div>
+          <!---
+          <button id="originalColor">Pirate Blue</button>
+          <button id="pirateGold">Pirate Gold</button>
+          -->
+          <div class="all-colour-pickers">
+            <div class="pc-colour-picker">
+              <input type="color" id="backgroundColourPicker" value="#24243a" />
+              <div class="colourInfo">
+                <h3>Canvas</h3>
+                <span class="selected-colour" id="selectedBackgroundColour"
+                  >#24243a</span
+                >
+              </div>
+            </div>
+
+            <div class="pc-colour-picker">
+              <input type="color" id="cubeColourPicker" value="#c65f0c" />
+              <div class="colourInfo">
+                <h3>Block</h3>
+                <span class="selected-colour" id="selectedCubeColour"
+                  >#c65f0c</span
+                >
+              </div>
+            </div>
+
+            <div class="pc-colour-picker">
+              <input type="color" id="textColourPicker" value="#050505" />
+              <div class="colourInfo">
+                <h3>Text</h3>
+                <span class="selected-colour" id="selectedTextColour"
+                  >#050505</span
+                >
+              </div>
+            </div>
+          </div>
+    </div>
+  </body>
+</html>
