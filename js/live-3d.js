@@ -383,7 +383,7 @@ function animate() {
   // I put this in so I could find the correct values for the value button positions
 
   console.log(
-    `Rotation - X: ${cube.rotation.x}, Y: ${cube.rotation.y}, Z: ${cube.rotation.z}`
+    // `Rotation - X: ${cube.rotation.x}, Y: ${cube.rotation.y}, Z: ${cube.rotation.z}`
   );
 }
 
