@@ -153,7 +153,7 @@ function createCubeFaceTexture(title, data, textColor, faceColor) {
 
 function createEnvironmentMap() {
   const textureLoader = new THREE.TextureLoader();
-  const envMap = textureLoader.load("../img/pc-reflection-2.jpg");
+  const envMap = textureLoader.load("img/pc-reflection-2.jpg");
   envMap.mapping = THREE.EquirectangularReflectionMapping;
   return envMap;
 }
