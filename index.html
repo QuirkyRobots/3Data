@@ -67,7 +67,16 @@
           </div>
         </div>
         <script>
-          // Background colour picker
+
+          document.addEventListener('DOMContentLoaded', function () {
+            var textInput = document.getElementById('textInput');
+            var params = new URLSearchParams(window.location.search);
+            var msg = params.get('msg');
+
+            if (msg) {
+              textInput.value = decodeURIComponent(msg);
+            }
+          });
 
           document
             .getElementById("backgroundColourPicker")
