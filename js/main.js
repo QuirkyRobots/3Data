@@ -1,46 +1,39 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    const inputMappings = {
-        'msg': 'textInput',
-        'bg': 'backgroundColourPicker',
-        'cube': 'cubeColourPicker',
-        'txt': 'textColourPicker'
-    };
+document.addEventListener('DOMContentLoaded', function () {
+    var textInput = document.getElementById('textInput');
+    var params = new URLSearchParams(window.location.search);
+    var msg = params.get('msg');
 
-    Object.keys(inputMappings).forEach(key => {
-        const value = params.get(key);
-        if (value) {
-            document.getElementById(inputMappings[key]).value = decodeURIComponent(value);
-        }
-    });
-});
+    if (msg) {
+      textInput.value = decodeURIComponent(msg);
+    }
+  });
 
-document
+  document
     .getElementById("backgroundColourPicker")
     .addEventListener("input", function () {
-        var colour = this.value;
-        document.getElementById("selectedBackgroundColour").innerText =
-            colour;
-        document.body.style.backgroundImage =
-            "radial-gradient(" + colour + ", transparent)";
+      var colour = this.value;
+      document.getElementById("selectedBackgroundColour").innerText =
+        colour;
+      document.body.style.backgroundImage =
+        "radial-gradient(" + colour + ", transparent)";
     });
 
-// Cube colour picker
+  // Cube colour picker
 
-document
+  document
     .getElementById("cubeColourPicker")
     .addEventListener("input", function () {
-        var colour = this.value;
-        document.getElementById("selectedCubeColour").innerText =
-            colour;
+      var colour = this.value;
+      document.getElementById("selectedCubeColour").innerText =
+        colour;
     });
 
-// Text colour picker
+  // Text colour picker
 
-document
+  document
     .getElementById("textColourPicker")
     .addEventListener("input", function () {
-        var colour = this.value;
-        document.getElementById("selectedTextColour").innerText =
-            colour;
+      var colour = this.value;
+      document.getElementById("selectedTextColour").innerText =
+        colour;
     });
