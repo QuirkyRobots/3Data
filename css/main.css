@@ -13,15 +13,19 @@
 html {
     overflow: hidden;
     min-width: 300px;
+    background: #111;
+    
 }
 
 body {
+    display: block;
     font-family: "Roboto", "Arial Condensed", Arial;
     margin: 0;
     background: #000 url(../img/pcpcba.jpg) no-repeat fixed;
     background-size: cover;
     backdrop-filter: blur(7px);
     overflow: hidden;
+    opacity: 0;
 }
 
 input:focus,
