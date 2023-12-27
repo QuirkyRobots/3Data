@@ -9,7 +9,7 @@
 }
 
 * {
-  transition: color 0.2s ease-in-out, background 0.2s ease;
+  transition: color 0.2s ease-in-out, background 0.2s ease, filter 0.2s ease;
 }
 
 html {
@@ -100,17 +100,20 @@ p {
   flex-wrap: wrap;
   flex-direction: row;
   gap: 0.5rem;
+  margin-top: 1.5rem;
   text-align: left;
 }
 
 .view-selection {
   padding: 1rem 0.5rem;
+  width: 40%;
   background: #24243a;
   color: #bb9645;
   border-radius: 0.2rem;
   font-size: 0.7rem;
-  width: 40%;
   text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
 
   &:hover {
     color: #24243a;
@@ -127,8 +130,11 @@ p {
   font-size: 1rem;
   font-weight: 100;
   margin: 0;
+  margin-bottom: .2rem;
 }
-
+.pc-colour-picker:hover.pc-colour-picker h3 {
+  filter: brightness(1.6);
+}
 .all-colour-pickers {
   display: flex;
   flex-direction: column;
@@ -152,7 +158,7 @@ p {
   appearance: none;
   background-color: transparent;
   width: 2.8rem;
-  height: 2.8rem;
+  height: 100%;
   border: none;
   cursor: pointer;
   aspect-ratio: 1/1;
@@ -188,7 +194,9 @@ p {
   border-radius: 0.2rem;
   padding: 1rem;
   padding-bottom: 0.5rem;
-
+  & p {
+    line-height: 1.3;
+  }
   &:hover {
     color: #999;
   }
@@ -203,10 +211,11 @@ p {
   flex-direction: column;
   background: #16161e;
   width: 100%;
+  font-size: 0.9rem;
   & a {
     color: var(--pirate-darker-txt);
     &:hover {
-        color: var(--pirate-gold);
+      color: var(--pirate-gold);
     }
   }
 }
