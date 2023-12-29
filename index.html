@@ -40,20 +40,19 @@
             <span id="ARRR24Vol" class="view-selection">Volume</span>
             <span id="customText" class="view-selection">Message</span>
           </div>
-          <div class="pirateForm">
-            <h3>Message</h3>
-            <input
-              type="text"
-              id="textInput"
-              placeholder="Enter Text"
-              value="Pirate Chain"
-            />
+
+          <div class="theme-header">
+            <h3>Theme</h3>
+            <div class="default-theme-buttons">
+              <div title="Set the Pirate gold theme" class="default-theme-button" id="goldTheme"></div>
+              <div title="Set the Pirate black & gold theme" class="default-theme-button" id="blackTheme"></div>
+            </div>
           </div>
 
-          <!---
-          <button id="originalColor">Pirate Blue</button>
-          <button id="pirateGold">Pirate Gold</button>
-          -->
+          <div class="pirateForm">
+            <input type="text" id="textInput" placeholder="Message" value="" />
+          </div>
+
           <div class="all-colour-pickers">
             <div class="pc-colour-picker">
               <input type="color" id="textColourPicker" value="#050505" />
@@ -84,7 +83,12 @@
                 >
               </div>
             </div>
+            <div class="theme-actions">
+              <button title="Copy theme to the clipboard" id="copy">Copy Theme</button>
+              <!-- <button id="reset">Reset</button> -->
+            </div>
           </div>
+
           <h3>Instructions</h3>
           <div class="pc-note">
             <p>

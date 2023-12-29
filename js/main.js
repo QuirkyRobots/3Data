@@ -72,5 +72,59 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Set theme
+
+  const updateTheme = (theme) => {
+    const textColour = theme === "gold" ? "#050505" : "#b34700";
+    const cubeColour = theme === "gold" ? "#c65f0c" : "#020203";
+
+    const setTextColourPicker = document.getElementById("textColourPicker");
+    setTextColourPicker.value = textColour;
+    setTextColourPicker.dispatchEvent(new Event("input"));
+
+    const setCubeColourPicker = document.getElementById("cubeColourPicker");
+    setCubeColourPicker.value = cubeColour;
+    setCubeColourPicker.dispatchEvent(new Event("input"));
+
+    document.getElementById("selectedTextColour").textContent = textColour;
+    document.getElementById("selectedCubeColour").textContent = cubeColour;
+
+    document.body.style.backgroundColor = "";
+    document.body.style.backgroundImage = "";
+
+    // Clean the URL. It's dirty
+
+    const url =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname;
+    window.history.pushState({ path: url }, "", url);
+  };
+
+  // Event listeners for theme buttons. They might be having a rave
+
+  document
+    .getElementById("goldTheme")
+    .addEventListener("click", () => updateTheme("gold"));
+  document
+    .getElementById("blackTheme")
+    .addEventListener("click", () => updateTheme("black"));
+
+  // Copy URL to clipboard
+
+  document.getElementById("copy").addEventListener("click", () => {
+    const url = window.location.href;
+
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        console.log("URL copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Failed to copy URL: ", err);
+      });
+  });
+
   updatePageFromURL();
 });

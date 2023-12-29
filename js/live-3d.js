@@ -172,7 +172,7 @@ function createCube() {
     switch (index) {
       case 0:
         title = "";
-        data = document.getElementById("textInput").value || "Loading...";
+        data = document.getElementById("textInput").value || "ARRR";
         break;
       case 1:
         title = "Value USD";
