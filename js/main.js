@@ -24,8 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (bgColour) {
       const bgPicker = document.getElementById("backgroundColourPicker");
       bgPicker.value = "#" + bgColour;
-      document.getElementById("selectedBackgroundColour").innerText =
-        "#" + bgColour;
+      document.getElementById("selectedBackgroundColour").innerText = "#" + bgColour;
       document.body.style.backgroundImage = `radial-gradient(#${bgColour}, transparent)`;
     }
 
@@ -33,8 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (blockColour) {
       const blockPicker = document.getElementById("cubeColourPicker");
       blockPicker.value = "#" + blockColour;
-      document.getElementById("selectedCubeColour").innerText =
-        "#" + blockColour;
+      document.getElementById("selectedCubeColour").innerText = "#" + blockColour;
     }
 
     const txtColour = urlParams.get("txt");
@@ -94,22 +92,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Clean the URL. It's dirty
 
-    const url =
-      window.location.protocol +
-      "//" +
-      window.location.host +
-      window.location.pathname;
+    const url = window.location.protocol + "//" + window.location.host + window.location.pathname;
     window.history.pushState({ path: url }, "", url);
   };
 
   // Event listeners for theme buttons. They might be having a rave
 
-  document
-    .getElementById("goldTheme")
-    .addEventListener("click", () => updateTheme("gold"));
-  document
-    .getElementById("blackTheme")
-    .addEventListener("click", () => updateTheme("black"));
+  document.getElementById("goldTheme").addEventListener("click", () => updateTheme("gold"));
+  document.getElementById("blackTheme").addEventListener("click", () => updateTheme("black"));
 
   // Copy URL to clipboard
 
@@ -127,4 +117,13 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   updatePageFromURL();
+
+  // Hide or show if tickbox is ticked off or not. It gets angry
+
+  const checkbox = document.getElementById("wfCheckbox");
+  const vNumberDiv = document.querySelector(".v-number");
+
+  checkbox.addEventListener("change", function () {
+    vNumberDiv.style.display = checkbox.checked ? "flex" : "none";
+  });
 });

@@ -7,17 +7,12 @@
     <title>Live ARRR Data 3D Cube</title>
     <meta
       name="description"
-      content="Explore real-time ARRR cryptocurrency data in an interactive 3D Cube format. Get the latest ARRR data visually."
-    />
-    <meta
-      property="og:image"
-      content="https://quirkyrobots.github.io/arrr3d/img/pc.jpg"
-    />
+      content="Explore real-time ARRR cryptocurrency data in an interactive 3D Cube format. Get the latest ARRR data visually." />
+    <meta property="og:image" content="https://quirkyrobots.github.io/arrr3d/img/pc.jpg" />
     <meta property="og:title" content="Live ARRR Data 3D Cube" />
     <meta
       property="og:description"
-      content="Explore real-time ARRR cryptocurrency data in an interactive 3D Cube format. Get the latest ARRR data visually."
-    />
+      content="Explore real-time ARRR cryptocurrency data in an interactive 3D Cube format. Get the latest ARRR data visually." />
 
     <link rel="stylesheet" href="css/main.css" />
   </head>
@@ -26,11 +21,7 @@
     <div class="wrapper">
       <div class="pirate-pannel">
         <div class="ARRRcontrols">
-          <img
-            alt="Pirate Image"
-            src="img/Pirate_Logo_Wordmark_Gold.svg"
-            class="pirate-img"
-          />
+          <img alt="Pirate Image" src="img/Pirate_Logo_Wordmark_Gold.svg" class="pirate-img" />
           <!-- <h3>Selection</h3> -->
           <div class="selection-buttons">
             <span id="ARRRpriceDollar" class="view-selection">ARRR</span>
@@ -55,58 +46,80 @@
 
           <div class="all-colour-pickers">
             <div class="pc-colour-picker">
+              <div class="colour-picker-title">Text</div>
               <input type="color" id="textColourPicker" value="#050505" />
               <div class="colourInfo">
-                <h3>Text</h3>
-                <span class="selected-colour" id="selectedTextColour"
-                  >#050505</span
-                >
+                <div class="selected-colour" id="selectedTextColour">#050505</div>
               </div>
             </div>
-
             <div class="pc-colour-picker">
+              <div class="colour-picker-title">Block</div>
               <input type="color" id="cubeColourPicker" value="#c65f0c" />
               <div class="colourInfo">
-                <h3>Block</h3>
-                <span class="selected-colour" id="selectedCubeColour"
-                  >#c65f0c</span
-                >
+                <div class="selected-colour" id="selectedCubeColour">#c65f0c</div>
               </div>
             </div>
 
             <div class="pc-colour-picker">
+              <div class="colour-picker-title">Canvas</div>
               <input type="color" id="backgroundColourPicker" value="#24243a" />
               <div class="colourInfo">
-                <h3>Canvas</h3>
-                <span class="selected-colour" id="selectedBackgroundColour"
-                  >#24243a</span
-                >
+                <div class="selected-colour" id="selectedBackgroundColour">#24243a</div>
               </div>
             </div>
+
             <div class="theme-actions">
               <button title="Copy theme to the clipboard" id="copy">Copy Theme</button>
-              <!-- <button id="reset">Reset</button> -->
             </div>
           </div>
-
-          <h3>Instructions</h3>
+          <h3>Advanced</h3>
+          <div class="pc-advanced-controls">
+            <div class="pc-wireframe">
+              <div>
+                <label for="wfCheckbox">Wireframe:</label>
+                <input type="checkbox" id="wfCheckbox" name="wfCheckbox" />
+              </div>
+              <div class="v-number">
+                <label for="vNumber">Vertices :</label>
+                <input type="number" id="vNumber" name="vNumber" value="37" min="1" max="100" />
+              </div>
+            </div>
+            <div class="pc-other">
+              <div style="display: none">
+                <label for="sizeSlider">Size:</label>
+                <input class="pc-slider" type="range" id="sizeSlider" name="sizeSlider" min="10" max="90" value="50" />
+              </div>
+              <div>
+                <label for="opacitySlider">Opacity:</label>
+                <input
+                  class="pc-slider"
+                  type="range"
+                  id="opacitySlider"
+                  name="opacitySlider"
+                  min="0"
+                  max="100"
+                  value="100" />
+              </div>
+            </div>
+          </div>
+          <h3>Information</h3>
           <div class="pc-note">
             <p>
-              Use the buttons at the top to spin the block to the selected data.
-            </p>
-            <p>
-              Data is refreshed every 30 minutes or when the page is refreshed.
+              Use the top buttons to spin the block to the selected data.Data is refreshed every 30 minutes or on page
+              refresh.
             </p>
           </div>
           <div class="credits">
-            Designed and developed by
-            <a
-              href="https://twitter.com/QuirkyRobots"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Visit QuirkyRobots on Twitter"
-              >QuirkyRobots</a
-            >
+            <p>
+              <span class="version-num">v1.2</span> Designed & developed by
+              <a
+                href="https://twitter.com/QuirkyRobots"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Visit QuirkyRobots on Twitter"
+                >QuirkyRobots</a
+              >
+            </p>
           </div>
         </div>
       </div>

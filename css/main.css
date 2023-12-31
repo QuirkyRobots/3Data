@@ -3,7 +3,7 @@
 :root {
   --pirate-gold: #bb9645;
   --pirate-blue: #242439;
-
+  --pirate-txt: #58585f;
   --pirate-dark-txt: #47474d;
   --pirate-darker-txt: #2f2f39;
 }
@@ -39,7 +39,7 @@ input:active {
 h3 {
   margin-top: 2rem;
   margin-bottom: 0.8rem;
-  color: #47474d;
+  color: var(--pirate-txt);
 }
 
 p {
@@ -48,6 +48,9 @@ p {
 }
 
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   width: 100%;
   height: 100%;
   background: rgb(0 0 0 / 15%);
@@ -55,7 +58,7 @@ p {
 }
 
 #container {
-  display: inline;
+  display: flex;
   margin: 0 auto;
   text-align: center;
 }
@@ -63,9 +66,7 @@ p {
 .ARRRcontrols {
   display: flex;
   flex-direction: column;
-  /* gap: 1rem; */
   position: absolute;
-  max-width: 14rem;
   background: rgb(22 22 30);
   height: 100%;
   overflow: hidden;
@@ -74,6 +75,8 @@ p {
   color: #fff;
   font-size: 1rem;
   text-align: left;
+  width: 16%;
+  min-width: 250px;
 }
 
 .pirateForm {
@@ -87,20 +90,20 @@ p {
 
 #textInput {
   min-width: 9rem;
+  width: 100%;
   border: none;
-  outline: 1px solid var(--pirate-gold);
+  outline: 1px solid transparent;
   background: #1e1e26;
   border-radius: 0.21em;
-  color: var(--pirate-dark-txt);
+  color: var(--pirate-txt);
   font-size: 1rem;
   margin: 0;
   padding: 0.5rem 0.4rem 0.4rem 1rem;
 }
 
 .selection-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
   margin-top: 1.5rem;
   text-align: left;
@@ -108,7 +111,6 @@ p {
 
 .view-selection {
   padding: 1rem 0.5rem;
-  width: 40%;
   background: #24243a;
   color: #bb9645;
   border-radius: 0.2rem;
@@ -166,7 +168,7 @@ button#reset,
 button#copy {
   padding: 0.2rem 0.4rem;
   background: #1e1e26;
-  color: var(--pirate-dark-txt);
+  color: var(--pirate-txt);
   border: none;
   border-radius: 0.1rem;
   cursor: pointer;
@@ -179,29 +181,21 @@ button#copy {
   margin-bottom: 1rem;
 }
 
-.colourInfo h3 {
-  font-size: 1rem;
-  font-weight: 100;
-  margin: 0;
-  margin-bottom: 0.2rem;
-}
-.pc-colour-picker:hover.pc-colour-picker h3 {
-  filter: brightness(1.6);
-}
 .all-colour-pickers {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.6rem;
 }
 
 .pc-colour-picker {
   display: flex;
   align-items: center;
-  flex-direction: row;
-  gap: 1rem;
-  padding: 0.4rem 0.8rem;
+  flex-direction: column;
+  gap: 0.5rem;
   background: #1e1e26;
   border-radius: 0.2rem;
+  width: 100%;
+  border: 1px solid #333;
 }
 
 .pc-colour-picker input {
@@ -209,7 +203,7 @@ button#copy {
   -moz-appearance: none;
   appearance: none;
   background-color: transparent;
-  width: 2.8rem;
+  /* width: 2.8rem; */
   height: 100%;
   border: none;
   cursor: pointer;
@@ -225,19 +219,71 @@ button#copy {
   border-radius: 50%;
   border: 0.15rem solid var(--pirate-gold);
 }
+.colourInfo h3 {
+  font-size: 1rem;
+  font-weight: 100;
+  margin: 0;
+  margin-bottom: 0.2rem;
+}
+.colourInfo,
+.colour-picker-title {
+  width: 100%;
+  padding: 0.4rem 0.1rem;
 
+  text-align: center;
+}
+.colour-picker-title {
+  color: var(--pirate-txt);
+  background: var(--pirate-blue);
+}
+.pc-colour-picker:hover.pc-colour-picker .colour-picker-title {
+  filter: brightness(1.6);
+}
+.colourInfo {
+  border-top: 1px solid #2b2b2b;
+  padding-top: 0.6rem;
+}
 .selected-colour {
-  /* padding: 0.2rem 1rem;
-  padding-top: 0.37rem;
-  background: #1e1e26;
-  border: 1px solid var(--pirate-dark-txt);
-  border-radius: 0.2rem;*/
   font-size: 0.8rem;
   color: var(--pirate-gold);
+  height: 100%;
+  width: 100%;
+}
+.pc-advanced-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.pc-other {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.pc-wireframe,
+.pc-other {
+  display: flex;
+  gap: 1rem;
+  color: var(--pirate-txt);
+}
+.pc-wireframe {
+  flex-direction: row;
+}
+.v-number {
+  display: none;
+}
+#wfCheckbox:checked + .v-number {
+  display: flex;
 }
 
+input[type="range"] {
+  width: 100%;
+}
+.pc-other label {
+  display: flex;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
 .pc-note {
-  color: var(--pirate-dark-txt);
+  color: var(--pirate-txt);
   font-weight: 100;
   font-size: 0.8rem;
   max-width: max-content;
@@ -256,7 +302,7 @@ button#copy {
 .credits {
   display: flex;
   position: absolute;
-  bottom: 4.5rem;
+  bottom: 3.5rem;
   padding: 0.4rem 0.8rem;
   padding-left: 0;
   color: var(--pirate-darker-txt);
@@ -270,6 +316,13 @@ button#copy {
       color: var(--pirate-gold);
     }
   }
+}
+.version-num {
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.2rem;
+  font-size: 0.7rem;
+  background: var(--pirate-blue);
+  color: var(--pirate-txt);
 }
 canvas {
   display: block;

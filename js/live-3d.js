@@ -48,7 +48,8 @@ const ambientLightIntensity = 0;
 
 // Material configuration
 
-const cubeMaterialTransparent = false;
+// const wireframeAmount = 20;
+const cubeMaterialTransparent = true;
 const cubeEmissiveIntensity = 0;
 const cubeEmissiveIColour = "#ffffff";
 const cubeReflectivity = 1;
@@ -81,51 +82,38 @@ let ambientLight, pointLight;
 function init() {
   scene = new THREE.Scene();
   // scene.fog = new THREE.Fog( "#000000", 3, 1 );
-  camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-  );
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  // renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(window.innerWidth, window.innerHeight);
 
   document.getElementById("container").appendChild(renderer.domElement);
-
+  camera.position.z = cameraPosition;
   createTextCanvas();
   createCube();
   setupLights();
-
-  camera.position.z = cameraPosition;
-
   addEventListeners();
   animate();
-
   handleWindowResize();
 }
 
-// Text canvas creation for cube faces, not your faces - I need make this use the global variables above
+// Text canvas creation for cube faces, not your faces
 
 function createTextCanvas() {
   textCanvas = document.createElement("canvas");
-  textCanvas.width = 256;
-  textCanvas.height = 256;
-  textContext = textCanvas.getContext("2d");
-  textContext.font = "800 30px 'Arial Condensed'";
-  textContext.textAlign = "center";
-  textContext.textBaseline = "middle";
 }
 
 // Cube face texture creation. Yay!
 
 function createCubeFaceTexture(title, data, textColor, faceColor) {
   const faceCanvas = document.createElement("canvas");
+  const faceContext = faceCanvas.getContext("2d");
+
   faceCanvas.width = 256;
   faceCanvas.height = 256;
-  const faceContext = faceCanvas.getContext("2d");
 
   faceContext.textAlign = "center";
   faceContext.textBaseline = "middle";
+  faceContext.textwrap = "true";
 
   faceContext.clearRect(0, 0, faceCanvas.width, faceCanvas.height);
   faceContext.fillStyle = faceColor;
@@ -137,7 +125,6 @@ function createCubeFaceTexture(title, data, textColor, faceColor) {
     faceContext.font = largeFont;
     faceContext.fillStyle = textColor;
     faceContext.fillText(title, 128, 100);
-
     faceContext.font = smallFont;
     faceContext.fillText(data, 128, 150);
   } else {
@@ -161,42 +148,32 @@ function createEnvironmentMap() {
 // Cube creation, like a god
 
 function createCube() {
-  const geometry = new THREE.BoxGeometry();
+  const wireframeDetail = document.getElementById("vNumber").value;
+  const geometry = new THREE.BoxGeometry(1.2, 1.2, 1.2, wireframeDetail, wireframeDetail, wireframeDetail);
   const envMap = createEnvironmentMap();
+  const opacityValue = document.getElementById("opacitySlider").value / 100;
+  const wireframeValue = document.getElementById("wfCheckbox").checked;
   const materials = cubeMaterialsConfig.map((config, index) => {
     
     // Data pirated from local storage
 
     const arrrData = JSON.parse(localStorage.getItem("arrrData")) || {};
     let title, data;
-    switch (index) {
-      case 0:
-        title = "";
-        data = document.getElementById("textInput").value || "ARRR";
-        break;
-      case 1:
-        title = "Value USD";
-        data = `$${(parseFloat(arrrData.priceUSD) || 0).toLocaleString()}`;
-        break;
-      case 2:
-        title = "Value BTC";
-        data = arrrData.priceBTC || "Loading...";
-        break;
-      case 3:
-        title = "24 Hour Vol";
-        data = `$${(parseFloat(arrrData.volume24h) || 0).toLocaleString()}`;
-        break;
-      case 4:
-        title = "24 Hour High";
-        data = `$${(parseFloat(arrrData.high24h) || 0).toLocaleString()}`;
-        break;
-      case 5:
-        title = "24 Hour Low";
-        data = `$${(parseFloat(arrrData.low24h) || 0).toLocaleString()}`;
-        break;
-      default:
-        title = "Side";
-        data = (index + 1).toString();
+
+    const dataMappings = {
+      0: ["", document.getElementById("textInput").value || "ARRR"],
+      1: ["Value USD", `$${(parseFloat(arrrData.priceUSD) || 0).toLocaleString()}`],
+      2: ["Value BTC", arrrData.priceBTC || "Loading..."],
+      3: ["24 Hour Vol", `$${(parseFloat(arrrData.volume24h) || 0).toLocaleString()}`],
+      4: ["24 Hour High", `$${(parseFloat(arrrData.high24h) || 0).toLocaleString()}`],
+      5: ["24 Hour Low", `$${(parseFloat(arrrData.low24h) || 0).toLocaleString()}`],
+    };
+
+    if (dataMappings.hasOwnProperty(index)) {
+      [title, data] = dataMappings[index];
+    } else {
+      title = "Side";
+      data = (index + 1).toString();
     }
 
     const texture = createCubeFaceTexture(
@@ -208,6 +185,10 @@ function createCube() {
     return new THREE.MeshPhysicalMaterial({
       map: texture,
       envMap: envMap,
+
+      opacity: opacityValue,
+      wireframe: wireframeValue,
+      vNumber: wireframeDetail,
       transparent: config.transparent,
       reflectivity: config.reflectivity,
       emissive: config.emissive,
@@ -226,53 +207,30 @@ function createCube() {
 // Lighting setup. A bright idea.
 
 function setupLights() {
-  pointLight = new THREE.PointLight(
-    pirateLightColour,
-    pointLightIntensity,
-    pointLightDistance,
-    pointLightDecay
-  );
-  pointLight.position.set(
-    pointLightPosition.x,
-    pointLightPosition.y,
-    pointLightPosition.z
-  );
+  pointLight = new THREE.PointLight(pirateLightColour, pointLightIntensity, pointLightDistance, pointLightDecay);
+  pointLight.position.set(pointLightPosition.x, pointLightPosition.y, pointLightPosition.z);
   scene.add(pointLight);
-  ambientLight = new THREE.AmbientLight(
-    pirateLightColour,
-    ambientLightIntensity
-  );
+  ambientLight = new THREE.AmbientLight(pirateLightColour, ambientLightIntensity);
   scene.add(ambientLight);
 }
 
 // Event listener setup
 
 function addEventListeners() {
-  renderer.domElement.addEventListener("mousemove", handleMouseEvents);
-  renderer.domElement.addEventListener("mousedown", handleMouseEvents);
-  renderer.domElement.addEventListener("mouseup", handleMouseEvents);
+  const addEventListenerToElement = (element, eventTypes, listener, options) => {
+    eventTypes.forEach((eventType) => {
+      element.addEventListener(eventType, listener, options);
+    });
+  };
 
-  document.getElementById("cubeColourPicker").addEventListener("input", () => {
-    refreshCube();
-  });
-  document.getElementById("textColourPicker").addEventListener("input", () => {
-    refreshCube();
-  });
-  document.getElementById("textInput").addEventListener("input", () => {
-    refreshCube();
+  addEventListenerToElement(renderer.domElement, ["mousemove", "mousedown", "mouseup"], handleMouseEvents);
+  addEventListenerToElement(window, ["resize"], handleWindowResize);
+
+  ["cubeColourPicker", "textColourPicker", "textInput", "wfCheckbox", "vNumber", "opacitySlider"].forEach((id) => {
+    addEventListenerToElement(document.getElementById(id), ["input"], refreshCube);
   });
 
-  window.addEventListener("resize", handleWindowResize);
-
-  // Adding touch event listeners
-
-  renderer.domElement.addEventListener("touchstart", handleTouchEvents, {
-    passive: false,
-  });
-  renderer.domElement.addEventListener("touchmove", handleTouchEvents, {
-    passive: false,
-  });
-  renderer.domElement.addEventListener("touchend", handleTouchEvents, {
+  addEventListenerToElement(renderer.domElement, ["touchstart", "touchmove", "touchend"], handleTouchEvents, {
     passive: false,
   });
 }
@@ -301,6 +259,7 @@ function handleTouchEvents(event) {
 
 function refreshCube() {
   if (cube) {
+
     // Save the current rotation of the reallt cool cube - so when the custom text changes, it doesn't reset.
 
     const currentRotation = {
@@ -320,6 +279,7 @@ function refreshCube() {
     cube.rotation.y = currentRotation.y;
     cube.rotation.z = currentRotation.z;
   } else {
+
     // If for some reason the cube doesn't exist, just create a new one and shout at it. ARRRR!
 
     createCube();
@@ -382,9 +342,10 @@ function animate() {
 
   // I put this in so I could find the correct values for the value button positions
 
-  console.log(
+  console
+    .log
     // `Rotation - X: ${cube.rotation.x}, Y: ${cube.rotation.y}, Z: ${cube.rotation.z}`
-  );
+    ();
 }
 
 // Function for rotating the cube to a specific face
@@ -401,24 +362,18 @@ function rotateCube(targetRotationY, targetRotationX) {
 
 // Event listener for each ARRR button element
 
-document
-  .getElementById("customText")
-  .addEventListener("click", () => rotateCube(29, -0.7));
-document
-  .getElementById("ARRRpriceDollar")
-  .addEventListener("click", () => rotateCube(13.1, -0.8));
-document
-  .getElementById("ARRRpriceBTC")
-  .addEventListener("click", () => rotateCube(11.5, 0.5));
-document
-  .getElementById("ARRR24High")
-  .addEventListener("click", () => rotateCube(30.3, -1.2));
-document
-  .getElementById("ARRR24low")
-  .addEventListener("click", () => rotateCube(27.3, -1.0));
-document
-  .getElementById("ARRR24Vol")
-  .addEventListener("click", () => rotateCube(5.1, -2.7));
+const cubeRotationMappings = {
+  customText: [29, -0.7],
+  ARRRpriceDollar: [13.1, -0.8],
+  ARRRpriceBTC: [11.5, 0.5],
+  ARRR24High: [30.3, -1.2],
+  ARRR24low: [27.3, -1.0],
+  ARRR24Vol: [5.1, -2.7],
+};
+
+Object.entries(cubeRotationMappings).forEach(([id, params]) => {
+  document.getElementById(id).addEventListener("click", () => rotateCube(...params));
+});
 
 window.onload = init;
 
