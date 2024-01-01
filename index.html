@@ -46,12 +46,13 @@
 
           <div class="all-colour-pickers">
             <div class="pc-colour-picker">
-              <div class="colour-picker-title">Text</div>
-              <input type="color" id="textColourPicker" value="#050505" />
+              <div class="colour-picker-title">Canvas</div>
+              <input type="color" id="backgroundColourPicker" value="#24243a" />
               <div class="colourInfo">
-                <div class="selected-colour" id="selectedTextColour">#050505</div>
+                <div class="selected-colour" id="selectedBackgroundColour">#24243a</div>
               </div>
             </div>
+
             <div class="pc-colour-picker">
               <div class="colour-picker-title">Block</div>
               <input type="color" id="cubeColourPicker" value="#c65f0c" />
@@ -61,35 +62,34 @@
             </div>
 
             <div class="pc-colour-picker">
-              <div class="colour-picker-title">Canvas</div>
-              <input type="color" id="backgroundColourPicker" value="#24243a" />
+              <div class="colour-picker-title">Text</div>
+              <input type="color" id="textColourPicker" value="#050505" />
               <div class="colourInfo">
-                <div class="selected-colour" id="selectedBackgroundColour">#24243a</div>
+                <div class="selected-colour" id="selectedTextColour">#050505</div>
               </div>
             </div>
           </div>
-            <div class="opacity-slider">
-              <label for="opacitySlider">Opacity:</label>
-              <input
-                class="pc-slider"
-                type="range"
-                id="opacitySlider"
-                name="opacitySlider"
-                min="0"
-                max="100"
-                value="100" />
-            </div>
+          <div class="opacity-slider">
+            <label for="opacitySlider">Opacity:</label>
+            <input
+              class="pc-slider"
+              type="range"
+              id="opacitySlider"
+              name="opacitySlider"
+              min="0"
+              max="100"
+              value="100" />
+          </div>
 
-            <div class="theme-actions">
-              <button title="Copy theme to the clipboard" id="copy">Copy Theme</button>
-            </div>
-          
+          <div class="theme-actions">
+            <button title="Copy theme to the clipboard" id="copy">Copy Theme</button>
+          </div>
+
           <div class="pc-advanced-controls">
             <div class="pc-wireframe">
-              
-                <label for="wfCheckbox">Wireframe:</label>
-                <input type="checkbox" id="wfCheckbox" name="wfCheckbox" />
-              
+              <label for="wfCheckbox">Wireframe:</label>
+              <input type="checkbox" id="wfCheckbox" name="wfCheckbox" />
+
               <div class="v-number">
                 <label for="vNumber">Vertices :</label>
                 <input type="number" id="vNumber" name="vNumber" value="37" min="1" max="100" />
