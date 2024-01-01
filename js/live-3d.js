@@ -149,12 +149,12 @@ function createEnvironmentMap() {
 
 function createCube() {
   const wireframeDetail = document.getElementById("vNumber").value;
-  const geometry = new THREE.BoxGeometry(1.2, 1.2, 1.2, wireframeDetail, wireframeDetail, wireframeDetail);
+  const geometry = new THREE.BoxGeometry(1.1, 1.1, 1.1, wireframeDetail, wireframeDetail, wireframeDetail);
   const envMap = createEnvironmentMap();
   const opacityValue = document.getElementById("opacitySlider").value / 100;
   const wireframeValue = document.getElementById("wfCheckbox").checked;
   const materials = cubeMaterialsConfig.map((config, index) => {
-    
+
     // Data pirated from local storage
 
     const arrrData = JSON.parse(localStorage.getItem("arrrData")) || {};
@@ -185,7 +185,6 @@ function createCube() {
     return new THREE.MeshPhysicalMaterial({
       map: texture,
       envMap: envMap,
-
       opacity: opacityValue,
       wireframe: wireframeValue,
       vNumber: wireframeDetail,
@@ -339,13 +338,6 @@ function animate() {
   dragSpeedY *= dragFallOff;
 
   renderer.render(scene, camera);
-
-  // I put this in so I could find the correct values for the value button positions
-
-  console
-    .log
-    // `Rotation - X: ${cube.rotation.x}, Y: ${cube.rotation.y}, Z: ${cube.rotation.z}`
-    ();
 }
 
 // Function for rotating the cube to a specific face

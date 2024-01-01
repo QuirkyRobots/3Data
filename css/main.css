@@ -11,20 +11,27 @@
 * {
   transition: color 0.2s ease-in-out, background 0.2s ease, filter 0.2s ease;
 }
-
+.pirate-pannel *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 html {
   overflow: hidden;
   min-width: 300px;
-  background: #111;
 }
 
 body {
   display: block;
   font-family: "Roboto", "Arial Condensed", Arial;
-  margin: 0;
   background: #000 url(../img/PCPCB-P-ms.webp) no-repeat fixed;
   background-size: cover;
-  overflow: hidden;
   opacity: 0;
 }
 
@@ -37,8 +44,8 @@ input:active {
 }
 
 h3 {
-  margin-top: 2rem;
-  margin-bottom: 0.8rem;
+  margin: 0;
+  margin-top: 1rem;
   color: var(--pirate-txt);
 }
 
@@ -48,9 +55,6 @@ p {
 }
 
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
   width: 100%;
   height: 100%;
   background: rgb(0 0 0 / 15%);
@@ -62,28 +66,40 @@ p {
   margin: 0 auto;
   text-align: center;
 }
-
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+.pirate-pannel {
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 18%;
+  height: 100dvh;
+  min-width: 300px;
+  max-width: 400px;
+  position: absolute;
+  background: rgb(22 22 30);
+}
 .ARRRcontrols {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  background: rgb(22 22 30);
-  height: 100%;
-  overflow: hidden;
+  gap: 1rem;
   padding: 2rem;
+  padding-bottom: 0.2rem;
   font-family: arial;
   color: #fff;
   font-size: 1rem;
   text-align: left;
-  width: 16%;
-  min-width: 250px;
+  height: 100%;
 }
-
+.ARRRcontrols > div:last-child {
+  margin-top: auto;
+}
 .pirateForm {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 1rem;
+
   font-weight: 600;
   font-family: arial;
 }
@@ -105,7 +121,7 @@ p {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
-  margin-top: 1.5rem;
+
   text-align: left;
 }
 
@@ -126,12 +142,9 @@ p {
 }
 .theme-header {
   display: flex;
-  width: 100%;
   justify-content: space-between;
-  margin-top: 2rem;
-  & h3 {
-    margin-top: 0;
-  }
+  align-items: baseline;
+  width: 100%;
 }
 .default-theme-buttons {
   flex-direction: row;
@@ -160,17 +173,14 @@ p {
 }
 .theme-actions {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
 }
-button#reset,
 button#copy {
   padding: 0.2rem 0.4rem;
   background: #1e1e26;
   color: var(--pirate-txt);
   border: none;
   border-radius: 0.1rem;
+  width: 100%;
   cursor: pointer;
   &:hover {
     background: #ffbc81;
@@ -178,7 +188,7 @@ button#copy {
 }
 .pirate-img {
   max-width: 200px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .all-colour-pickers {
@@ -203,7 +213,6 @@ button#copy {
   -moz-appearance: none;
   appearance: none;
   background-color: transparent;
-  /* width: 2.8rem; */
   height: 100%;
   border: none;
   cursor: pointer;
@@ -222,8 +231,6 @@ button#copy {
 .colourInfo h3 {
   font-size: 1rem;
   font-weight: 100;
-  margin: 0;
-  margin-bottom: 0.2rem;
 }
 .colourInfo,
 .colour-picker-title {
@@ -249,10 +256,8 @@ button#copy {
   height: 100%;
   width: 100%;
 }
-.pc-advanced-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.opacity-slider {
+  margin-top: 1rem;
 }
 .pc-other {
   flex-direction: column;
@@ -261,7 +266,7 @@ button#copy {
 .pc-wireframe,
 .pc-other {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   color: var(--pirate-txt);
 }
 .pc-wireframe {
@@ -277,10 +282,11 @@ button#copy {
 input[type="range"] {
   width: 100%;
 }
-.pc-other label {
+label {
   display: flex;
   font-size: 0.9rem;
   margin-bottom: 0.3rem;
+  color: var(--pirate-txt);
 }
 .pc-note {
   color: var(--pirate-txt);
@@ -290,8 +296,8 @@ input[type="range"] {
   text-align: left;
   background: rgb(55 55 61 / 26%);
   border-radius: 0.2rem;
-  padding: 1rem;
-  padding-bottom: 0.5rem;
+  padding: 0.6rem;
+  padding-bottom: 0rem;
   & p {
     line-height: 1.3;
   }
@@ -301,15 +307,11 @@ input[type="range"] {
 }
 .credits {
   display: flex;
-  position: absolute;
-  bottom: 3.5rem;
-  padding: 0.4rem 0.8rem;
-  padding-left: 0;
   color: var(--pirate-darker-txt);
   flex-direction: column;
   background: #16161e;
-  width: 100%;
-  font-size: 0.9rem;
+  letter-spacing: -0.3;
+  font-size: 0.8rem;
   & a {
     color: var(--pirate-darker-txt);
     &:hover {
@@ -332,4 +334,24 @@ canvas {
   .pirate-pannel {
     display: none;
   }
+}
+
+/* Customizes the scrollbar */
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pirate-gold);
 }

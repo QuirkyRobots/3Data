@@ -47,6 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const textInput = document.getElementById("textInput");
       textInput.value = message;
     }
+    const blockOpacity = urlParams.get("o");
+    if (blockOpacity) {
+      const textInput = document.getElementById("opacitySlider");
+      textInput.value = blockOpacity;
+    }
   };
 
   // Plonk the values in the URL
@@ -67,32 +72,39 @@ document.addEventListener("DOMContentLoaded", function () {
       updateURLParam("txt", value);
     } else if (elementId === "textInput") {
       updateURLParam("msg", value);
+    } else if (elementId === "opacitySlider") {
+      updateURLParam("o", value);
     }
   });
 
-  // Set theme
+  // Set default theme
 
   const updateTheme = (theme) => {
     const textColour = theme === "gold" ? "#050505" : "#b34700";
     const cubeColour = theme === "gold" ? "#c65f0c" : "#020203";
 
-    const setTextColourPicker = document.getElementById("textColourPicker");
-    setTextColourPicker.value = textColour;
-    setTextColourPicker.dispatchEvent(new Event("input"));
+    const updateElement = (id, value, propName = "value") => {
+      const element = document.getElementById(id);
+      element[propName] = value;
+      element.dispatchEvent(new Event("input"));
+    };
 
-    const setCubeColourPicker = document.getElementById("cubeColourPicker");
-    setCubeColourPicker.value = cubeColour;
-    setCubeColourPicker.dispatchEvent(new Event("input"));
+    updateElement("textColourPicker", textColour);
+    updateElement("cubeColourPicker", cubeColour);
+    updateElement("opacitySlider", 100);
+    updateElement("wfCheckbox", false, "checked");
 
     document.getElementById("selectedTextColour").textContent = textColour;
     document.getElementById("selectedCubeColour").textContent = cubeColour;
 
     document.body.style.backgroundColor = "";
     document.body.style.backgroundImage = "";
+    const vNumberElement = document.querySelector(".v-number");
+    if (vNumberElement) vNumberElement.style.display = "none";
 
     // Clean the URL. It's dirty
 
-    const url = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    const url = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
     window.history.pushState({ path: url }, "", url);
   };
 
