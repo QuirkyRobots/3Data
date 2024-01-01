@@ -34,7 +34,12 @@ body {
   background-size: cover;
   opacity: 0;
 }
-
+a {
+  color: var(--pirate-darker-txt);
+  &:hover {
+    color: var(--pirate-gold);
+  }
+}
 input:focus,
 input:focus-visible,
 input:active {
@@ -312,14 +317,17 @@ label {
   background: #16161e;
   letter-spacing: -0.3;
   font-size: 0.8rem;
-  & a {
-    color: var(--pirate-darker-txt);
-    &:hover {
-      color: var(--pirate-gold);
-    }
-  }
+}
+a.version-link .version-num, a.version-link {
+  text-decoration: none;
+}
+a.version-link:hover .version-num {
+  text-decoration: none !important;
+  color: var(--pirate-gold) !important;
 }
 .version-num {
+  display: inline-flex;
+  margin-bottom: .15rem;
   padding: 0.1rem 0.3rem;
   border-radius: 0.2rem;
   font-size: 0.7rem;
