@@ -75,9 +75,8 @@ p {
   text-align: center;
   border: 1rem solid rgb(22 22 30);
   height: calc(100dvh + -2rem);
-  pointer-events: none;
   z-index: 2;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 .angled-note {
@@ -92,7 +91,7 @@ p {
   background: rgb(22, 22, 30);
   transform: rotate(-45deg) translate(-50%, -50%);
   transform-origin: 0 100%;
-  z-index: 1;
+  z-index: 3;
 }
 .angled-note a {
   position: relative;
@@ -102,12 +101,14 @@ p {
   font-size: 1.2rem;
   font-weight: 600;
 }
+/*
 .angled-note:hover {
   background: var(--pirate-gold);
   & a {
     color: rgb(22, 22, 30);
   }
 }
+*/
 canvas {
   width: 100% !important;
   height: 100% !important;
