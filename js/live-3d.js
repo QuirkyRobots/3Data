@@ -46,9 +46,12 @@ const pointLightDecay = 1;
 const pointLightPosition = { x: 2, y: 4, z: 5 };
 const ambientLightIntensity = 0;
 
+// Cube configuration
+
+// const cubeSize = 1.4;
+
 // Material configuration
 
-// const wireframeAmount = 20;
 const cubeMaterialTransparent = true;
 const cubeEmissiveIntensity = 0;
 const cubeEmissiveIColour = "#ffffff";
@@ -148,8 +151,9 @@ function createEnvironmentMap() {
 // Cube creation, like a god
 
 function createCube() {
+  const cubeSize = document.getElementById("sizeSlider").value / 100;
   const wireframeDetail = document.getElementById("vNumber").value;
-  const geometry = new THREE.BoxGeometry(1.1, 1.1, 1.1, wireframeDetail, wireframeDetail, wireframeDetail);
+  const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize, wireframeDetail, wireframeDetail, wireframeDetail);
   const envMap = createEnvironmentMap();
   const opacityValue = document.getElementById("opacitySlider").value / 100;
   const wireframeValue = document.getElementById("wfCheckbox").checked;
@@ -225,7 +229,7 @@ function addEventListeners() {
   addEventListenerToElement(renderer.domElement, ["mousemove", "mousedown", "mouseup"], handleMouseEvents);
   addEventListenerToElement(window, ["resize"], handleWindowResize);
 
-  ["cubeColourPicker", "textColourPicker", "textInput", "wfCheckbox", "vNumber", "opacitySlider"].forEach((id) => {
+  ["cubeColourPicker", "textColourPicker", "textInput", "wfCheckbox", "vNumber", "opacitySlider", "sizeSlider"].forEach((id) => {
     addEventListenerToElement(document.getElementById(id), ["input"], refreshCube);
   });
 
