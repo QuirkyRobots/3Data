@@ -44,8 +44,9 @@ input:focus,
 input:focus-visible,
 input:active {
   outline-color: #6464ad !important;
-  box-shadow: 0 0 6px #4d4d85;
+  box-shadow: 0 0 6px #4d4d85 !important;
   color: #bb9645 !important;
+  border: none !important;
 }
 
 h3 {
@@ -268,6 +269,9 @@ button#copy {
   flex-direction: column;
   gap: 0.5rem;
 }
+.pc-advanced-controls {
+  margin-top: 1rem;
+}
 .pc-wireframe,
 .pc-other {
   display: flex;
@@ -279,6 +283,21 @@ button#copy {
 }
 .v-number {
   display: none;
+}
+input#vNumber {
+  width: 3rem;
+  background: #2f2f3b;
+  padding-left: 0.3rem;
+  border: none;
+  outline: none;
+  border-radius: 0.1rem;
+  color: var(--pirate-gold);
+}
+
+input#vNumber:focus-visible,
+input#vNumber:active,
+input#vNumber:focus-visible {
+  outline:1px solid #ccc;
 }
 #wfCheckbox:checked + .v-number {
   display: flex;
@@ -318,7 +337,8 @@ label {
   letter-spacing: -0.3;
   font-size: 0.8rem;
 }
-a.version-link .version-num, a.version-link {
+a.version-link .version-num,
+a.version-link {
   text-decoration: none;
 }
 a.version-link:hover .version-num {
@@ -327,7 +347,7 @@ a.version-link:hover .version-num {
 }
 .version-num {
   display: inline-flex;
-  margin-bottom: .15rem;
+  margin-bottom: 0.15rem;
   padding: 0.1rem 0.3rem;
   border-radius: 0.2rem;
   font-size: 0.7rem;
