@@ -67,8 +67,7 @@ p {
   backdrop-filter: blur(5px);
   overflow: hidden;
 }
-
-#container {
+.container-wrapper {
   display: flex;
   position: relative;
   margin: 0 auto;
@@ -76,39 +75,36 @@ p {
   border: 1rem solid rgb(22 22 30);
   height: calc(100dvh + -2rem);
   z-index: 2;
-  /* pointer-events: none; */
 }
 
 .angled-note {
   display: flex;
   align-items: center;
   justify-content: center;
+  bottom: -0.85rem;
+  color: var(--pirate-gold);
   position: absolute;
-  bottom: -1.5rem;
-  left: calc(100% + 1.5rem);
+  bottom: -3.1rem;
+  left: calc(100% + 3.1rem);
   width: 18rem;
   height: 6rem;
   background: rgb(22, 22, 30);
-  transform: rotate(-45deg) translate(-50%, -50%);
-  transform-origin: 0 100%;
-  z-index: 3;
-}
-.angled-note a {
-  position: relative;
-  top: -0.85rem;
-  color: var(--pirate-gold);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 600;
+  transform: rotate(-45deg) translate(-50%, -50%);
+  transform-origin: 0 100%;
+  z-index: 1;
 }
-/*
+.angled-note-txt {
+  position: relative;
+  top:-.65rem;
+}
 .angled-note:hover {
   background: var(--pirate-gold);
-  & a {
-    color: rgb(22, 22, 30);
-  }
+  color: rgb(22, 22, 30);
 }
-*/
+
 canvas {
   width: 100% !important;
   height: 100% !important;
