@@ -65,12 +65,48 @@ p {
   height: 100%;
   background: rgb(0 0 0 / 15%);
   backdrop-filter: blur(5px);
+  overflow: hidden;
 }
 
 #container {
   display: flex;
+  position: relative;
   margin: 0 auto;
   text-align: center;
+  border: 1rem solid rgb(22 22 30);
+  height: calc(100dvh + -2rem);
+  pointer-events: none;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.angled-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: -1.5rem;
+  left: calc(100% + 1.5rem);
+  width: 18rem;
+  height: 6rem;
+  background: rgb(22, 22, 30);
+  transform: rotate(-45deg) translate(-50%, -50%);
+  transform-origin: 0 100%;
+  z-index: 1;
+}
+.angled-note a {
+  position: relative;
+  top: -0.85rem;
+  color: var(--pirate-gold);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.angled-note:hover {
+  background: var(--pirate-gold);
+  & a {
+    color: rgb(22, 22, 30);
+  }
 }
 canvas {
   width: 100% !important;
@@ -85,6 +121,7 @@ canvas {
   max-width: 400px;
   position: absolute;
   background: rgb(22 22 30);
+  z-index: 3;
 }
 .ARRRcontrols {
   display: flex;
@@ -108,7 +145,7 @@ canvas {
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  margin-bottom: .7rem;
+  margin-bottom: 0.7rem;
 }
 .pirate-img {
   max-width: 68%;
@@ -125,7 +162,7 @@ canvas {
   padding-right: 0.5rem;
   padding-bottom: 0.4rem;
   margin-left: 1rem;
-  top: -.1rem;
+  top: -0.1rem;
   font-family: roboto;
   font-weight: 300;
   font-size: 2.7rem;
@@ -308,8 +345,9 @@ button#copy {
   flex-direction: row;
   margin-top: 1rem;
 }
-.size-slider, .opacity-slider {
-  width:100%
+.size-slider,
+.opacity-slider {
+  width: 100%;
 }
 
 .pc-advanced-controls {
