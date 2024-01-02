@@ -18,6 +18,7 @@ A simple to use and fun, 3D web app for showing live [ARRR](https://www.coingeck
 * Mobile compatible control panel.
 * Background image picker.
 * Sound FX.
+* Premade theme list.
 * Hide/show control panel.
 * Auto reduced performance for mobile devices.
 
