@@ -76,7 +76,9 @@ p {
   height: calc(100dvh + -2rem);
   z-index: 2;
 }
-
+#container {
+  width: 100%;
+}
 .angled-note {
   display: flex;
   align-items: center;
