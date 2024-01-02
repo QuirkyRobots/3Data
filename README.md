@@ -29,4 +29,5 @@ A simple to use and fun, 3D web app for showing live [ARRR](https://www.coingeck
 
 ## V1.4 Preview Screenshot
 
-![image](https://github.com/QuirkyRobots/arrr3d/assets/29914179/2695e9af-39b9-4deb-8574-017416bb6fa4)
+![image](https://github.com/QuirkyRobots/arrr3d/assets/29914179/55deaf4a-2d12-4299-b62e-dde56ee340be)
+
