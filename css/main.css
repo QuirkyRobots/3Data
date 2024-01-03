@@ -415,8 +415,9 @@ label {
 }
 .credits {
   display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
   color: var(--pirate-darker-txt);
-  flex-direction: column;
   background: #16161e;
   letter-spacing: -0.3;
   font-size: 0.8rem;
