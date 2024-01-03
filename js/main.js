@@ -138,5 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
   checkbox.addEventListener("change", function () {
     vNumberDiv.style.display = checkbox.checked ? "flex" : "none";
   });
-  
+
+  // Idea: Prevent the wireframe vertices from being too big, because it will roast some devices.
+
 });
