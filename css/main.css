@@ -101,6 +101,10 @@ p {
 .angled-note-txt {
   position: relative;
   top:-.65rem;
+  transition-duration: 0s;
+  &:hover {
+    transition-duration: 0s;
+  }
 }
 .angled-note:hover {
   background: var(--pirate-gold);
