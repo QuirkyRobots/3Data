@@ -100,7 +100,7 @@ p {
 }
 .angled-note-txt {
   position: relative;
-  top:-.65rem;
+  top: -0.65rem;
   transition-duration: 0s;
   &:hover {
     transition-duration: 0s;
@@ -354,6 +354,8 @@ button#copy {
 }
 
 .pc-advanced-controls {
+  display: flex;
+  gap: 1rem;
   margin-top: 1rem;
 }
 .pc-wireframe,
@@ -363,10 +365,11 @@ button#copy {
   color: var(--pirate-txt);
 }
 .pc-wireframe {
-  flex-direction: row;
+  align-items: flex-start;
 }
 .v-number {
   display: none;
+  align-items: baseline;
 }
 input#vNumber {
   width: 3rem;
@@ -376,6 +379,9 @@ input#vNumber {
   outline: none;
   border-radius: 0.1rem;
   color: var(--pirate-gold);
+}
+.v-number label {
+  margin-right: 0.6rem !important;
 }
 
 input#vNumber:focus-visible,
@@ -416,7 +422,7 @@ label {
 .credits {
   display: flex;
   flex-direction: row;
-  gap: 0.3rem;
+  gap: 0.4rem;
   color: var(--pirate-darker-txt);
   background: #16161e;
   letter-spacing: -0.3;
