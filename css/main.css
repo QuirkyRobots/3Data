@@ -230,6 +230,7 @@ input:checked + .slider:before {
   grid-template-columns: repeat(2, 1fr);
   gap: clamp(0.35rem, 1dvh, 0.7rem);
   text-align: left;
+  user-select: none;
 }
 
 .view-selection {
