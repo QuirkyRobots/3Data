@@ -12,12 +12,8 @@
 }
 
 * {
-  transition:
-  scale 0.1s ease-in-out,
-  transform 0.1s ease-in-out,
-  color 0.2s ease-in-out,
-  background 0.2s ease,
-  filter 0.2s ease;
+  transition: scale 0.1s ease-in-out, transform 0.1s ease-in-out, color 0.2s ease-in-out, background 0.2s ease,
+    filter 0.2s ease;
 }
 .pirate-pannel *,
 *::before,
