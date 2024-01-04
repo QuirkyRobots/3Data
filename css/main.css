@@ -1,64 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
-:root {
-  --pirate-gold: #bb9645;
-  --pirate-blue: #242439;
-  --pirate-txt: #58585f;
-  --pirate-dark-txt: #47474d;
-  --pirate-darker-txt: #2f2f39;
-}
-
-* {
-  transition: color 0.2s ease-in-out, background 0.2s ease, filter 0.2s ease;
-}
-.pirate-pannel *,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-body,
-html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-html {
-  overflow: hidden;
-  min-width: 300px;
-}
-
-body {
-  display: block;
-  font-family: "Roboto", "Arial Condensed", Arial;
-  background: #000 url(../img/PCPCB-P-ms.webp) no-repeat fixed;
-  background-size: cover;
-  opacity: 0;
-}
-a {
-  color: var(--pirate-darker-txt);
-  &:hover {
-    color: var(--pirate-gold);
-  }
-}
-input:focus,
-input:focus-visible,
-input:active {
-  outline-color: #6464ad !important;
-  box-shadow: 0 0 6px #4d4d85 !important;
-  color: #bb9645 !important;
-  border: none !important;
-}
-
-h3 {
-  margin: 0;
-  margin-top: 1rem;
-  color: var(--pirate-txt);
-}
-
-p {
-  margin: 0;
-  margin-bottom: 0.5rem;
-}
 
 .wrapper {
   width: 100%;
@@ -213,17 +153,20 @@ canvas {
 }
 
 .view-selection {
-  padding: clamp(0.5rem, 1.8dvh, 2rem) 0.2rem;
+  padding: clamp(0.5rem, 1.6dvh, 2rem) 0.2rem;
   background: #24243a;
   color: #bb9645;
   border-radius: 0.2rem;
-  font-size: 0.7rem;
+  box-shadow: var(--pirate-bs-1);
+  background: var(--pirate-g-1);
+  font-size: 0.8rem;
   text-align: center;
   font-weight: 800;
   text-transform: uppercase;
   &:hover {
-    color: #24243a;
-    background: #bb9645;
+    /*color: #24243a;
+    background: #bb9645;*/
+    outline: 1px solid var(--pirate-gold);
     cursor: pointer;
   }
 }
