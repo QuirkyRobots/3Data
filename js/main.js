@@ -141,10 +141,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Idea: Prevent the wireframe vertices from being too big, because it will roast some devices.
 
-  // Controls on and off
+  // Controls on and off with fancy fx
 
   document.getElementById("themeSwitch").addEventListener("change", function () {
     var themeControls = document.querySelector(".theme-controls");
-    themeControls.style.display = this.checked ? "flex" : "none";
+    themeControls.classList.toggle("show", this.checked);
   });
 });
