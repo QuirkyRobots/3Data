@@ -120,11 +120,15 @@ canvas {
   width: fit-content;
   border-radius: 0.2rem;
 }
+.theme-controls {
+  display: none;
+  flex-direction: column;
+  gap: 0.8rem;
+}
 .pirateForm {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
   font-weight: 600;
   font-family: arial;
 }
@@ -415,4 +419,68 @@ canvas {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--pirate-gold);
+}
+
+/* Theme on/off */
+
+.theme-switcher {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap:1rem;
+  margin-top: .5rem;
+  margin-bottom: 0;
+  color: #6e6e6e;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 3rem; 
+  height: .7rem; 
+  background-color: #333;
+  border-radius: .7rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #555;
+  transition: .4s;
+  border-radius: .7rem;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: .7rem; 
+  width: .7rem; 
+  left: 0.1rem; 
+  bottom: 0;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+
+input:checked + .slider {
+  background-color: var(--pirate-gold); 
+}
+
+input:checked + .slider:before {
+  transform: translateX(2.3rem);
+}
+
+.theme-controls {
+  display: none;
 }
