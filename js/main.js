@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Controls on and off with fancy fx
 
   document.getElementById("themeSwitch").addEventListener("change", function () {
-    var themeControls = document.querySelector(".theme-controls");
-    themeControls.classList.toggle("show", this.checked);
+    document.querySelector(".theme-controls").classList.toggle("show", this.checked);
+    document.querySelector(".pirate-panel").style.overflowY = this.checked ? "auto" : "hidden";
   });
 });
