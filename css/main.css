@@ -80,7 +80,7 @@ canvas {
   margin-top: auto;
 }
 .pc-app-logo-area {
-  margin-bottom: 1rem;
+  margin-bottom: clamp(0.5rem, 2.5dvh, 2.5rem);
 }
 .pc-app-logo {
   display: flex;
@@ -132,21 +132,21 @@ canvas {
 #textInput {
   min-width: 9rem;
   width: 100%;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.4rem 0.4rem 1rem;
   border: none;
-  outline: 1px solid transparent;
-  background: #1e1e26;
+  outline: 1px solid #090909;
+  background: rgb(198 198 255 / 6%);
   border-radius: 0.21em;
   color: var(--pirate-txt);
   font-size: 1rem;
-  margin: 0;
-  padding: 0.5rem 0.4rem 0.4rem 1rem;
 }
 
 .selection-buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
-
+  gap: clamp(0.35rem, 1dvh, 0.7rem);
   text-align: left;
 }
 
@@ -265,11 +265,11 @@ button#copy {
   text-align: center;
 }
 .colour-picker-title {
-  color: var(--pirate-txt);
+  color: #686877;
   background: var(--pirate-blue);
 }
 .pc-colour-picker:hover.pc-colour-picker .colour-picker-title {
-  filter: brightness(1.6);
+  filter: brightness(1.8);
 }
 .colourInfo {
   border-top: 1px solid #2b2b2b;
