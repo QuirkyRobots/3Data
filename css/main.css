@@ -35,6 +35,7 @@ canvas {
   left: 10%;
   border-radius: 0.5rem;
   cursor: grab;
+  transform: scale(0.95);
   transform-origin: top left;
   box-shadow: 4px 10px 20px -4px rgb(0 0 0 / 57%);
 }
@@ -45,11 +46,18 @@ canvas {
   background: rgb(22 22 30);
   will-change: transform;
 }
-#piratePanelWrapper:active #piratePanel {
+#pcAppLogoArea {
+  z-index: 10;
+}
+
+#piratePanelWrapper:not(.no-drag):active #piratePanel {
   background: rgb(22 22 30 / 88%);
 }
 #piratePanelWrapper:active #piratePanel * {
   user-select: none;
+}
+.no-drag:active #piratePanel {
+  background: rgb(22 22 30 / 100%)!important;
 }
 #resizer {
   width: 2rem;
@@ -63,10 +71,12 @@ canvas {
   rotate: 45deg;
   transform-origin: center;
 }
-#piratePanelWrapper{
+
+#piratePanelWrapper {
   will-change: transform, top, left, background;
 }
-#resizer, #piratePanel {
+#resizer,
+#piratePanel {
   will-change: transform;
 }
 .ARRRcontrols {
@@ -475,9 +485,23 @@ label {
   letter-spacing: -0.3;
   font-size: 0.8rem;
   border-radius: 0 0.3rem 0 0;
+  transition: all 0.2s ease !important;
   & p {
     margin: 0;
   }
+}
+.credits a {
+  transition: all 0.2s 0.2s ease !important;
+}
+.credits:hover {
+  padding-bottom: 0.3rem;
+  color: #616273;
+  /*background: #444;*/
+  transition: all 0.2s ease !important;
+}
+.credits:hover a {
+  color: var(--pirate-gold);
+  transition: all 0.2s 0.2s ease !important;
 }
 a.version-link .version-num,
 a.version-link {
