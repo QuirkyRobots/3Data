@@ -152,18 +152,9 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener('DOMContentLoaded', () => {
   const piratePanelWrapper = document.getElementById('piratePanelWrapper');
   const resizer = document.getElementById('resizer');
-  const interactiveElements = piratePanelWrapper.querySelectorAll('input, button, select, textarea');
   let startMouseX, startMouseY, currentScale = 1;
   let posX = piratePanelWrapper.offsetLeft, posY = piratePanelWrapper.offsetTop;
   let isDragging = false, isScaling = false;
-
-  const disablePointerEvents = () => {
-      interactiveElements.forEach(el => el.style.pointerEvents = 'none');
-  };
-
-  const enablePointerEvents = () => {
-      interactiveElements.forEach(el => el.style.pointerEvents = '');
-  };
 
   const onMouseMove = (e) => {
       if (isScaling) {
@@ -179,11 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   };
 
-  const onMouseUp = () => {
+  const cleanUp = () => {
       document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', cleanUp);
+      document.removeEventListener('mouseleave', cleanUp);
       isDragging = false;
       isScaling = false;
-      enablePointerEvents();
   };
 
   piratePanelWrapper.addEventListener('mousedown', (e) => {
@@ -192,14 +184,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === resizer) {
           isScaling = true;
           currentScale = parseFloat(getComputedStyle(piratePanelWrapper).transform.split('(')[1]) || 1;
-          disablePointerEvents();
       } else {
           isDragging = true;
           posX = piratePanelWrapper.offsetLeft; posY = piratePanelWrapper.offsetTop;
-          disablePointerEvents();
       }
 
       document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp, { once: true });
+      document.addEventListener('mouseup', cleanUp, { once: true });
+      document.addEventListener('mouseleave', cleanUp, { once: true });
   });
 });
+
