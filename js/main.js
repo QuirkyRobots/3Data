@@ -149,54 +149,57 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const piratePanelWrapper = document.getElementById("piratePanelWrapper");
-  const resizer = document.getElementById("resizer");
-  let startX,
-    startY,
-    startWidth,
-    startHeight,
-    currentScale = 1;
-  let posX = piratePanelWrapper.offsetLeft,
-    posY = piratePanelWrapper.offsetTop;
-  let isDragging = false,
-    isScaling = false;
+document.addEventListener('DOMContentLoaded', () => {
+  const piratePanelWrapper = document.getElementById('piratePanelWrapper');
+  const resizer = document.getElementById('resizer');
+  const interactiveElements = piratePanelWrapper.querySelectorAll('input, button, select, textarea');
+  let startMouseX, startMouseY, currentScale = 1;
+  let posX = piratePanelWrapper.offsetLeft, posY = piratePanelWrapper.offsetTop;
+  let isDragging = false, isScaling = false;
 
-  piratePanelWrapper.addEventListener("mousedown", (e) => {
-    if (e.target === resizer) {
-      isScaling = true;
-      startX = e.clientX;
-      startY = e.clientY;
-      startWidth = piratePanelWrapper.getBoundingClientRect().width;
-      startHeight = piratePanelWrapper.getBoundingClientRect().height;
-    } else {
-      isDragging = true;
-      posX = piratePanelWrapper.offsetLeft;
-      posY = piratePanelWrapper.offsetTop;
-      startX = e.clientX;
-      startY = e.clientY;
-    }
+  const disablePointerEvents = () => {
+      interactiveElements.forEach(el => el.style.pointerEvents = 'none');
+  };
 
-    document.onmousemove = (e) => {
+  const enablePointerEvents = () => {
+      interactiveElements.forEach(el => el.style.pointerEvents = '');
+  };
+
+  const onMouseMove = (e) => {
       if (isScaling) {
-        let scaleChange = (e.clientX - startX) / (startWidth / currentScale);
-        let scale = Math.min(Math.max(currentScale + scaleChange, 0.7), 1);
-        currentScale = scale;
-        piratePanelWrapper.style.transform = `scale(${scale})`;
+          const scaleChange = (startMouseX - e.clientX) * 0.003;
+          const newScale = Math.min(Math.max(currentScale - scaleChange, 0.8), 1.1);
+          piratePanelWrapper.style.transform = `scale(${newScale})`;
       } else if (isDragging) {
-        posX += e.clientX - startX;
-        posY += e.clientY - startY;
-        piratePanelWrapper.style.left = `${posX}px`;
-        piratePanelWrapper.style.top = `${posY}px`;
-        startX = e.clientX;
-        startY = e.clientY;
+          posX += e.clientX - startMouseX;
+          posY += e.clientY - startMouseY;
+          piratePanelWrapper.style.left = `${posX}px`;
+          piratePanelWrapper.style.top = `${posY}px`;
+          startMouseX = e.clientX; startMouseY = e.clientY;
       }
-    };
+  };
 
-    document.onmouseup = () => {
-      document.onmousemove = document.onmouseup = null;
+  const onMouseUp = () => {
+      document.removeEventListener('mousemove', onMouseMove);
       isDragging = false;
       isScaling = false;
-    };
+      enablePointerEvents();
+  };
+
+  piratePanelWrapper.addEventListener('mousedown', (e) => {
+      startMouseX = e.clientX; startMouseY = e.clientY;
+
+      if (e.target === resizer) {
+          isScaling = true;
+          currentScale = parseFloat(getComputedStyle(piratePanelWrapper).transform.split('(')[1]) || 1;
+          disablePointerEvents();
+      } else {
+          isDragging = true;
+          posX = piratePanelWrapper.offsetLeft; posY = piratePanelWrapper.offsetTop;
+          disablePointerEvents();
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp, { once: true });
   });
 });

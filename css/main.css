@@ -17,39 +17,9 @@
 #container {
   width: 100%;
 }
-.angled-note {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  bottom: -0.85rem;
-  color: var(--pirate-gold);
-  position: absolute;
-  bottom: -3.1rem;
-  left: calc(100% + 3.1rem);
-  width: 18rem;
-  height: 6rem;
-  background: rgb(22, 22, 30);
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: 600;
-  transform: rotate(-45deg) translate(-50%, -50%);
-  transform-origin: 0 100%;
-  z-index: 1;
-}
-.angled-note-txt {
-  position: relative;
-  top: -0.65rem;
-  transition-duration: 0s;
-  &:hover {
-    transition-duration: 0s;
-  }
-}
-.angled-note:hover {
-  background: var(--pirate-gold);
-  color: rgb(22, 22, 30);
-}
 
 canvas {
+  display: block;
   width: 100% !important;
   height: 100% !important;
 }
@@ -93,7 +63,12 @@ canvas {
   rotate: 45deg;
   transform-origin: center;
 }
-
+#piratePanelWrapper{
+  will-change: transform, top, left, background;
+}
+#resizer, #piratePanel {
+  will-change: transform;
+}
 .ARRRcontrols {
   display: flex;
   flex-direction: column;
@@ -521,10 +496,38 @@ a.version-link:hover .version-num {
   background: var(--pirate-blue);
   color: var(--pirate-txt);
 }
-canvas {
-  display: block;
-}
 
+.angled-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: -0.85rem;
+  color: var(--pirate-gold);
+  position: absolute;
+  bottom: -3.1rem;
+  left: calc(100% + 3.1rem);
+  width: 18rem;
+  height: 6rem;
+  background: rgb(22, 22, 30);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transform: rotate(-45deg) translate(-50%, -50%);
+  transform-origin: 0 100%;
+  z-index: 1;
+}
+.angled-note-txt {
+  position: relative;
+  top: -0.65rem;
+  transition-duration: 0s;
+  &:hover {
+    transition-duration: 0s;
+  }
+}
+.angled-note:hover {
+  background: var(--pirate-gold);
+  color: rgb(22, 22, 30);
+}
 @media only screen and (max-width: 800px) {
   .pirate-panel {
     display: none;
