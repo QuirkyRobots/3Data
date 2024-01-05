@@ -1,6 +1,6 @@
 ![arrr3d-logo](https://github.com/QuirkyRobots/arrr3d/assets/29914179/7218a5fe-69db-4ae8-9eee-255caa9c8864)
 
-# ARRR 3D
+# ARRR 3D v2 - Experimental
 
 A simple to use and fun, 3D web app for showing live [ARRR](https://www.coingecko.com/en/coins/pirate-chain) cryptocurrency data, built with native [Three.js](https://threejs.org)
 
@@ -28,7 +28,8 @@ A simple to use and fun, 3D web app for showing live [ARRR](https://www.coingeck
 * The control pannel is not visible on mobile phones.
 * Defualt themes are not sendable/savable.
 
-## V1.4 Preview Screenshot
+## V2 Preview Screenshot
 
-![image](https://github.com/QuirkyRobots/arrr3d/assets/29914179/55deaf4a-2d12-4299-b62e-dde56ee340be)
+![image](https://github.com/QuirkyRobots/arrr3d/assets/29914179/7ef2211e-4070-43dd-b24b-01813edc2e02)
+
 
