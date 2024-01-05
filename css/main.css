@@ -53,26 +53,56 @@ canvas {
   width: 100% !important;
   height: 100% !important;
 }
-.pirate-panel {
-  overflow-y: hidden;
-  overflow-x: hidden;
+#piratePanelWrapper {
+  position: absolute;
+  will-change: transform;
   width: 18%;
-  height: 100dvh;
   min-width: 300px;
   max-width: 400px;
-  position: absolute;
-  background: rgb(22 22 30);
-  z-index: 3;
+  overflow: hidden;
+  z-index: 9;
+  top: 10%;
+  left: 10%;
+  border-radius: 0.5rem;
+  cursor: grab;
+  transform-origin: top left;
+  box-shadow: 4px 10px 20px -4px rgb(0 0 0 / 57%);
 }
+
+#piratePanel {
+  width: 100%;
+  height: auto;
+  background: rgb(22 22 30);
+  will-change: transform;
+}
+#piratePanelWrapper:active #piratePanel {
+  background: rgb(22 22 30 / 88%);
+}
+#piratePanelWrapper:active #piratePanel * {
+  user-select: none;
+}
+#resizer {
+  width: 2rem;
+  height: 4rem;
+  background-color: rgb(126 126 139 / 23%);
+  position: absolute;
+  bottom: -1.3rem;
+  right: -1rem;
+  cursor: nwse-resize;
+  z-index: 9;
+  rotate: 45deg;
+  transform-origin: center;
+}
+
 .ARRRcontrols {
   display: flex;
   flex-direction: column;
   gap: clamp(0.4rem, 1.5dvh, 1.2rem);
   padding: 2rem;
-  padding-bottom: 0.2rem;
+  padding-bottom: 1rem;
   font-family: arial;
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-align: left;
   height: calc(100% - 2.2rem);
 }
@@ -80,6 +110,7 @@ canvas {
   margin-top: auto;
 }
 .pc-app-logo-area {
+  pointer-events: none;
   margin-bottom: clamp(0.5rem, 2.5dvh, 2.5rem);
 }
 .pc-app-logo {
@@ -155,6 +186,7 @@ canvas {
   margin: 0;
 }
 .theme-switcher-txt {
+  font-size: 1rem;
   line-height: 1;
 }
 .switch {
@@ -344,12 +376,12 @@ button#copy {
 .colour-picker-title {
   width: 100%;
   padding: 0.4rem 0.1rem;
-
   text-align: center;
 }
 .colour-picker-title {
   color: #686877;
   background: var(--pirate-blue);
+  font-size: 1rem;
 }
 .pc-colour-picker:hover.pc-colour-picker .colour-picker-title {
   filter: brightness(1.8);
@@ -429,7 +461,7 @@ label {
 }
 
 .pc-note-box {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: clamp(0.4rem, 1.5dvh, 1.2rem);
 }
@@ -457,10 +489,20 @@ label {
   display: flex;
   flex-direction: row;
   gap: 0.4rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0.6rem 1rem;
+  padding-bottom: 0;
+  width: auto;
   color: var(--pirate-darker-txt);
   background: #16161e;
   letter-spacing: -0.3;
   font-size: 0.8rem;
+  border-radius: 0 0.3rem 0 0;
+  & p {
+    margin: 0;
+  }
 }
 a.version-link .version-num,
 a.version-link {

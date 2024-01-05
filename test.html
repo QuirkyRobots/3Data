@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const piratePanel = document.getElementById("piratePanel");
+        let posX = 0,
+          posY = 0,
+          mouseX = 0,
+          mouseY = 0;
+
+        piratePanel.addEventListener("mousedown", (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          const mouseMoveHandler = (e) => {
+            posX += e.clientX - mouseX;
+            posY += e.clientY - mouseY;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            piratePanel.style.left = `${posX}px`;
+            piratePanel.style.top = `${posY}px`;
+          };
+          document.addEventListener("mousemove", mouseMoveHandler);
+          document.addEventListener(
+            "mouseup",
+            () => {
+              document.removeEventListener("mousemove", mouseMoveHandler);
+            },
+            { once: true }
+          );
+        });
+      });
+    </script>
+  </head>
+  <style>
+    .wrapper {
+      width: 100%;
+      height: 100%;
+      background: rgb(0 0 0 / 15%);
+      backdrop-filter: blur(5px);
+      overflow: hidden;
+    }
+    .container-wrapper {
+      display: flex;
+      position: relative;
+      margin: 0 auto;
+      text-align: center;
+      border: 1rem solid rgb(22 22 30);
+      height: calc(100dvh + -2rem);
+      z-index: 2;
+    }
+    #container {
+      width: 100%;
+    }
+    .angled-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      bottom: -0.85rem;
+      color: var(--pirate-gold);
+      position: absolute;
+      bottom: -3.1rem;
+      left: calc(100% + 3.1rem);
+      width: 18rem;
+      height: 6rem;
+      background: rgb(22, 22, 30);
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: 600;
+      transform: rotate(-45deg) translate(-50%, -50%);
+      transform-origin: 0 100%;
+      z-index: 1;
+    }
+    .angled-note-txt {
+      position: relative;
+      top: -0.65rem;
+      transition-duration: 0s;
+      &:hover {
+        transition-duration: 0s;
+      }
+    }
+    .angled-note:hover {
+      background: var(--pirate-gold);
+      color: rgb(22, 22, 30);
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+    #piratePanel {
+      overflow-y: hidden;
+      overflow-x: hidden;
+      width: 18%;
+      height: 100vh; /* Corrected 100dvh to 100vh */
+      min-width: 300px;
+      max-width: 400px;
+      position: absolute;
+      background: rgb(22 22 30);
+      z-index: 9;
+      top: 0px; /* Initial position */
+      left: 0px; /* Initial position */
+      cursor: grab;
+    }
+    .ARRRcontrols {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.4rem, 1.5dvh, 1.2rem);
+      padding: 2rem;
+      padding-bottom: 0.2rem;
+      font-family: arial;
+      color: #fff;
+      font-size: 1rem;
+      text-align: left;
+      height: calc(100% - 2.2rem);
+    }
+    .ARRRcontrols > div:last-child {
+      margin-top: auto;
+    }
+    .pc-app-logo-area {
+      margin-bottom: clamp(0.5rem, 2.5dvh, 2.5rem);
+    }
+    .pc-app-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-bottom: 0.7rem;
+    }
+    .pirate-img {
+      max-width: 68%;
+    }
+    .pc-app-logo-txt {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: #16161e;
+      background: #bb9645;
+      height: 2.3rem;
+      padding: 0.3rem 0.6rem 0.3rem 0.4rem;
+      margin-left: 1rem;
+      top: -0.1rem;
+      font-family: roboto;
+      font-weight: 300;
+      font-size: 2.7rem;
+      letter-spacing: -3px;
+      border-radius: 0.2rem;
+      transform: rotate(-30deg);
+    }
+    .pc-tagline {
+      display: flex;
+      font-size: 1rem;
+      color: #857552;
+      background: #1e1e26;
+      padding: 0.2rem 0.5rem;
+      width: fit-content;
+      border-radius: 0.2rem;
+    }
+
+    /* Theme-controls with transition */
+
+    .theme-controls {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.4rem, 1.5dvh, 1.2rem);
+      height: 0;
+      opacity: 0;
+      visibility: hidden;
+
+      transform: translatex(-20rem);
+      transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+    }
+
+    .theme-controls.show {
+      height: auto;
+      opacity: 1;
+      visibility: visible;
+      transform: translatex(0);
+    }
+
+    /* Theme on/off */
+
+    .theme-switcher {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+      color: #6e6e6e;
+    }
+    .theme-switcher label {
+      margin: 0;
+    }
+    .theme-switcher-txt {
+      line-height: 1;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 3rem;
+      height: 0.7rem;
+      background-color: #333;
+      border-radius: 0.7rem;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #393a3f;
+      transition: 0.4s;
+      border-radius: 0.7rem;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 0.7rem;
+      width: 0.7rem;
+      left: 0.1rem;
+      bottom: 0;
+      background-color: var(--pirate-gold);
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: var(--pirate-blue);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(2.3rem);
+    }
+
+    .pirateForm {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      font-weight: 600;
+      font-family: arial;
+    }
+
+    #textInput {
+      min-width: 9rem;
+      width: 100%;
+      margin: 0;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 0.4rem 0.4rem 1rem;
+      border: none;
+      outline: 1px solid #090909;
+      background: rgb(198 198 255 / 6%);
+      border-radius: 0.21em;
+      color: var(--pirate-txt);
+      font-size: 1rem;
+    }
+
+    .selection-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(0.35rem, 1dvh, 0.7rem);
+      text-align: left;
+      user-select: none;
+    }
+
+    .view-selection {
+      padding: clamp(0.5rem, 1.6dvh, 2rem) 0.2rem;
+      background: #24243a;
+      color: #bb9645;
+      border-radius: 0.2rem;
+      box-shadow: var(--pirate-bs-1);
+      background: var(--pirate-g-1);
+      font-size: 0.8rem;
+      text-align: center;
+      font-weight: 800;
+      text-transform: uppercase;
+      &:hover {
+        /*color: #24243a;
+    background: #bb9645;*/
+        outline: 1px solid var(--pirate-gold);
+        cursor: pointer;
+      }
+    }
+    .theme-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      width: 100%;
+    }
+    .default-theme-buttons {
+      flex-direction: row;
+      display: flex;
+      gap: 0.5rem;
+      padding-right: 1rem;
+      cursor: pointer;
+    }
+    #blackTheme,
+    #goldTheme {
+      border-radius: 50%;
+      width: 1rem;
+      height: 1rem;
+      aspect-ratio: 1/1;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+    #goldTheme {
+      background: var(--pirate-gold);
+      border: 0.1rem solid #555;
+    }
+    #blackTheme {
+      background: var(--pirate-blue);
+      border: 0.1rem solid #bb9645;
+    }
+    .theme-actions {
+      display: flex;
+    }
+    button#copy {
+      padding: 0.2rem 0.4rem;
+      background: #1e1e26;
+      color: var(--pirate-txt);
+      border: none;
+      border-radius: 0.1rem;
+      width: 100%;
+      cursor: pointer;
+      &:hover {
+        background: #ffbc81;
+      }
+    }
+
+    .all-colour-pickers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+    }
+
+    .pc-colour-picker {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      background: rgb(34 34 47 / 44%);
+      border-radius: 0.3rem;
+      width: 100%;
+      box-shadow: var(--pirate-bs-1);
+      overflow: hidden;
+    }
+
+    .pc-colour-picker input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-color: transparent;
+      height: 100%;
+      border: none;
+      cursor: pointer;
+      aspect-ratio: 1/1;
+    }
+
+    .pc-colour-picker input::-webkit-color-swatch {
+      border-radius: 50%;
+      border: 0.15rem solid var(--pirate-gold);
+    }
+
+    .pc-colour-picker input::-moz-color-swatch {
+      border-radius: 50%;
+      border: 0.15rem solid var(--pirate-gold);
+    }
+    .colourInfo h3 {
+      font-size: 1rem;
+      font-weight: 100;
+    }
+    .colourInfo,
+    .colour-picker-title {
+      width: 100%;
+      padding: 0.4rem 0.1rem;
+
+      text-align: center;
+    }
+    .colour-picker-title {
+      color: #686877;
+      background: var(--pirate-blue);
+    }
+    .pc-colour-picker:hover.pc-colour-picker .colour-picker-title {
+      filter: brightness(1.8);
+    }
+    .colourInfo {
+      border-top: 1px solid #2b2b2b;
+      padding-top: 0.6rem;
+    }
+    .selected-colour {
+      font-size: 0.8rem;
+      color: var(--pirate-gold);
+      height: 100%;
+      width: 100%;
+    }
+    .pc-sliders {
+      display: flex;
+      gap: 1rem;
+      align-content: center;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: row;
+      margin-top: 1rem;
+    }
+    .size-slider,
+    .opacity-slider {
+      width: 100%;
+    }
+
+    .pc-advanced-controls {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .pc-wireframe,
+    .pc-other {
+      display: flex;
+      gap: 0.5rem;
+      color: var(--pirate-txt);
+    }
+    .pc-wireframe {
+      align-items: flex-start;
+    }
+    .v-number {
+      display: none;
+      align-items: baseline;
+    }
+    input#vNumber {
+      width: 3.2rem;
+      background: #2f2f3b;
+      padding-left: 0.3rem;
+      border: none;
+      outline: none;
+      border-radius: 0.1rem;
+      color: var(--pirate-gold);
+    }
+    .v-number label {
+      margin-right: 0.6rem !important;
+    }
+
+    input#vNumber:focus-visible,
+    input#vNumber:active,
+    input#vNumber:focus-visible {
+      outline: 1px solid #ccc;
+    }
+    #wfCheckbox:checked + .v-number {
+      display: flex;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+    label {
+      display: flex;
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      color: var(--pirate-txt);
+    }
+
+    .pc-note-box {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.4rem, 1.5dvh, 1.2rem);
+    }
+    .pc-note-box h3 {
+      margin-top: 0.5rem;
+    }
+    .pc-note {
+      color: var(--pirate-txt);
+      font-weight: 100;
+      font-size: 0.8rem;
+      max-width: max-content;
+      text-align: left;
+      background: rgb(55 55 61 / 26%);
+      border-radius: 0.2rem;
+      padding: 0.6rem;
+      padding-bottom: 0rem;
+      & p {
+        line-height: 1.3;
+      }
+      &:hover {
+        color: #999;
+      }
+    }
+    .credits {
+      display: flex;
+      flex-direction: row;
+      gap: 0.4rem;
+      color: var(--pirate-darker-txt);
+      background: #16161e;
+      letter-spacing: -0.3;
+      font-size: 0.8rem;
+    }
+    a.version-link .version-num,
+    a.version-link {
+      text-decoration: none;
+    }
+    a.version-link:hover .version-num {
+      text-decoration: none !important;
+      color: var(--pirate-gold) !important;
+    }
+    .version-num {
+      display: inline-flex;
+      margin-bottom: 0.15rem;
+      padding: 0.1rem 0.3rem;
+      border-radius: 0.2rem;
+      font-size: 0.7rem;
+      background: var(--pirate-blue);
+      color: var(--pirate-txt);
+    }
+    canvas {
+      display: block;
+    }
+
+    @media only screen and (max-width: 800px) {
+      .pirate-panel {
+        display: none;
+      }
+    }
+
+    /* Customizes the scrollbar */
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #111;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--pirate-gold);
+    }
+  </style>
+  <body>
+    <div class="wrapper">
+      <div id="piratePanel" class="pirate-panel">
+        <div class="ARRRcontrols">
+          <div class="pc-app-logo-area">
+            <div class="pc-app-logo">
+              <img alt="Pirate Image" src="img/Pirate_Logo_Wordmark_Gold.svg" class="pirate-img" />
+              <div class="pc-app-logo-txt">3D</div>
+            </div>
+            <div class="pc-tagline">ARRR live interactive 3D data</div>
+          </div>
+
+          <div class="selection-buttons">
+            <span id="ARRRpriceDollar" class="view-selection">ARRR</span>
+            <span id="ARRRpriceBTC" class="view-selection">BTC</span>
+            <span id="ARRR24High" class="view-selection">High</span>
+            <span id="ARRR24low" class="view-selection">Low</span>
+            <span id="ARRR24Vol" class="view-selection">Volume</span>
+            <span id="customText" class="view-selection">Message</span>
+          </div>
+          <div class="theme-switcher">
+            <label class="switch">
+              <input type="checkbox" id="themeSwitch" />
+              <span class="slider round"></span>
+            </label>
+            <div class="theme-switcher-txt">Controls on/off</div>
+          </div>
+          <div class="theme-controls">
+            <div class="theme-header">
+              <h3>Theme</h3>
+              <div class="default-theme-buttons">
+                <div title="Set the Pirate gold theme" class="default-theme-button" id="goldTheme"></div>
+                <div title="Set the Pirate black & gold theme" class="default-theme-button" id="blackTheme"></div>
+              </div>
+            </div>
+
+            <div class="pirateForm">
+              <input type="text" id="textInput" placeholder="Message" value="" />
+            </div>
+
+            <div class="all-colour-pickers">
+              <div class="pc-colour-picker">
+                <div class="colour-picker-title">Canvas</div>
+                <input type="color" id="backgroundColourPicker" value="#24243a" />
+                <div class="colourInfo">
+                  <div class="selected-colour" id="selectedBackgroundColour">#24243a</div>
+                </div>
+              </div>
+
+              <div class="pc-colour-picker">
+                <div class="colour-picker-title">Block</div>
+                <input type="color" id="cubeColourPicker" value="#c65f0c" />
+                <div class="colourInfo">
+                  <div class="selected-colour" id="selectedCubeColour">#c65f0c</div>
+                </div>
+              </div>
+
+              <div class="pc-colour-picker">
+                <div class="colour-picker-title">Text</div>
+                <input type="color" id="textColourPicker" value="#050505" />
+                <div class="colourInfo">
+                  <div class="selected-colour" id="selectedTextColour">#050505</div>
+                </div>
+              </div>
+            </div>
+            <div class="pc-sliders">
+              <div class="size-slider">
+                <label for="sizeSlider">Size:</label>
+                <input
+                  class="pc-slider"
+                  type="range"
+                  id="sizeSlider"
+                  name="sizeSlider"
+                  min="30"
+                  max="160"
+                  value="110" />
+              </div>
+              <div class="opacity-slider">
+                <label for="opacitySlider">Opacity:</label>
+                <input
+                  class="pc-slider"
+                  type="range"
+                  id="opacitySlider"
+                  name="opacitySlider"
+                  min="0"
+                  max="100"
+                  value="100" />
+              </div>
+            </div>
+            <div class="theme-actions">
+              <button title="Copy theme to the clipboard" id="copy">Copy Theme</button>
+            </div>
+
+            <div class="pc-advanced-controls">
+              <div class="pc-wireframe">
+                <label for="wfCheckbox">Wireframe:</label>
+                <input type="checkbox" id="wfCheckbox" name="wfCheckbox" />
+              </div>
+              <div class="v-number">
+                <label for="vNumber">Vertices: </label>
+                <input type="number" id="vNumber" name="vNumber" value="50" min="1" max="100" />
+              </div>
+            </div>
+            <div class="pc-note-box">
+              <h3>Information</h3>
+              <div class="pc-note">
+                <p>Buttons focus selected data. Data updates every 30 minutes or on page refresh.</p>
+              </div>
+            </div>
+          </div>
+          <div class="credits">
+            <p>
+              <a
+                class="version-link"
+                href="https://github.com/QuirkyRobots/arrr3d"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="ARRR 3D GitHub Repo"
+                ><span class="version-num">v1.5</span></a
+              >
+              Developed by
+              <a
+                href="https://twitter.com/QuirkyRobots"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Visit QuirkyRobots on Twitter"
+                >QuirkyRobots</a
+              >
+            </p>
+            <a href="https://github.com/QuirkyRobots/arrr3d" target="_blank" rel="noopener noreferrer">
+              <img src="img\assets\github-mark.svg" width="16" height="16" alt="Discord Logo" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="container-wrapper">
+        <div id="container"></div>
+        <div class="angled-note-box">
+          <a
+            class="angled-note"
+            title="View ARRR on CoinGecko"
+            rel="noopener noreferrer"
+            href="https://www.coingecko.com/en/coins/pirate-chain"
+            target="_blank"
+            ><span class="angled-note-txt">ARRR</span></a
+          >
+        </div>
+      </div>
+      <script src="js/main.js"></script>
+      <script src="js/live-data.js"></script>
+      <script src="js/live-3d.js" type="module"></script>
+    </div>
+  </body>
+</html>

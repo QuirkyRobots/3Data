@@ -148,3 +148,55 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector(".pirate-panel").style.overflowY = this.checked ? "auto" : "hidden";
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const piratePanelWrapper = document.getElementById("piratePanelWrapper");
+  const resizer = document.getElementById("resizer");
+  let startX,
+    startY,
+    startWidth,
+    startHeight,
+    currentScale = 1;
+  let posX = piratePanelWrapper.offsetLeft,
+    posY = piratePanelWrapper.offsetTop;
+  let isDragging = false,
+    isScaling = false;
+
+  piratePanelWrapper.addEventListener("mousedown", (e) => {
+    if (e.target === resizer) {
+      isScaling = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      startWidth = piratePanelWrapper.getBoundingClientRect().width;
+      startHeight = piratePanelWrapper.getBoundingClientRect().height;
+    } else {
+      isDragging = true;
+      posX = piratePanelWrapper.offsetLeft;
+      posY = piratePanelWrapper.offsetTop;
+      startX = e.clientX;
+      startY = e.clientY;
+    }
+
+    document.onmousemove = (e) => {
+      if (isScaling) {
+        let scaleChange = (e.clientX - startX) / (startWidth / currentScale);
+        let scale = Math.min(Math.max(currentScale + scaleChange, 0.7), 1);
+        currentScale = scale;
+        piratePanelWrapper.style.transform = `scale(${scale})`;
+      } else if (isDragging) {
+        posX += e.clientX - startX;
+        posY += e.clientY - startY;
+        piratePanelWrapper.style.left = `${posX}px`;
+        piratePanelWrapper.style.top = `${posY}px`;
+        startX = e.clientX;
+        startY = e.clientY;
+      }
+    };
+
+    document.onmouseup = () => {
+      document.onmousemove = document.onmouseup = null;
+      isDragging = false;
+      isScaling = false;
+    };
+  });
+});
