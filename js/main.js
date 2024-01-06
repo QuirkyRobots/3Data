@@ -179,6 +179,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", cleanUp);
     document.removeEventListener("mouseleave", cleanUp);
+    piratePanelWrapper.classList.remove("scale-active");
+    piratePanel.classList.remove("drag-active");
+    piratePanel.classList.add("drag-inactive");
     isDragging = false;
     isScaling = false;
   };
@@ -204,10 +207,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === resizer) {
       isScaling = true;
       currentScale = parseFloat(getComputedStyle(piratePanelWrapper).transform.split("(")[1]) || 1;
+      piratePanelWrapper.classList.add("scale-active");
     } else {
       isDragging = true;
       posX = piratePanelWrapper.offsetLeft;
       posY = piratePanelWrapper.offsetTop;
+      piratePanel.classList.add("drag-active");
+      piratePanel.classList.remove("drag-inactive");
     }
 
     document.addEventListener("mousemove", onMouseMove);

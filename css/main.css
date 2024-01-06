@@ -34,35 +34,34 @@ canvas {
   top: 10%;
   left: 10%;
   border-radius: 0.5rem;
-  cursor: grab;
   transform: scale(0.95);
   transform-origin: top left;
   box-shadow: 4px 10px 20px -4px rgb(0 0 0 / 57%);
 }
-
 #piratePanel {
   width: 100%;
   height: auto;
-  background: rgb(22 22 30);
+
   will-change: transform;
-}
-#pcAppLogoArea {
-  z-index: 10;
+  cursor: grab;
 }
 
-#piratePanelWrapper:not(.no-drag):active #piratePanel {
-  background: rgb(22 22 30 / 88%);
+/* Add this to the JS */
+
+.scale-active {
+  outline: 2px solid var(--pirate-gold);
 }
-#piratePanelWrapper:active #piratePanel * {
-  user-select: none;
+.drag-active {
+  background: rgb(22 22 30 / 88%) !important;
 }
-.no-drag:active #piratePanel {
-  background: rgb(22 22 30 / 100%)!important;
+.drag-inactive {
+  background: rgb(22 22 30 / 100%) !important;
 }
+
 #resizer {
   width: 2rem;
   height: 4rem;
-  background-color: rgb(126 126 139 / 23%);
+  background-color: rgba(118, 118, 138, 0.23);
   position: absolute;
   bottom: -1.3rem;
   right: -1rem;
@@ -71,7 +70,17 @@ canvas {
   rotate: 45deg;
   transform-origin: center;
 }
+#resizer:active {
+  background: var(--pirate-gold);
+}
 
+.scale-active {
+  cursor: none !important;
+  user-select: none !important;
+}
+.no-drag {
+  cursor: default;
+}
 #piratePanelWrapper {
   will-change: transform, top, left, background;
 }
@@ -84,7 +93,6 @@ canvas {
   flex-direction: column;
   gap: clamp(0.4rem, 1.5dvh, 1.2rem);
   padding: 2rem;
-  padding-bottom: 1rem;
   font-family: arial;
   color: #fff;
   font-size: 1.5rem;

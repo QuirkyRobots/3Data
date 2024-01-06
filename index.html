@@ -26,7 +26,8 @@
   <body>
     <div class="wrapper">
       <div id="piratePanelWrapper" class="pirate-panel-wrapper">
-        <div id="piratePanel" class="pirate-panel">
+        <div id="resizer" class="resize-handle"></div>
+        <div id="piratePanel" class="pirate-panel drag-inactive">
           <div class="ARRRcontrols">
             <div id="pcAppLogoArea" class="pc-app-logo-area">
               <div class="pc-app-logo">
@@ -36,7 +37,7 @@
               <div class="pc-tagline">ARRR live interactive 3D data</div>
             </div>
 
-            <div class="selection-buttons">
+            <div class="selection-buttons no-drag">
               <span id="ARRRpriceDollar" class="view-selection">ARRR</span>
               <span id="ARRRpriceBTC" class="view-selection">BTC</span>
               <span id="ARRR24High" class="view-selection">High</span>
@@ -44,14 +45,14 @@
               <span id="ARRR24Vol" class="view-selection">Volume</span>
               <span id="customText" class="view-selection">Message</span>
             </div>
-            <div class="theme-switcher">
+            <div class="theme-switcher no-drag">
               <label class="switch">
                 <input type="checkbox" id="themeSwitch" />
                 <span class="slider round"></span>
               </label>
               <div class="theme-switcher-txt">Controls on/off</div>
             </div>
-            <div class="theme-controls">
+            <div class="theme-controls no-drag">
               <div class="theme-header">
                 <h3>Theme</h3>
                 <div class="default-theme-buttons">
@@ -136,7 +137,6 @@
             </div>
           </div>
         </div>
-        <div id="resizer" class="resize-handle"></div>
       </div>
       <div class="container-wrapper">
         <div id="container"></div>
