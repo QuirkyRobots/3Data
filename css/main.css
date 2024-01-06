@@ -149,19 +149,22 @@ canvas {
   display: flex;
   flex-direction: column;
   gap: clamp(0.4rem, 1.5dvh, 1.2rem);
-  height: 0;
+  max-height: 0rem;
+  height: auto;
   opacity: 0;
   visibility: hidden;
-
   transform: translatex(-20rem);
-  transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+  transition: max-height 0.5s .4s, min-height 0.5s .4s ease, scale 0.5s ease, opacity 0.5s ease, visibility 0.5s ease, transform 0.5s .4s ease;
 }
 
 .theme-controls.show {
+  max-height: 26rem;
   height: auto;
   opacity: 1;
   visibility: visible;
   transform: translatex(0);
+  overflow: hidden;
+  transition: max-height 0.5s .1s ease, min-height 0.5s .4s ease, scale 0.5s ease, opacity 0.5s ease, visibility 0.5s ease, transform 0.5s .4s ease;
 }
 
 /* Theme on/off */
