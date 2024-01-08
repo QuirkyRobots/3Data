@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const onMouseMove = (e) => {
     if (isScaling) {
       const scaleChange = (startMouseX - e.clientX) * 0.003;
-      const newScale = Math.min(Math.max(currentScale - scaleChange, 0.8), 1.1);
+      const newScale = Math.min(Math.max(currentScale - scaleChange, 0.7), 1.1);
       piratePanelWrapper.style.transform = `scale(${newScale})`;
     } else if (isDragging) {
       posX += e.clientX - startMouseX;
