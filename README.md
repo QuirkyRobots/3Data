@@ -4,6 +4,10 @@
 
 A simple to use and fun, 3D web app for showing live [ARRR](https://www.coingecko.com/en/coins/pirate-chain) cryptocurrency data, built with native [Three.js](https://threejs.org)
 
+## Make a Theme
+
+Make your own unique theme and share it on Twitter/X with the hashtag #ARRR3D
+
 ## Instructions
 
 * Use the buttons at the top to highlight a specific data point.
