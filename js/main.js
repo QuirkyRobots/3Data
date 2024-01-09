@@ -147,9 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector(".theme-controls").classList.toggle("show", this.checked);
     document.querySelector(".pirate-panel").style.overflowY = this.checked ? "auto" : "hidden";
   });
-});
 
-document.addEventListener("DOMContentLoaded", () => {
   const piratePanelWrapper = document.getElementById("piratePanelWrapper");
   const resizer = document.getElementById("resizer");
   let startMouseX,
@@ -220,4 +218,35 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("mouseup", cleanUp, { once: true });
     document.addEventListener("mouseleave", cleanUp, { once: true });
   });
+
+  // Play sounds
+
+  const volumeLevel = 0.3;
+
+  const playSound = (soundFile) => {
+    const sound = new Audio(`sounds/${soundFile}.mp3`);
+    sound.volume = volumeLevel;
+    sound.play();
+  };
+
+  const addEventListeners = (selector, soundFile, events) => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach((element) => {
+      events.forEach((event) => {
+        element.addEventListener(event, () => playSound(soundFile));
+
+        if (event === "click") {
+          const checkbox = element.querySelector('input[type="checkbox"]');
+          if (checkbox) {
+            checkbox.addEventListener("change", () => playSound(soundFile));
+          }
+        }
+      });
+    });
+  };
+
+  addEventListeners(".s6", "s6", ["mousedown"]);
+  addEventListeners(".s2", "s2", ["click"]);
+  addEventListeners(".s3", "s3", ["click"]);
+  addEventListeners(".s4", "s4", ["mousedown"]);
 });
