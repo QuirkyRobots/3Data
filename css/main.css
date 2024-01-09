@@ -34,7 +34,7 @@ canvas {
   top: 10%;
   left: 10%;
   border-radius: 0.5rem;
-  transform: scale(0.95);
+  transform: scale(0.85);
   transform-origin: top left;
   box-shadow: 4px 10px 20px -4px rgb(0 0 0 / 57%);
 }
