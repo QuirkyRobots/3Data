@@ -18,7 +18,7 @@ Make your own unique theme and share it on Twitter/X with the hashtag #ARRR3D
 * Tick the wireframe box to view the cube in wireframe mode and adjust the mesh detail by selecting vertices.
 
   
-* If you have any issues, please view the [security](#browser-security-policies--performance) below.
+* If you have any issues, please view the [security](#browser-security-policies--performance) section below.
 
 ## Coming Soon
 
