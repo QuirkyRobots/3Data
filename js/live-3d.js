@@ -150,6 +150,15 @@ function createEnvironmentMap() {
 
 // Cube creation, like a god
 
+function refreshData() {
+  const arrrData = JSON.parse(localStorage.getItem("arrrData")) || {};
+  refreshCube(); 
+}
+
+// Set interval for 30 seconds
+
+setInterval(refreshData, 30000);
+
 function createCube() {
   const cubeSize = document.getElementById("sizeSlider").value / 100;
   const wireframeDetail = document.getElementById("vNumber").value;
