@@ -161,27 +161,18 @@ function createCube() {
 
     // Data pirated from local storage
 
-    const updateData = () => {
-      const arrrData = JSON.parse(localStorage.getItem("arrrData")) || {};
-      let title, data;
-  
-      const dataMappings = {
-        0: ["", document.getElementById("textInput").value || "ARRR"],
-        1: ["Value USD", `$${(parseFloat(arrrData.priceUSD) || 0).toLocaleString()}`],
-        2: ["Value BTC", arrrData.priceBTC || "Loading..."],
-        3: ["24 Hour Vol", `$${(parseFloat(arrrData.volume24h) || 0).toLocaleString()}`],
-        4: ["24 Hour High", `$${(parseFloat(arrrData.high24h) || 0).toLocaleString()}`],
-        5: ["24 Hour Low", `$${(parseFloat(arrrData.low24h) || 0).toLocaleString()}`],
-      };
-  };
-  
-  updateData();
-  
-  // Set interval to update data every 60 seconds
-  
-  setInterval(updateData, 60000);
-  
+    const arrrData = JSON.parse(localStorage.getItem("arrrData")) || {};
+    let title, data;
 
+    const dataMappings = {
+      0: ["", document.getElementById("textInput").value || "ARRR"],
+      1: ["Value USD", `$${(parseFloat(arrrData.priceUSD) || 0).toLocaleString()}`],
+      2: ["Value BTC", arrrData.priceBTC || "Loading..."],
+      3: ["24 Hour Vol", `$${(parseFloat(arrrData.volume24h) || 0).toLocaleString()}`],
+      4: ["24 Hour High", `$${(parseFloat(arrrData.high24h) || 0).toLocaleString()}`],
+      5: ["24 Hour Low", `$${(parseFloat(arrrData.low24h) || 0).toLocaleString()}`],
+    };
+  
     if (dataMappings.hasOwnProperty(index)) {
       [title, data] = dataMappings[index];
     } else {
