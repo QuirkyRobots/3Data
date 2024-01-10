@@ -514,10 +514,14 @@ label {
   /*background: #444;*/
   transition: all 0.2s ease !important;
 }
-.credits:hover a {
+.credits:hover a, .credits:hover .version-num {
   color: var(--pirate-gold);
   transition: all 0.2s 0.2s ease !important;
 }
+.credits:hover #discordLogo {
+filter: brightness(2);
+}
+
 a.version-link .version-num,
 a.version-link {
   text-decoration: none;
