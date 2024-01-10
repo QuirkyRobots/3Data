@@ -49,6 +49,10 @@ Make your own unique theme and share it on Twitter/X with the hashtag #ARRR3D
 ### Ad Blockers and Other Browsers
 
 * If you don't see any values in the scene, please check that your browser and VPN security policies allow ARRR 3D to communicate with the CoinGecko API.
+### Sound
+
+*  Because of browser built-in sound security policies, sounds may not play on first launch, until you have interacted with the page.
+*  Some sound consistancy issues have been detected on FireFox. This is being investigated.
 
 ### Performance
 
