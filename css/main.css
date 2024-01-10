@@ -324,7 +324,7 @@ button#copy {
   width: 100%;
   cursor: pointer;
   &:hover {
-    background: #ffbc81;
+    background: #21212b;
   }
 }
 
