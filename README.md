@@ -17,7 +17,8 @@ Make your own unique theme and share it on Twitter/X with the hashtag #ARRR3D
 * Use the copy theme button to copy the data URL, which contains all your theme settings, including the custom message.
 * Tick the wireframe box to view the cube in wireframe mode and adjust the mesh detail by selecting vertices.
 
-* If you have any issues, please view the #security section
+  
+* If you have any issues, please view the [security](#browser-security-policies--performance) below.
 
 ## Coming Soon
 
@@ -49,7 +50,7 @@ Make your own unique theme and share it on Twitter/X with the hashtag #ARRR3D
 
 * If you don't see any values in the scene, please check that your browser and VPN security policies allow ARRR 3D to communicate with the CoinGecko API.
 
-# Performance
+### Performance
 
 * Please make sure you have "hardware acceleration" turned on in your browser settings (see below image).
 * Due to the complex 3D modelling, the sense might be sluggish on some older devices and some mobiles. A performance option is coming soon.
