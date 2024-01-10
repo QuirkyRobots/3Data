@@ -41,8 +41,8 @@ Make your own unique theme and share it on Twitter/X with the hashtag #ARRR3D
 
 ### Brave
 
-* If you are using Brave, you will likely have to turn your shields off and repeat this process if you clear your browsing data (see below image).
-* You to avoid having to keep turn the shields on after clearing browser data, you can until the "Site and shields settings" box in the setting (see below image).
+* If you are using Brave, you'll likely have to turn shields off and repeat this if you clear browsing data (see below image).
+* To avoid this, you can untick the "Site and shields settings" box in the setting (see below image).
 
 ![image](https://github.com/QuirkyRobots/arrr3d/assets/29914179/8efa176e-14c7-45b7-818c-ef1275079ac6) ![image](https://github.com/QuirkyRobots/arrr3d/assets/29914179/4d03cb47-ec86-4742-a49d-98850dcac995)
 
@@ -53,6 +53,6 @@ Make your own unique theme and share it on Twitter/X with the hashtag #ARRR3D
 ### Performance
 
 * Please make sure you have "hardware acceleration" turned on in your browser settings (see below image).
-* Due to the complex 3D modelling, the sense might be sluggish on some older devices and some mobiles. A performance option is coming soon.
+* Due to the complex 3D modelling, the scene might be sluggish on some older devices and some mobiles. A performance option is coming soon.
 
 ![image](https://github.com/QuirkyRobots/arrr3d/assets/29914179/41519f81-4f6e-42d7-a536-659aac82b141)
