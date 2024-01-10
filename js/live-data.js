@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Update interval. Wooo!
 
-  setInterval(getExchangeRate, 30 * 60 * 1000);
+  setInterval(getExchangeRate, 5 * 60 * 1000);
 });
 
 function getExchangeRate() {
