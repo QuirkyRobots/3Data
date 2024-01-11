@@ -155,9 +155,9 @@ function refreshData() {
   refreshCube(); 
 }
 
-// Set interval for 30 seconds
+// Set interval for 5 seconds
 
-setInterval(refreshData, 30000);
+setInterval(refreshData, 5000);
 
 function createCube() {
   const cubeSize = document.getElementById("sizeSlider").value / 100;
@@ -173,14 +173,22 @@ function createCube() {
     const arrrData = JSON.parse(localStorage.getItem("arrrData")) || {};
     let title, data;
 
+    function formatCurrency(value) {
+      const number = parseFloat(value);
+      return isNaN(number) ? "Loading..." : `$${number.toLocaleString()}`;
+    }
+    
     const dataMappings = {
       0: ["", document.getElementById("textInput").value || "ARRR"],
-      1: ["Value USD", `$${(parseFloat(arrrData.priceUSD) || 0).toLocaleString()}`],
+      1: ["Value USD", formatCurrency(arrrData.priceUSD)],
       2: ["Value BTC", arrrData.priceBTC || "Loading..."],
-      3: ["24 Hour Vol", `$${(parseFloat(arrrData.volume24h) || 0).toLocaleString()}`],
-      4: ["24 Hour High", `$${(parseFloat(arrrData.high24h) || 0).toLocaleString()}`],
-      5: ["24 Hour Low", `$${(parseFloat(arrrData.low24h) || 0).toLocaleString()}`],
+      3: ["24 Hour Vol", formatCurrency(arrrData.volume24h)],
+      4: ["24 Hour High", formatCurrency(arrrData.high24h)],
+      5: ["24 Hour Low", formatCurrency(arrrData.low24h)],
     };
+    
+    
+    
   
     if (dataMappings.hasOwnProperty(index)) {
       [title, data] = dataMappings[index];
