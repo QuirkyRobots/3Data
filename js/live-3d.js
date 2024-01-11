@@ -152,14 +152,10 @@ function createEnvironmentMap() {
 
 function refreshData() {
   const arrrData = JSON.parse(localStorage.getItem("arrrData")) || {};
-  refreshCube(); 
+  refreshCube(arrrData); 
 }
 
-// Set interval for 5 seconds
-
-setInterval(refreshData, 5000);
-
-function createCube() {
+function createCube(arrrData) {
   const cubeSize = document.getElementById("sizeSlider").value / 100;
   const wireframeDetail = document.getElementById("vNumber").value;
   const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize, wireframeDetail, wireframeDetail, wireframeDetail);
@@ -187,9 +183,6 @@ function createCube() {
       5: ["24 Hour Low", formatCurrency(arrrData.low24h)],
     };
     
-    
-    
-  
     if (dataMappings.hasOwnProperty(index)) {
       [title, data] = dataMappings[index];
     } else {
@@ -223,6 +216,8 @@ function createCube() {
   cube.rotation.y = initialCubeRotation;
   scene.add(cube);
 }
+
+setInterval(refreshData, 5000);
 
 // Lighting setup. A bright idea.
 
