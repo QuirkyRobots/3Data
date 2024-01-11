@@ -219,6 +219,17 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("mouseleave", cleanUp, { once: true });
   });
 
+  // Checks to see if the body tag has had a bg theme applied, if it has, it's the end of pixels as we know them.
+
+  const body = document.body;
+  const observer = new MutationObserver(() => {
+    const hasBackground = body.style.background || body.style.backgroundImage;
+    body.classList.toggle("hasStyle", !!hasBackground);
+  });
+
+  observer.observe(body, { attributes: true });
+  body.classList.toggle("hasStyle", body.style.background || body.style.backgroundImage);
+
   // Play sounds
 
   const volumeLevel = 0.3;
