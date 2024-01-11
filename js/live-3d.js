@@ -217,7 +217,7 @@ function createCube(arrrData) {
   scene.add(cube);
 }
 
-setInterval(refreshData, 5000);
+setInterval(refreshData, 15000);
 
 // Lighting setup. A bright idea.
 
