@@ -582,9 +582,10 @@ a.version-link:hover .version-num {
   background: var(--pirate-gold);
   color: rgb(22, 22, 30);
 }
-@media only screen and (max-width: 800px) {
-  .pirate-panel {
-    display: none;
+@media only screen and (max-width: 650px) {
+  #piratePanelWrapper {
+    scale:.75;
+    top: 5%;
   }
 }
 
