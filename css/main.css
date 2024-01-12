@@ -586,12 +586,16 @@ a.version-link:hover .version-num {
 @media only screen and (max-width: 650px) {
   #piratePanelWrapper {
     scale: 0.75;
-    top: 1.5rem;
-    left:1.5rem;
+    top: 0;
+    left:0;
   }
   .drag-inactive {
     background: rgb(22 22 30 / 95%) !important;
   }
+  canvas {
+    margin-top:3rem;
+  }
+
 }
 
 /* Customizes the scrollbar */
