@@ -585,10 +585,11 @@ a.version-link:hover .version-num {
 @media only screen and (max-width: 650px) {
   #piratePanelWrapper {
     scale: 0.75;
-    top: 5%;
+    top: 3%;
+    left:7%;
   }
   .drag-inactive {
-    background: rgb(22 22 30 / 85%) !important;
+    background: rgb(22 22 30 / 90%) !important;
   }
 }
 
