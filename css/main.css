@@ -589,9 +589,11 @@ a.version-link:hover .version-num {
     top: 0;
     left:0;
   }
+  /*
   .drag-inactive {
     background: rgb(22 22 30 / 95%) !important;
   }
+  */
   canvas {
     margin-top:3rem;
   }
