@@ -256,8 +256,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   };
 
-  addEventListeners(".s6", "s6", ["mousedown"]);
   addEventListeners(".s2", "s2", ["click"]);
   addEventListeners(".s3", "s3", ["click"]);
   addEventListeners(".s4", "s4", ["mousedown"]);
+  addEventListeners(".s6", "s6", ["mousedown"]);
+  addEventListeners(".s7", "s7", ["mousedown"]);
+  
 });

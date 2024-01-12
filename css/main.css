@@ -153,13 +153,14 @@ canvas {
   display: flex;
   flex-direction: column;
   gap: clamp(0.4rem, 1.5dvh, 1.2rem);
-  padding:1px;
+  padding: 1px;
   max-height: 0rem;
   height: auto;
   opacity: 1;
   visibility: hidden;
   transform: translatex(-24rem);
-  transition: max-height 0.5s .4s, min-height 0.5s .4s ease, scale 0.5s ease, opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+  transition: max-height 0.5s 0.4s, min-height 0.5s 0.4s ease, scale 0.5s ease, opacity 0.5s ease, visibility 0.5s ease,
+    transform 0.5s ease;
 }
 
 .theme-controls.show {
@@ -169,7 +170,8 @@ canvas {
   visibility: visible;
   transform: translatex(0);
   overflow: hidden;
-  transition: max-height 0.5s .1s ease, min-height 0.5s .4s ease, scale 0.5s ease, opacity 0.5s ease, visibility 0.5s ease, transform 0.5s .4s ease;
+  transition: max-height 0.5s 0.1s ease, min-height 0.5s 0.4s ease, scale 0.5s ease, opacity 0.5s ease,
+    visibility 0.5s ease, transform 0.5s 0.4s ease;
 }
 
 /* Theme on/off */
@@ -328,6 +330,11 @@ button#copy {
   cursor: pointer;
   &:hover {
     background: #21212b;
+  }
+  &:active {
+    background: #2c2c37;
+    transition-duration: 0.05s;
+    scale: 0.98;
   }
 }
 
@@ -494,7 +501,7 @@ label {
   bottom: 0;
   left: 0;
   padding: 0.6rem 1rem;
-  padding-top: .8rem;
+  padding-top: 0.8rem;
   padding-bottom: 1rem;
   padding-left: 1.5rem;
   width: auto;
@@ -517,12 +524,13 @@ label {
   /*background: #444;*/
   transition: all 0.2s ease !important;
 }
-.credits:hover a, .credits:hover .version-num {
+.credits:hover a,
+.credits:hover .version-num {
   color: var(--pirate-gold);
   transition: all 0.2s 0.2s ease !important;
 }
 .credits:hover #discordLogo {
-filter: brightness(2);
+  filter: brightness(2);
 }
 
 a.version-link .version-num,
