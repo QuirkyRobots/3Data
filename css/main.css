@@ -74,6 +74,7 @@ canvas {
   rotate: 45deg;
   transform-origin: center;
 }
+
 #resizer:active {
   background: var(--pirate-gold);
 }
