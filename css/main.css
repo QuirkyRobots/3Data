@@ -56,10 +56,10 @@ canvas {
   outline: 2px solid var(--pirate-gold);
 }
 .drag-active {
-  background: rgb(22 22 30 / 88%) !important;
+  background: rgb(27 27 39 / 92%) !important;
 }
 .drag-inactive {
-  background: rgb(22 22 30 / 100%) !important;
+  background: rgb(27 27 39 / 100%) !important
 }
 
 #resizer {
@@ -254,7 +254,7 @@ input:checked + .slider:before {
   margin-bottom: 0.5rem;
   padding: 0.5rem 0.4rem 0.4rem 1rem;
   border: none;
-  outline: 1px solid #090909;
+  outline: 1px solid #333249;
   background: rgb(198 198 255 / 6%);
   border-radius: 0.21em;
   color: var(--pirate-txt);
@@ -323,14 +323,15 @@ input:checked + .slider:before {
 }
 button#copy {
   padding: 0.2rem 0.4rem;
-  background: #1e1e26;
+  background: #252533;
   color: var(--pirate-txt);
   border: none;
   border-radius: 0.1rem;
   width: 100%;
   cursor: pointer;
   &:hover {
-    background: #21212b;
+    background: #232336;
+    color: #909099;
   }
   &:active {
     background: #2c2c37;
@@ -418,7 +419,7 @@ button#copy {
 .opacity-slider {
   width: 100%;
 }
-
+  
 .pc-advanced-controls {
   display: flex;
   gap: 1rem;
