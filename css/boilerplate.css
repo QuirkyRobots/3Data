@@ -47,10 +47,9 @@ a {
 input:focus,
 input:focus-visible,
 input:active {
-  outline-color: #6464ad !important;
-  box-shadow: 0 0 6px #4d4d85 !important;
   color: #bb9645 !important;
   border: none !important;
+  outline: none !important;
 }
 
 h3 {

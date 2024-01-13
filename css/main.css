@@ -141,8 +141,8 @@ canvas {
 .pc-tagline {
   display: flex;
   font-size: 1rem;
-  color: #857552;
-  background: #1e1e26;
+  color: #857757;
+  background: rgb(37 37 51 / 73%);
   padding: 0.2rem 0.5rem;
   width: fit-content;
   border-radius: 0.2rem;
@@ -419,7 +419,76 @@ button#copy {
 .opacity-slider {
   width: 100%;
 }
-  
+.pc-slider {
+  -webkit-appearance: none;
+  appearance: none; 
+  width: 100%;
+  margin: 0;
+  margin-top: .2rem;
+  margin-bottom: .5rem;
+  background: transparent;
+}
+
+/* WebKit (Chrome, Safari) */
+
+.pc-slider::-webkit-slider-runnable-track {
+  height: .7rem;
+  background: #252534;
+  border-radius: 4px;
+}
+
+.pc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 1.4rem;
+  width: 1.4rem;
+  background: var(--pirate-gold);
+  cursor: pointer;
+  border-radius: 50%;
+  margin-top: -.37rem;
+}
+
+.pc-slider:focus::-webkit-slider-runnable-track, .pc-slider:active::-webkit-slider-runnable-track, .pc-slider:focus-within::-webkit-slider-runnable-track {
+  background: #252534;
+}
+
+/* Mozilla (Firefox) */
+
+.pc-slider::-moz-range-track {
+  height: .7rem;
+  background: #252534;
+  border-radius: 4px;
+}
+
+.pc-slider::-moz-range-thumb {
+  height: 1.4rem;
+  width: 1.4rem;
+  background: var(--pirate-gold);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+/* Microsoft (Edge, IE) */
+
+.pc-slider::-ms-track {
+  height: .7rem;
+  background: #252534;
+  border-radius: 4px;
+  border-color: transparent;
+  color: transparent;
+}
+
+.pc-slider::-ms-thumb {
+  height: 1.4rem;
+  width: 1.4rem;
+  background: var(--pirate-gold);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.pc-slider:focus::-ms-track {
+  background: #252534;
+}
+
 .pc-advanced-controls {
   display: flex;
   gap: 1rem;
