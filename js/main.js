@@ -139,6 +139,13 @@ document.addEventListener("DOMContentLoaded", function () {
     vNumberDiv.style.display = checkbox.checked ? "flex" : "none";
   });
 
+  // Untick theme switch on load, because Firefox is a pain.
+
+  window.onload = function() {
+    // Uncheck the checkbox with id 'themeSwitch'
+    document.getElementById('themeSwitch').checked = false;
+};
+
   // Idea: Prevent the wireframe vertices from being too big, because it will roast some devices.
 
   // Controls on and off with fancy fx
