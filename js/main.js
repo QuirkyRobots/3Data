@@ -141,10 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Untick theme switch on load, because Firefox is a pain.
 
-  window.onload = function() {
-    // Uncheck the checkbox with id 'themeSwitch'
-    document.getElementById('themeSwitch').checked = false;
-};
+  document.getElementById("themeSwitch").checked = false;
 
   // Idea: Prevent the wireframe vertices from being too big, because it will roast some devices.
 
@@ -268,5 +265,4 @@ document.addEventListener("DOMContentLoaded", function () {
   addEventListeners(".s4", "s4", ["mousedown"]);
   addEventListeners(".s6", "s6", ["mousedown"]);
   addEventListeners(".s7", "s7", ["mousedown"]);
-  
 });
