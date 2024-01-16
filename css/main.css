@@ -4,11 +4,11 @@
 }
 .set-coin {
   display: flex;
-  gap: 0.4rem;
+  flex-wrap: wrap;
   position: absolute;
   top: 2rem;
   right: 2rem;
-  width: fit-content;
+  width: 18rem;
   padding: 1rem;
   border-radius: 0.3rem;
   background: rgb(27 27 39 / 100%);
@@ -16,40 +16,62 @@
 input#coin {
   padding: 0.2rem;
   padding-left: 0.4rem;
-  width: 10rem;
   height: 1.7rem;
   border: none;
+  background: #252534;
+  color: var(--pirate-gold);
+  &:active {
+    color: var(--pirate-gold);
+  }
 }
 input#coin:active,
 input#coin:focus,
 input#coin:focus-within {
   padding: 0.2rem;
   padding-left: 0.4rem;
-  width: 10rem;
   height: 1.7rem;
   border: none;
-  color: #111 !important;
 }
-.set-coin label {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  margin-right: 0.5rem;
-  color: var(--pirate-gold);
+button:disabled {
+  background-color: #bb9645;
+  color: #111;
+  cursor: not-allowed;
 }
-.suggestions {
+button#getStats {
+  background-color: #bb9645;
+  border: none;
+  border-radius: 0.2rem;
+  color: #111;
+  cursor: pointer;
+}
+.coin-select-box {
   display: flex;
-  position: absolute;
-  top: 4rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+}
+.coin-select {
   max-height: 50dvh;
-  overflow-y: scroll;
-  padding: 1rem;
-  color: var(--pirate-gold);
-  background: rgb(27 27 39 / 100%);
-  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+  background: rgb(34 34 49);
+  margin-top: 1rem;
+  padding: 0.7rem;
 }
+ul.suggestions {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
 li.suggestion-item {
   list-style: none;
+  color: var(--pirate-gold);
+  &:hover {
+    cursor: pointer;
+    color: #fff;
+  }
 }
 
 .wrapper {
@@ -248,6 +270,20 @@ canvas {
 .theme-switcher-txt {
   font-size: 1rem;
   line-height: 1;
+}
+button#pause {
+  margin-left: 1rem;
+  padding: 0.2rem 0.6rem;
+  background: #24243a;
+  border: none;
+  font-weight: 700;
+  letter-spacing: 2;
+  color: var(--pirate-gold);
+  border-radius: 0.2rem;
+  &:hover {
+    background: #31314e;
+    cursor: pointer;
+  }
 }
 .switch {
   position: relative;

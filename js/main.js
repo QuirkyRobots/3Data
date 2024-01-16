@@ -81,10 +81,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
   document.getElementById("getStats").addEventListener("click", () => {
-    const coinValue = document.getElementById("coin").value;
-    updateURLParam("coin", coinValue);
-    updateURLParam("msg", coinSymbol);
-    textInput.value = coinSymbol;
+    const coinName = document.getElementById("coin").value;
+    const coinSymbolTxt = document.getElementById("coinSymbolBox").textContent;
+
+    updateURLParam("coin", coinName);
+    updateURLParam("msg", coinSymbolTxt);
+    textInput.value = coinSymbolTxt;
+    
   });
   // Set default theme
 

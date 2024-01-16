@@ -52,7 +52,7 @@
                 <input type="checkbox" id="themeSwitch" />
                 <span class="slider round"></span>
               </label>
-              <div class="theme-switcher-txt">Controls on/off</div>
+              <div class="theme-switcher-txt">Controls on/off<span><button id="pause">||</button></span></div>
             </div>
             <div class="theme-controls no-drag">
               <div class="theme-header">
@@ -155,9 +155,10 @@
       </div>
     </div>
     <div class="set-coin">
-      <label for="coin">Coin:</label>
+      <div class="coin-select-box">
       <input type="text" id="coin" name="coin" value="" placeholder="Enter coin name" />
       <button id="getStats" onclick="getExchangeRate()">Get Stats</button>
+    </div>
     </div>
     <div class="credits">
       <p>
@@ -167,7 +168,7 @@
           target="_blank"
           rel="noopener noreferrer"
           title="ARRR 3D GitHub Repo"
-          ><span class="version-num">v2.0.5</span></a
+          ><span class="version-num">v3</span></a
         >
         Designed a developed by
         <a

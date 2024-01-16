@@ -97,6 +97,17 @@ function init() {
   addEventListeners();
   animate();
   handleWindowResize();
+
+  // 2nd Cube for text when I can be bothered doing it.
+
+/*
+  const innerCubeSize = 1;
+  const innerCubeGeometry = new THREE.BoxGeometry(innerCubeSize, innerCubeSize, innerCubeSize);
+  const innerCubeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  const innerCube = new THREE.Mesh(innerCubeGeometry, innerCubeMaterial);
+  innerCube.position.set(0, 0, 0);
+  scene.add(innerCube);
+  */
 }
 
 // Text canvas creation for cube faces, not your faces
@@ -111,33 +122,49 @@ function createCubeFaceTexture(title, data, textColor, faceColor) {
   const faceCanvas = document.createElement("canvas");
   const faceContext = faceCanvas.getContext("2d");
 
-  faceCanvas.width = 256;
-  faceCanvas.height = 256;
+  // Canvas dimensions - where the aliens come from
+  
+  const canvasWidth = 512;
+  const canvasHeight = 512;
+
+  faceCanvas.width = canvasWidth;
+  faceCanvas.height = canvasHeight;
 
   faceContext.textAlign = "center";
   faceContext.textBaseline = "middle";
   faceContext.textwrap = "true";
 
-  faceContext.clearRect(0, 0, faceCanvas.width, faceCanvas.height);
+  faceContext.clearRect(0, 0, canvasWidth, canvasHeight);
   faceContext.fillStyle = faceColor;
-  faceContext.fillRect(0, 0, faceCanvas.width, faceCanvas.height);
+  faceContext.fillRect(0, 0, canvasWidth, canvasHeight);
+
+  // Calculate font size based on canvas dimensions
+  
+  const fontSizeLarge = (canvasWidth / 8);
+  const fontSizeSmall = (canvasWidth / 10);
+
+  // Define a thicker font with "bold" weight
+
+  const largeFont = `bold ${fontSizeLarge}px Arial`;
+  const smallFont = `bold ${fontSizeSmall}px Arial`;
 
   // Drawing text depending on whether the title is present
 
   if (title) {
     faceContext.font = largeFont;
     faceContext.fillStyle = textColor;
-    faceContext.fillText(title, 128, 100);
+    faceContext.fillText(title, canvasWidth / 2, canvasHeight / 2 - (fontSizeLarge / 2) - 20); // Move title down
     faceContext.font = smallFont;
-    faceContext.fillText(data, 128, 150);
+    faceContext.fillText(data, canvasWidth / 2, canvasHeight / 2 + (fontSizeSmall / 2) + 10); // Move data down and make it slightly bigger
   } else {
     faceContext.font = largeFont;
     faceContext.fillStyle = textColor;
-    faceContext.fillText(data, 128, 128);
+    faceContext.fillText(data, canvasWidth / 2, canvasHeight / 2);
   }
 
   return new THREE.CanvasTexture(faceCanvas);
 }
+
 
 // Function to load a Pirate HDRI image and create an environment map
 
