@@ -150,6 +150,7 @@ function createEnvironmentMap() {
 
 // Cube creation, like a god
 
+
 function refreshData() {
   const arrrData = JSON.parse(localStorage.getItem("arrrData")) || {};
   refreshCube(arrrData); 
@@ -201,7 +202,6 @@ function createCube(arrrData) {
       envMap: envMap,
       opacity: opacityValue,
       wireframe: wireframeValue,
-      vNumber: wireframeDetail,
       transparent: config.transparent,
       reflectivity: config.reflectivity,
       emissive: config.emissive,
@@ -217,7 +217,7 @@ function createCube(arrrData) {
   scene.add(cube);
 }
 
-setInterval(refreshData, 15000);
+setInterval(refreshData, 5000);
 
 // Lighting setup. A bright idea.
 

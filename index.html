@@ -9,7 +9,7 @@
       name="description"
       content="Explore real-time ARRR cryptocurrency data in an interactive 3D Cube format. Get the latest ARRR data visually." />
     <meta property="og:image" content="https://quirkyrobots.github.io/arrr3d/img/arrr3d-logo.png" />
-    <meta property="og:title" content="Live ARRR Data 3D Cube" />
+    <meta property="og:title" content="Live Blockchain Data 3D Cube" />
     <meta
       property="og:description"
       content="Explore real-time ARRR cryptocurrency data in an interactive 3D Cube format. Get the latest ARRR data visually." />
@@ -34,11 +34,13 @@
                 <img alt="Pirate Image" src="img/Pirate_Logo_Wordmark_Gold.svg" class="pirate-img" />
                 <div class="pc-app-logo-txt">3D</div>
               </div>
-              <div class="pc-tagline">ARRR live interactive 3D data</div>
+              <div class="pc-tagline">
+                <span>Live</span> <span id="coinSymbolBox"></span><span>blockchain data</span>
+              </div>
             </div>
 
             <div class="selection-buttons no-drag">
-              <span id="ARRRpriceDollar" class="s6 view-selection">ARRR</span>
+              <span id="ARRRpriceDollar" class="s6 view-selection">Value</span>
               <span id="ARRRpriceBTC" class="s6 view-selection">BTC</span>
               <span id="ARRR24High" class="s6 view-selection">High</span>
               <span id="ARRR24low" class="s6 view-selection">Low</span>
@@ -151,9 +153,11 @@
           >
         </div>
       </div>
-      <script src="js/main.js"></script>
-      <script src="js/live-data.js"></script>
-      <script src="js/live-3d.js" type="module"></script>
+    </div>
+    <div class="set-coin">
+      <label for="coin">Coin:</label>
+      <input type="text" id="coin" name="coin" value="" placeholder="Enter coin name" />
+      <button id="getStats" onclick="getExchangeRate()">Get Stats</button>
     </div>
     <div class="credits">
       <p>
@@ -178,5 +182,8 @@
         <img id="discordLogo" src="img\assets\github-mark.svg" width="16" height="16" alt="Discord Logo" />
       </a>
     </div>
+    <script src="js/live-3d.js" type="module"></script>
+    <script src="js/main.js"></script>
+    <script src="js/live-data.js"></script>
   </body>
 </html>

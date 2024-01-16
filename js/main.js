@@ -52,6 +52,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const textInput = document.getElementById("opacitySlider");
       textInput.value = blockOpacity;
     }
+    const coin = urlParams.get("coin");
+    if (coin) {
+        document.getElementById('coin').value = coin;
+    }
   };
 
   // Plonk the values in the URL
@@ -76,7 +80,12 @@ document.addEventListener("DOMContentLoaded", function () {
       updateURLParam("o", value);
     }
   });
-
+  document.getElementById("getStats").addEventListener("click", () => {
+    const coinValue = document.getElementById("coin").value;
+    updateURLParam("coin", coinValue);
+    updateURLParam("msg", coinSymbol);
+    textInput.value = coinSymbol;
+  });
   // Set default theme
 
   const updateTheme = (theme) => {
