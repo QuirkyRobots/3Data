@@ -4,6 +4,8 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
 
 // Spin things
 
+let isCubeRotating = true;
+
 const initialCubeRotation = Math.PI;
 const constantRotationSpeedX = 0.004;
 const constantRotationSpeedY = 0.004;
@@ -98,9 +100,9 @@ function init() {
   animate();
   handleWindowResize();
 
-  // 2nd Cube for text when I can be bothered doing it.
+  // 2nd Cube for text - when I can be bothered doing it.
 
-/*
+  /*
   const innerCubeSize = 1;
   const innerCubeGeometry = new THREE.BoxGeometry(innerCubeSize, innerCubeSize, innerCubeSize);
   const innerCubeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
@@ -123,7 +125,7 @@ function createCubeFaceTexture(title, data, textColor, faceColor) {
   const faceContext = faceCanvas.getContext("2d");
 
   // Canvas dimensions - where the aliens come from
-  
+
   const canvasWidth = 512;
   const canvasHeight = 512;
 
@@ -139,9 +141,9 @@ function createCubeFaceTexture(title, data, textColor, faceColor) {
   faceContext.fillRect(0, 0, canvasWidth, canvasHeight);
 
   // Calculate font size based on canvas dimensions
-  
-  const fontSizeLarge = (canvasWidth / 8);
-  const fontSizeSmall = (canvasWidth / 10);
+
+  const fontSizeLarge = canvasWidth / 8;
+  const fontSizeSmall = canvasWidth / 10;
 
   // Define a thicker font with "bold" weight
 
@@ -153,9 +155,9 @@ function createCubeFaceTexture(title, data, textColor, faceColor) {
   if (title) {
     faceContext.font = largeFont;
     faceContext.fillStyle = textColor;
-    faceContext.fillText(title, canvasWidth / 2, canvasHeight / 2 - (fontSizeLarge / 2) - 20); // Move title down
+    faceContext.fillText(title, canvasWidth / 2, canvasHeight / 2 - fontSizeLarge / 2 - 20);
     faceContext.font = smallFont;
-    faceContext.fillText(data, canvasWidth / 2, canvasHeight / 2 + (fontSizeSmall / 2) + 10); // Move data down and make it slightly bigger
+    faceContext.fillText(data, canvasWidth / 2, canvasHeight / 2 + fontSizeSmall / 2 + 10);
   } else {
     faceContext.font = largeFont;
     faceContext.fillStyle = textColor;
@@ -164,7 +166,6 @@ function createCubeFaceTexture(title, data, textColor, faceColor) {
 
   return new THREE.CanvasTexture(faceCanvas);
 }
-
 
 // Function to load a Pirate HDRI image and create an environment map
 
@@ -177,16 +178,22 @@ function createEnvironmentMap() {
 
 // Cube creation, like a god
 
-
 function refreshData() {
   const arrrData = JSON.parse(localStorage.getItem("arrrData")) || {};
-  refreshCube(arrrData); 
+  refreshCube(arrrData);
 }
 
 function createCube(arrrData) {
   const cubeSize = document.getElementById("sizeSlider").value / 100;
   const wireframeDetail = document.getElementById("vNumber").value;
-  const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize, wireframeDetail, wireframeDetail, wireframeDetail);
+  const geometry = new THREE.BoxGeometry(
+    cubeSize,
+    cubeSize,
+    cubeSize,
+    wireframeDetail,
+    wireframeDetail,
+    wireframeDetail
+  );
   const envMap = createEnvironmentMap();
   const opacityValue = document.getElementById("opacitySlider").value / 100;
   const wireframeValue = document.getElementById("wfCheckbox").checked;
@@ -201,7 +208,7 @@ function createCube(arrrData) {
       const number = parseFloat(value);
       return isNaN(number) ? "Loading..." : `$${number.toLocaleString()}`;
     }
-    
+
     const dataMappings = {
       0: ["", document.getElementById("textInput").value || "ARRR"],
       1: ["Value USD", formatCurrency(arrrData.priceUSD)],
@@ -210,7 +217,7 @@ function createCube(arrrData) {
       4: ["24 Hour High", formatCurrency(arrrData.high24h)],
       5: ["24 Hour Low", formatCurrency(arrrData.low24h)],
     };
-    
+
     if (dataMappings.hasOwnProperty(index)) {
       [title, data] = dataMappings[index];
     } else {
@@ -268,12 +275,17 @@ function addEventListeners() {
   addEventListenerToElement(renderer.domElement, ["mousemove", "mousedown", "mouseup"], handleMouseEvents);
   addEventListenerToElement(window, ["resize"], handleWindowResize);
 
-  ["cubeColourPicker", "textColourPicker", "textInput", "wfCheckbox", "vNumber", "opacitySlider", "sizeSlider"].forEach((id) => {
-    addEventListenerToElement(document.getElementById(id), ["input"], refreshCube);
-  });
+  ["cubeColourPicker", "textColourPicker", "textInput", "wfCheckbox", "vNumber", "opacitySlider", "sizeSlider"].forEach(
+    (id) => {
+      addEventListenerToElement(document.getElementById(id), ["input"], refreshCube);
+    }
+  );
 
   addEventListenerToElement(renderer.domElement, ["touchstart", "touchmove", "touchend"], handleTouchEvents, {
     passive: false,
+  });
+  document.getElementById("pause").addEventListener("click", function () {
+    isCubeRotating = !isCubeRotating;
   });
 }
 
@@ -297,11 +309,11 @@ function handleTouchEvents(event) {
   }
 }
 
-// Update this please
+// Update these please
 
 function refreshCube() {
   if (cube) {
-
+    
     // Save the current rotation of the reallt cool cube - so when the custom text changes, it doesn't reset.
 
     const currentRotation = {
@@ -363,19 +375,24 @@ function animate() {
 
   const maxSpeed = maxRotationSpeed;
 
-  let newRotationX = cube.rotation.x + constantRotationSpeedX + dragSpeedX;
-  let newRotationY = cube.rotation.y + constantRotationSpeedY + dragSpeedY;
+  let newRotationX = cube.rotation.x + dragSpeedX;
+  let newRotationY = cube.rotation.y + dragSpeedY;
+
+  if (isCubeRotating) {
+    newRotationX += constantRotationSpeedX;
+    newRotationY += constantRotationSpeedY;
+  }
+
+  // Apply calculated rotation with max speed limit
 
   cube.rotation.x +=
     Math.abs(newRotationX - cube.rotation.x) > maxSpeed
       ? maxSpeed * Math.sign(newRotationX - cube.rotation.x)
-      : constantRotationSpeedX + dragSpeedX;
+      : newRotationX - cube.rotation.x;
   cube.rotation.y +=
     Math.abs(newRotationY - cube.rotation.y) > maxSpeed
       ? maxSpeed * Math.sign(newRotationY - cube.rotation.y)
-      : constantRotationSpeedY + dragSpeedY;
-
-  // Apply drag fall-off, but don't fall off your chair
+      : newRotationY - cube.rotation.y;
 
   dragSpeedX *= dragFallOff;
   dragSpeedY *= dragFallOff;

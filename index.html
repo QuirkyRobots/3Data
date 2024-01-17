@@ -52,7 +52,9 @@
                 <input type="checkbox" id="themeSwitch" />
                 <span class="slider round"></span>
               </label>
-              <div class="theme-switcher-txt">Controls on/off<span><button id="pause">||</button></span></div>
+              <div class="theme-switcher-txt">
+                Controls on/off<span><button id="pause">||</button></span>
+              </div>
             </div>
             <div class="theme-controls no-drag">
               <div class="theme-header">
@@ -154,11 +156,11 @@
         </div>
       </div>
     </div>
-    <div class="set-coin">
+    <div class="set-coin show-hide" style="display:none;">
       <div class="coin-select-box">
-      <input type="text" id="coin" name="coin" value="" placeholder="Enter coin name" />
-      <button id="getStats" onclick="getExchangeRate()">Get Stats</button>
-    </div>
+        <input type="text" id="coin" name="coin" value="" placeholder="Enter coin name" />
+        <button id="getStats" onclick="getExchangeRate()">Get Stats</button>
+      </div>
     </div>
     <div class="credits">
       <p>

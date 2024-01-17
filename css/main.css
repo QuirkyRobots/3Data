@@ -35,7 +35,8 @@ input#coin:focus-within {
 button:disabled {
   background-color: #bb9645;
   color: #111;
-  cursor: not-allowed;
+  cursor: not-allowed !important;
+  opacity: 0.4;
 }
 button#getStats {
   background-color: #bb9645;

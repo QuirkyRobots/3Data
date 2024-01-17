@@ -1,4 +1,6 @@
 console.log("Hello.\n\nIf you are reading this it's because you love Pirate Chain.");
+let currentCoin = "";
+
 document.addEventListener("DOMContentLoaded", function () {
   getExchangeRate();
 
@@ -6,16 +8,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setInterval(getExchangeRate, 2 * 60 * 1000);
 
-  // Event listener for changes in the coin input field
+  // Event listener for changes in the coin input field, with cows
 
   document.getElementById("coin").addEventListener("change", getExchangeRate);
 });
 
 function getExchangeRate() {
-  const coin = document.getElementById("coin").value || "pirate-chain";
+  const urlParams = new URLSearchParams(window.location.search);
+  const coin = urlParams.get("coin") || currentCoin || "pirate-chain";
   const url = `https://api.coingecko.com/api/v3/coins/${coin}`;
 
-  fetch(url)
+  return fetch(url)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Coin not found");
@@ -24,16 +27,14 @@ function getExchangeRate() {
     })
     .then((data) => {
 
-      // Data tooth extractions
+      // Data extractionings
 
       const priceUSD = data.market_data.current_price.usd;
-      const priceBTC = data.market_data.current_price.btc;
+      const priceBTC = Number(data.market_data.current_price.btc).toFixed(8);
       const volume24h = data.market_data.total_volume.usd;
       const high24h = data.market_data.high_24h.usd;
       const low24h = data.market_data.low_24h.usd;
-      const coinSymbol = data.symbol.toUpperCase();
-
-      // window.coinSymbol = coinSymbol.toUpperCase();
+      window.coinSymbol = data.symbol.toUpperCase();
 
       // Local storage
 
@@ -46,9 +47,11 @@ function getExchangeRate() {
       console.log(`24h Volume: ${volume24h}`);
       console.log(`24h High: ${high24h}`);
       console.log(`24h Low: ${low24h}`);
-      console.log(`Coin Symbol: ${coinSymbol}`);
+      console.log(`Coin Symbol: ${window.coinSymbol}`);
 
-      updatePageElements(priceUSD, priceBTC, volume24h, high24h, low24h, coinSymbol);
+      // Update page elements
+
+      updatePageElements(priceUSD, priceBTC, volume24h, high24h, low24h, window.coinSymbol);
     })
     .catch((error) => {
       console.error("Error fetching exchange rate:", error);
@@ -87,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Function to check if input matches any coin name or id
 
   const isMatch = (inputText) => {
-    return coins.some((coin) => coin.id === inputText || coin.name.toLowerCase() === inputText.toLowerCase());
+    return coins.some((coin) => coin.id.toLowerCase() === inputText || coin.name.toLowerCase() === inputText);
   };
 
   const toggleCoinSelectDisplay = () => {

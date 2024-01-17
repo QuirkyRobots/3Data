@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
   // Fade the page in and be super cool.
 
   setTimeout(function () {
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     const coin = urlParams.get("coin");
     if (coin) {
-        document.getElementById('coin').value = coin;
+      document.getElementById("coin").value = coin;
     }
   };
 
@@ -80,16 +81,20 @@ document.addEventListener("DOMContentLoaded", function () {
       updateURLParam("o", value);
     }
   });
-  document.getElementById("getStats").addEventListener("click", () => {
-    const coinName = document.getElementById("coin").value;
-    const coinSymbolTxt = document.getElementById("coinSymbolBox").textContent;
+  document.getElementById("getStats").addEventListener("click", async () => {
+    currentCoin = document.getElementById("coin").value;
 
-    updateURLParam("coin", coinName);
-    updateURLParam("msg", coinSymbolTxt);
-    textInput.value = coinSymbolTxt;
-    
+    // Call getExchangeRate and wait for it to complete
+
+    await getExchangeRate(currentCoin);
+
+    updateURLParam("coin", currentCoin);
+    updateURLParam("msg", window.coinSymbol);
+    textInput.value = window.coinSymbol;
   });
+
   // Set default theme
+  // New themes coming soon
 
   const updateTheme = (theme) => {
     const textColour = theme === "gold" ? "#050505" : "#b34700";
@@ -246,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
   observer.observe(body, { attributes: true });
   body.classList.toggle("hasStyle", body.style.background || body.style.backgroundImage);
 
-  // Play sounds
+  // Play sounds 
 
   const volumeLevel = 0.3;
 
@@ -277,4 +282,16 @@ document.addEventListener("DOMContentLoaded", function () {
   addEventListeners(".s4", "s4", ["mousedown"]);
   addEventListeners(".s6", "s6", ["mousedown"]);
   addEventListeners(".s7", "s7", ["mousedown"]);
+});
+
+// Toggle the style "display: none;" for elements with class .show-hide
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "S" && event.shiftKey) {
+    const elements = document.querySelectorAll(".show-hide");
+    
+    elements.forEach((element) => {
+      element.style.display = element.style.display === "none" ? "" : "none";
+    });
+  }
 });
