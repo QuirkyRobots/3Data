@@ -1,5 +1,5 @@
 console.log("Hello.\n\nIf you are reading this it's because you love Pirate Chain.");
-let currentCoin = "";
+window.currentCoin = "";
 
 document.addEventListener("DOMContentLoaded", function () {
   getExchangeRate();
@@ -35,6 +35,7 @@ function getExchangeRate() {
       const high24h = data.market_data.high_24h.usd;
       const low24h = data.market_data.low_24h.usd;
       window.coinSymbol = data.symbol.toUpperCase();
+      
 
       // Local storage
 
@@ -47,11 +48,11 @@ function getExchangeRate() {
       console.log(`24h Volume: ${volume24h}`);
       console.log(`24h High: ${high24h}`);
       console.log(`24h Low: ${low24h}`);
-      console.log(`Coin Symbol: ${window.coinSymbol}`);
+      console.log(`Coin Symbol: ${coinSymbol}`);
 
       // Update page elements
 
-      updatePageElements(priceUSD, priceBTC, volume24h, high24h, low24h, window.coinSymbol);
+      updatePageElements(priceUSD, priceBTC, volume24h, high24h, low24h, coinSymbol);
     })
     .catch((error) => {
       console.error("Error fetching exchange rate:", error);

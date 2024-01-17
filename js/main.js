@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
 
   // Fade the page in and be super cool.
@@ -82,16 +83,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
   document.getElementById("getStats").addEventListener("click", async () => {
-    currentCoin = document.getElementById("coin").value;
-
-    // Call getExchangeRate and wait for it to complete
-
-    await getExchangeRate(currentCoin);
-
-    updateURLParam("coin", currentCoin);
-    updateURLParam("msg", window.coinSymbol);
-    textInput.value = window.coinSymbol;
+    try {
+      const currentCoin = document.getElementById("coin").value;
+      const exchangeRate = await getExchangeRate(currentCoin);
+      console.log(`Exchange Rate for ${currentCoin}: ${exchangeRate}`);
+  
+      updateURLParam("coin", currentCoin);
+  
+      await getExchangeRate(coinSymbol);
+      console.log(`Button Press - Coin Symbol: ${coinSymbol}`);
+      
+      updateURLParam("msg", coinSymbol);
+      document.getElementById("textInput").value = coinSymbol;
+    } catch (error) {
+      console.error('Error occurred:', error);
+    }
   });
+  
 
   // Set default theme
   // New themes coming soon
