@@ -1,4 +1,5 @@
-![arrr3d-logo](https://github.com/QuirkyRobots/arrr3d/assets/29914179/7218a5fe-69db-4ae8-9eee-255caa9c8864)
+![arrr3d-logo](https://github.com/QuirkyRobots/arrr3d/assets/29914179/4354e851-f445-49b8-9693-a4b0489f792d)
+
 
 # ARRR 3D v3
 
