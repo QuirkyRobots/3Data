@@ -15,6 +15,8 @@ Make your own unique theme and share it on Twitter/X with the hashtag #ARRR3D
 
 ## Instructions
 
+* Sping the cube with your mouse or via touch.
+* Pause the auto rotate with the pause button.
 * Use the buttons at the top to highlight a specific data point.
 * Set a custom message on the cube using the message text input.
 * Theme the text, cube, and background using the colour pickers, and adjust transparency with the opacity slider.
