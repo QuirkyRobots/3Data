@@ -812,7 +812,7 @@ a.version-link:hover .version-num {
     position: absolute;
     margin: 0 auto;
     width: 82%;
-    scale: 0.7;
+    scale: 0.6;
     top: 2.7rem;
     left: 50dvw;
     transform: translatex(-50%);
@@ -840,7 +840,7 @@ a.version-link:hover .version-num {
     display:none;
   }
   canvas {
-    margin-top: 3rem;
+    margin-top: 6rem;
   }
 }
 
