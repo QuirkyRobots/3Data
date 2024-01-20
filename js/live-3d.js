@@ -206,13 +206,13 @@ function createCube(arrrData) {
 
     function formatCurrency(value) {
       const number = parseFloat(value);
-      return isNaN(number) ? "Loading..." : `$${number.toLocaleString()}`;
+      return isNaN(number) ? "No data" : `$${number.toLocaleString()}`;
     }
 
     const dataMappings = {
       0: ["", document.getElementById("textInput").value || "ARRR"],
       1: ["Value USD", formatCurrency(arrrData.priceUSD)],
-      2: ["Value BTC", arrrData.priceBTC || "Loading..."],
+      2: ["Value BTC", arrrData.priceBTC || "No Data"],
       3: ["24 Hour Vol", formatCurrency(arrrData.volume24h)],
       4: ["24 Hour High", formatCurrency(arrrData.high24h)],
       5: ["24 Hour Low", formatCurrency(arrrData.low24h)],
