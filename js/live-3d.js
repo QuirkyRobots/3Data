@@ -251,7 +251,20 @@ function createCube(arrrData) {
   scene.add(cube);
 }
 
-setInterval(refreshData, 5000);
+// Check local storage for new changes every x amount of TimeRanges.
+// It's not the best solution, but it's better than the last and wil do until I refactor the code completely.
+
+let previousData = localStorage.getItem('arrrData');
+
+function checkForChanges() {
+    const currentData = localStorage.getItem('arrrData');
+    if (currentData !== previousData) {
+        refreshData();
+        previousData = currentData;
+    }
+}
+
+setInterval(checkForChanges, 500);
 
 // Lighting setup. A bright idea.
 
