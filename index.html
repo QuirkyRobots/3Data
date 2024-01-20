@@ -24,6 +24,23 @@
   </head>
 
   <body>
+    <header>
+      <nav class="app-menu">
+        <ul title="Menus coming soon">
+          <li>Settings</li>
+          <li>Favorites</li>
+          <li>Themes</li>
+          <li>About</li>
+          <li>Help</li>
+        </ul>
+      </nav>
+      <div class="set-coin show-hide">
+        <div class="coin-select-box">
+          <input type="text" id="coin" name="coin" value="" placeholder="Enter coin name" />
+          <button id="getStats" onclick="getExchangeRate()">Get Stats</button>
+        </div>
+      </div>
+    </header>
     <div class="wrapper">
       <div id="piratePanelWrapper" class="pirate-panel-wrapper">
         <div id="resizer" class="resize-handle"></div>
@@ -156,35 +173,33 @@
         </div>
       </div>
     </div>
-    <div class="set-coin show-hide" style="display:none;">
-      <div class="coin-select-box">
-        <input type="text" id="coin" name="coin" value="" placeholder="Enter coin name" />
-        <button id="getStats" onclick="getExchangeRate()">Get Stats</button>
+
+    <footer>
+      <div class="credits">
+        <p>
+          <a
+            class="version-link"
+            href="https://github.com/QuirkyRobots/arrr3d"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="ARRR 3D GitHub Repo"
+            ><span class="version-num">v3.5</span></a
+          >
+          Designed a developed by
+          <a
+            href="https://twitter.com/QuirkyRobots"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit QuirkyRobots on Twitter"
+            >QuirkyRobots</a
+          >
+        </p>
+        <a href="https://github.com/QuirkyRobots/arrr3d" target="_blank" rel="noopener noreferrer">
+          <img id="discordLogo" src="img\assets\github-mark.svg" width="16" height="16" alt="Discord Logo" />
+        </a>
       </div>
-    </div>
-    <div class="credits">
-      <p>
-        <a
-          class="version-link"
-          href="https://github.com/QuirkyRobots/arrr3d"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="ARRR 3D GitHub Repo"
-          ><span class="version-num">v3.0.1</span></a
-        >
-        Designed a developed by
-        <a
-          href="https://twitter.com/QuirkyRobots"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Visit QuirkyRobots on Twitter"
-          >QuirkyRobots</a
-        >
-      </p>
-      <a href="https://github.com/QuirkyRobots/arrr3d" target="_blank" rel="noopener noreferrer">
-        <img id="discordLogo" src="img\assets\github-mark.svg" width="16" height="16" alt="Discord Logo" />
-      </a>
-    </div>
+
+    </footer>
     <script src="js/live-3d.js" type="module"></script>
     <script src="js/main.js"></script>
     <script src="js/live-data.js"></script>

@@ -1,80 +1,39 @@
-#coinSymbolBox {
-  padding: 0 0.3rem;
-  text-transform: uppercase;
-}
-.set-coin {
+header {
   display: flex;
-  flex-wrap: wrap;
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  width: 18rem;
-  padding: 1rem;
-  border-radius: 0.3rem;
-  background: rgb(27 27 39 / 100%);
-}
-input#coin {
-  padding: 0.2rem;
-  padding-left: 0.4rem;
-  height: 1.7rem;
-  border: none;
-  background: #252534;
-  color: var(--pirate-gold);
-  &:active {
-    color: var(--pirate-gold);
-  }
-}
-input#coin:active,
-input#coin:focus,
-input#coin:focus-within {
-  padding: 0.2rem;
-  padding-left: 0.4rem;
-  height: 1.7rem;
-  border: none;
-}
-button:disabled {
-  background-color: #bb9645;
-  color: #111;
-  cursor: not-allowed !important;
-  opacity: 0.4;
-}
-button#getStats {
-  background-color: #bb9645;
-  border: none;
-  border-radius: 0.2rem;
-  color: #111;
-  cursor: pointer;
-}
-.coin-select-box {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   flex-direction: row;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
   width: 100%;
+
+  background: #16161e;
 }
-.coin-select {
-  max-height: 50dvh;
-  width: 100%;
-  overflow-y: auto;
-  background: rgb(34 34 49);
-  margin-top: 1rem;
-  padding: 0.7rem;
+.app-menu {
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
 }
-ul.suggestions {
-  display: inline;
-  margin: 0;
+.app-menu ul {
+  display: flex;
+  gap: 1rem;
+  color: rgb(96 96 109);
+  list-style: none;
   padding: 0;
 }
-
-li.suggestion-item {
-  list-style: none;
+.app-menu ul li:hover {
   color: var(--pirate-gold);
-  &:hover {
-    cursor: pointer;
-    color: #fff;
-  }
+  cursor: pointer;
 }
-
+footer {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #16161e;
+  height: 2rem;
+}
 .wrapper {
   width: 100%;
   height: 100%;
@@ -111,8 +70,8 @@ canvas {
   max-width: 400px;
   overflow: hidden;
   z-index: 9;
-  top: 10%;
-  left: 10%;
+  top: 6rem;
+  left: 4rem;
   border-radius: 0.5rem;
   transform: scale(0.85);
   transform-origin: top left;
@@ -674,6 +633,85 @@ label {
     color: #999;
   }
 }
+
+#coinSymbolBox {
+  padding: 0 0.3rem;
+  text-transform: uppercase;
+}
+.set-coin {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 0;
+  right: 3rem;
+  width: 18rem;
+  margin-top: 0.93rem;
+
+  border-radius: 0.3rem;
+  background: rgb(22 22 30);
+  z-index: 9;
+}
+input#coin {
+  width: 100%;
+  padding: 0.3rem;
+  padding-left: 0.8rem;
+
+  border: none;
+  font-size: 0.9rem;
+  background: #252534;
+  color: var(--pirate-gold);
+  &:active {
+    color: var(--pirate-gold);
+  }
+}
+input#coin:active,
+input#coin:focus,
+input#coin:focus-within {
+  border: none;
+}
+button:disabled {
+  background-color: #bb9645;
+  color: #111;
+  cursor: not-allowed !important;
+  /*opacity: 0.4;*/
+}
+button#getStats {
+  background-color: #bb9645;
+  width: 45%;
+  border: none;
+  color: #111;
+  cursor: pointer;
+  border: 1px solid #16161e;
+}
+.coin-select-box {
+  display: flex;
+  width: 100%;
+  border-radius: 0.2rem;
+  overflow: hidden;
+}
+.coin-select {
+  max-height: 70dvh;
+  width: 100%;
+  overflow-y: auto;
+  background: rgb(34 34 49);
+  margin-top: 0.75rem;
+  padding: 0.7rem;
+}
+ul.suggestions {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+li.suggestion-item {
+  list-style: none;
+  color: var(--pirate-gold);
+  &:hover {
+    cursor: pointer;
+    color: #fff;
+  }
+}
+
 .credits {
   display: flex;
   flex-direction: row;
@@ -681,10 +719,10 @@ label {
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 0.6rem 1rem;
-  padding-top: 0.8rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0.3rem;
   padding-left: 1.5rem;
+  padding-right: 1rem;
+  padding-top: 0;
   width: auto;
   color: var(--pirate-darker-txt);
   background: #16161e;
@@ -695,16 +733,17 @@ label {
   & p {
     margin: 0;
   }
+  &:hover {
+    padding-bottom: 1.2rem;
+    padding-top: 0.8rem;
+    color: #616273;
+    transition: all 0.2s ease !important;
+  }
 }
 .credits a {
   transition: all 0.2s 0.2s ease !important;
 }
-.credits:hover {
-  padding-bottom: 1.8rem;
-  color: #616273;
-  /*background: #444;*/
-  transition: all 0.2s ease !important;
-}
+
 .credits:hover a,
 .credits:hover .version-num {
   color: var(--pirate-gold);
@@ -736,16 +775,15 @@ a.version-link:hover .version-num {
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: -0.85rem;
   color: var(--pirate-gold);
   position: absolute;
-  bottom: -3.1rem;
-  left: calc(100% + 3.1rem);
+  bottom: -0.9rem;
+  left: calc(100% + 2.9rem);
   width: 18rem;
-  height: 6rem;
-  background: rgb(22, 22, 30);
+  height: 4rem;
+  background: rgb(29 29 37);
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   font-weight: 600;
   transform: rotate(-45deg) translate(-50%, -50%);
   transform-origin: 0 100%;
