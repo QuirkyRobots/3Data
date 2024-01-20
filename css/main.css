@@ -805,6 +805,7 @@ a.version-link:hover .version-num {
   header {
     height: 2.5rem;
     background: none;
+    z-index: 9999;
   }
   #piratePanelWrapper {
     display: flex;
@@ -828,6 +829,12 @@ a.version-link:hover .version-num {
   }
   .container-wrapper {
     border:none;
+  }
+  .pirate-img {
+    max-width: 50%;
+  }
+  .pc-app-logo-area {
+    margin-bottom:0;
   }
   .angled-note-box {
     display:none;
