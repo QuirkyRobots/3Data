@@ -804,6 +804,7 @@ a.version-link:hover .version-num {
 @media only screen and (max-width: 650px) {
   header {
     height: 2.5rem;
+    background: none;
   }
   #piratePanelWrapper {
     display: flex;
@@ -822,6 +823,14 @@ a.version-link:hover .version-num {
     top: .49rem;
     width: calc(100dvw - 6rem);
     margin: 0 auto;
+    border: 1px solid #1b1b26;
+    overflow: hidden;
+  }
+  .container-wrapper {
+    border:none;
+  }
+  .angled-note-box {
+    display:none;
   }
   canvas {
     margin-top: 3rem;
