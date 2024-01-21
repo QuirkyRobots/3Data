@@ -296,8 +296,8 @@ function addEventListeners() {
 
   addEventListenerToElement(renderer.domElement, ["touchstart", "touchmove", "touchend"], handleTouchEvents, {
     passive: false,
-  });
-  document.getElementById("pause").addEventListener("click", function () {
+  });togglePlayPause
+  document.getElementById("togglePlayPause").addEventListener("click", function () {
     isCubeRotating = !isCubeRotating;
   });
 }

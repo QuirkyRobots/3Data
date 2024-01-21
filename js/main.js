@@ -9,6 +9,12 @@ document.addEventListener("DOMContentLoaded", function () {
     bodyElement.style.opacity = 1;
   }, 1000);
 
+  // Toggle play/pause
+
+  document.getElementById("togglePlayPause").addEventListener("click", function () {
+    this.textContent = this.textContent === "||" ? "▶" : "||";
+  });
+
   // and and remove the weed, I mean hash, because the URL doesn't like it
 
   const updateURLParam = (param, value) => {

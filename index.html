@@ -29,7 +29,17 @@
         <ul title="Menus coming soon">
           <li>Settings</li>
           <li>Favorites</li>
-          <li>Themes</li>
+          <li>
+            Themes
+            <ul class="submenu">
+              <li>Calm Blue</li>
+              <li>Blue App</li>
+              <li>Crimson </li>
+              <li>Snow White</li>
+              <li>Premium Pearl</li>
+              <li>xBox</li>
+            </ul>
+          </li>
           <li>About</li>
           <li>Help</li>
         </ul>
@@ -70,7 +80,7 @@
                 <span class="slider round"></span>
               </label>
               <div class="theme-switcher-txt">
-                Controls on/off<span><button id="pause">||</button></span>
+                Controls on/off<span class="toggle-play-pause-box"><button id="togglePlayPause">||</button></span>
               </div>
             </div>
             <div class="theme-controls no-drag">
@@ -183,7 +193,7 @@
             target="_blank"
             rel="noopener noreferrer"
             title="ARRR 3D GitHub Repo"
-            ><span class="version-num">v3.5</span></a
+            ><span class="version-num">v3.6</span></a
           >
           Designed a developed by
           <a
@@ -198,7 +208,6 @@
           <img id="discordLogo" src="img\assets\github-mark.svg" width="16" height="16" alt="Discord Logo" />
         </a>
       </div>
-
     </footer>
     <script src="js/live-3d.js" type="module"></script>
     <script src="js/main.js"></script>
