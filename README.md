@@ -44,6 +44,11 @@ Once enabled, you will then be able to add any coin to view and save as your coi
 * Currently the cube size and wireframe mode are not saved as part of the theme.
 * Default themes are not sendable/savable.
 
+## V3.5 Preview Screenshot
+
+![image](https://github.com/QuirkyRobots/arrr3d/assets/29914179/a99aff1f-baad-454f-9277-7831e40ecc1c)
+
+
 ## V3 Preview Screenshot
 
 ![image](https://github.com/QuirkyRobots/arrr3d/assets/29914179/a6318233-4213-4027-a12b-f26fed33b019)
