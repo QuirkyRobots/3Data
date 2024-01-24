@@ -284,7 +284,7 @@ canvas {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  font-size: clamp(.9rem, .9vw, 1.2rem);
+  font-size: clamp(.9rem, .9dvw, 1.2rem);
   color: #857757;
   background: rgb(37 37 51 / 73%);
   padding: 0.1rem 0.3rem;
@@ -293,7 +293,7 @@ canvas {
 }
 .coin-img {
   display: flex;
-  width: 1.2rem;
+  width: clamp(0.8rem, .9dvw, 1.2rem);
   height: 100%;
   aspect-ratio: 1 / 1;
   align-self: center;
