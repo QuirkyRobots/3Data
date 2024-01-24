@@ -299,9 +299,7 @@ canvas {
   align-self: center;
 }
 #coinThumbBoxNav {
-  align-self: flex-end;
-  min-width: 25px;
-  min-height: 25px;
+  align-self: center;
   height: auto;
   padding: 0.1rem 0.3rem;
   padding-right: 0;
