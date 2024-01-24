@@ -55,7 +55,7 @@ header {
 }
 
 #coinSymbolBox {
-  padding: 0 0.3rem;
+  
   text-transform: uppercase;
 }
 .set-coin {
@@ -281,14 +281,27 @@ canvas {
 }
 .pc-tagline {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   font-size: 1rem;
   color: #857757;
   background: rgb(37 37 51 / 73%);
   padding: 0.2rem 0.5rem;
   width: max-content;
-
   border-radius: 0.2rem;
+}
+.coin-img {
+  display: flex;
+  width: 1rem;
+  height: 1rem;
+  aspect-ratio: 1 / 1;
+  align-self: center;
+}
+#coinThumbBoxNav {
+  min-width: 25px;
+  min-height: 25px;
+  margin-right: .5rem;
+  align-self: flex-end;
 }
 
 /* Theme-controls with transition */
@@ -338,9 +351,6 @@ canvas {
   height: 1rem;
   font-size: 1rem;
   line-height: 1;
-}
-.toggle-play-pause-box {
-
 }
 button#togglePlayPause {
   margin-left: 1rem;

@@ -35,11 +35,14 @@ function getExchangeRate() {
       const high24h = data.market_data.high_24h.usd;
       const low24h = data.market_data.low_24h.usd;
       window.coinSymbol = data.symbol.toUpperCase();
+      window.coinRank = data.market_cap_rank;
+      window.coinThumb = data.image.thumb;
+      
       
 
       // Local storage
 
-      localStorage.setItem("arrrData", JSON.stringify({ priceUSD, priceBTC, volume24h, high24h, low24h, coinSymbol }));
+      localStorage.setItem("arrrData", JSON.stringify({ priceUSD, priceBTC, volume24h, high24h, low24h, coinSymbol, coinRank, coinThumb }));
 
       // Console log
 
@@ -49,10 +52,14 @@ function getExchangeRate() {
       console.log(`24h High: ${high24h}`);
       console.log(`24h Low: ${low24h}`);
       console.log(`Coin Symbol: ${coinSymbol}`);
+      window.coinRank = data.market_cap_rank != null ? "#" + data.market_cap_rank : "";
+
+
+      console.log(`Coin Thumb: ${coinThumb}`);
 
       // Update page elements
 
-      updatePageElements(priceUSD, priceBTC, volume24h, high24h, low24h, coinSymbol);
+      updatePageElements(priceUSD, priceBTC, volume24h, high24h, low24h, coinSymbol, coinRank, coinThumb);
     })
     .catch((error) => {
       console.error("Error fetching exchange rate:", error);
@@ -61,6 +68,9 @@ function getExchangeRate() {
 
 function updatePageElements(priceUSD, priceBTC, volume24h, high24h, low24h, coinSymbol) {
   document.getElementById("coinSymbolBox").textContent = " " + coinSymbol;
+  document.getElementById("coinRankBox").textContent = coinRank;
+  document.getElementById("coinThumbBox").src = coinThumb;
+  document.getElementById("coinThumbBoxNav").src = coinThumb;
 }
 
 // Create a predictive search
