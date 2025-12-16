@@ -1,6 +1,6 @@
-# v4Beta is now active:
+# v4 Beta is now active
 
-Change log comming soon
+Change log coming soon
 
 <img width="1915" height="940" alt="image" src="https://github.com/user-attachments/assets/301a3d4f-ff77-43a7-8d04-42613878d549" />
 
