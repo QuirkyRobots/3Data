@@ -1,4 +1,8 @@
-![arrr3d-logo](https://github.com/QuirkyRobots/arrr3d/assets/29914179/4354e851-f445-49b8-9693-a4b0489f792d)
+# v4 Beta is now active
+
+Change log coming soon
+
+<img width="1915" height="940" alt="image" src="https://github.com/user-attachments/assets/301a3d4f-ff77-43a7-8d04-42613878d549" />
 
 
 # Pirate 3D v3
