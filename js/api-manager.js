@@ -4,7 +4,7 @@ console.log("Hello.\n\nIf you are reading this it's because you love zk-Snarks."
 
 const API_CONFIG = {
   BASE_URL: "https://api.coingecko.com/api/v3",
-  API_KEY: "CG-7tRyvcttBwaPTyXmmRzXGtKd",
+  API_KEY: "CG-7tRyvcttBwaPTyXmmRzXGtKd", // Replace with your actual API key
   UPDATE_INTERVAL: 2 * 60 * 1000,
   DEFAULT_COIN: "bitcoin"
 };
@@ -50,9 +50,13 @@ function initializeAPIManager() {
 function getExchangeRate() {
   const urlParams = new URLSearchParams(window.location.search);
   const coin = urlParams.get("coin") || window.currentCoin || API_CONFIG.DEFAULT_COIN;
-  const url = `${API_CONFIG.BASE_URL}/coins/${coin}`;
+  
+  // Add API key as URL parameter to avoid CORS preflight
+  const url = `${API_CONFIG.BASE_URL}/coins/${coin}?x_cg_demo_api_key=${API_CONFIG.API_KEY}`;
 
-  return fetch(url)
+  return fetch(url, {
+    method: 'GET'
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Coin not found: ${coin}`);
@@ -173,11 +177,6 @@ function logCoinData(coinData) {
   console.log(`Coin Rank: ${coinData.coinRank}`);
   console.log(`Coin URL: ${coinData.coinURL}`);
   console.log(`Coin Thumb: ${coinData.coinThumb}`);
-
-    // Privacy coin check
-
-const isPrivacy = coinData.categories?.some(cat => cat.toLowerCase().includes("privacy")) || false;
-console.log(`Privacy coin: ${isPrivacy}`);
 }
 
 // Create a predictive search
@@ -265,7 +264,10 @@ async function loadCoinsList() {
     let coins = JSON.parse(localStorage.getItem("coins") || "[]");
 
     if (coins.length === 0) {
-      const response = await fetch(`${API_CONFIG.BASE_URL}/coins/list`);
+      // Add API key as URL parameter to avoid CORS preflight
+      const response = await fetch(`${API_CONFIG.BASE_URL}/coins/list?x_cg_demo_api_key=${API_CONFIG.API_KEY}`, {
+        method: 'GET'
+      });
       
       if (!response.ok) {
         throw new Error("Failed to fetch coins list");
