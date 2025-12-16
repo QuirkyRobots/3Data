@@ -4,6 +4,7 @@ console.log("Hello.\n\nIf you are reading this it's because you love zk-Snarks."
 
 const API_CONFIG = {
   BASE_URL: "https://api.coingecko.com/api/v3",
+  API_KEY: "CG-7tRyvcttBwaPTyXmmRzXGtKd",
   UPDATE_INTERVAL: 2 * 60 * 1000,
   DEFAULT_COIN: "bitcoin"
 };
