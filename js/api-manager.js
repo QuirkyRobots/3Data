@@ -160,6 +160,14 @@ function updatePageElements(coinData) {
       link.href = coinData.coinURL;
       link.title = `View the ${coinData.coinSymbol} website`;
     });
+
+    // Update the Note field with the coin symbol
+    const textInput = document.getElementById("textInput");
+    if (textInput) {
+      textInput.value = coinData.coinSymbol;
+      // Trigger input event to refresh the cube
+      textInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
   } catch (error) {
     console.error("Error updating page elements:", error);
   }
@@ -264,7 +272,9 @@ async function loadCoinsList() {
     let coins = JSON.parse(localStorage.getItem("coins") || "[]");
 
     if (coins.length === 0) {
+
       // Add API key as URL parameter to avoid CORS preflight
+      
       const response = await fetch(`${API_CONFIG.BASE_URL}/coins/list?x_cg_demo_api_key=${API_CONFIG.API_KEY}`, {
         method: 'GET'
       });
