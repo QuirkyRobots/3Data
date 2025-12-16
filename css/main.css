@@ -871,6 +871,7 @@ label,
 .credits {
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 0.4rem;
   position: absolute;
   bottom: 0;
@@ -908,6 +909,18 @@ label,
 .credits:hover .version-num {
   color: var(--pirate-gold);
   transition: all 0.2s 0.2s ease !important;
+}
+
+.coin-api {
+  margin-left:.5rem;
+}
+.credits #cgLogo {
+  filter: brightness(30%);
+  margin-top: 2px;
+}
+
+.credits:hover #cgLogo {
+  filter: brightness(90%);
 }
 
 .credits:hover #discordLogo {
