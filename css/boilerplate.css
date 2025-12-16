@@ -6,8 +6,7 @@
   --pirate-txt: #58585f;
   --pirate-dark-txt: #47474d;
   --pirate-darker-txt: #2f2f39;
-
-  --pirate-g-1: linear-gradient(180deg, rgb(32 32 49) 0%, rgb(44 44 71 / 49%) 50%, rgb(32 32 49 / 53%) 100%);
+  --pirate-g-1: linear-gradient(180deg, rgb(37 37 50) 0%, rgb(36 36 50) 50%, rgb(31 31 43) 100%);
   --pirate-bs-1: 3px 3px 6px #00000036;
 }
 
@@ -34,7 +33,7 @@ html {
 body {
   display: block;
   font-family: "Roboto", "Arial Condensed", Arial;
-  background: #000 url(../img/PCPCB-P-ms.webp) no-repeat fixed;
+  background: #000 url(../img/bluewoman.webp) no-repeat fixed;
   background-size: cover;
   opacity: 0;
 }

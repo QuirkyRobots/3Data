@@ -1,0 +1,196 @@
+<html dir="ltr" lang="en">
+
+<head>
+  <link rel="icon" type="image/x-icon" href="img/favicon.png" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Blockchain cryptocurrency Data in 3D</title>
+  <meta name="description"
+    content="Explore real-time cryptocurrency data in an interactive 3D format. Get the latest crypto data visually." />
+  <meta property="og:image" content="https://quirkyrobots.github.io/arrr3d/img/arrr3d-logo.png" />
+  <meta property="og:title" content="Live Blockchain Crypto Data in 3D" />
+  <meta property="og:description"
+    content="Explore real-time cryptocurrency data in an interactive 3D format. Get the latest crypto data visually." />
+  <meta property="og:url" content="https://quirkyrobots.github.io/arrr3d" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@QuirkyRobots" />
+  <meta name="author" content="Quirky Robots" />
+
+  <link rel="stylesheet" href="css/boilerplate.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+  <header>
+    <nav class="app-menu">
+      <ul title="Menus coming soon">
+        <li>Settings</li>
+        <li>Favorites</li>
+        <li>
+          Themes
+          <ul class="submenu">
+            <li>Calm Blue</li>
+            <li>Blue App</li>
+            <li>Crimson Black</li>
+            <li>Snow White</li>
+            <li>Premium Pearl</li>
+            <li>xBox</li>
+          </ul>
+        </li>
+        <li>About</li>
+      </ul>
+    </nav>
+    <div class="set-coin show-hide">
+      <div class="coin-select-box">
+        <img id="coinThumbBoxNav" alt="Pirate Image" src="" class="coin-img" />
+        <input type="text" id="coin" name="coin" value="" autocomplete="off" placeholder="Enter coin name" />
+        <button id="getStats" onclick="getExchangeRate()">Get Stats</button>
+      </div>
+    </div>
+  </header>
+  <div id="video" style="display:none" class="video-container">
+    <video autoplay muted loop>
+      <source src="../video/bgv0.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class="wrapper">
+    <div id="piratePanelWrapper" class="pirate-panel-wrapper">
+      <div id="resizer" class="resize-handle"></div>
+      <div id="piratePanel" class="pirate-panel drag-inactive">
+        <div class="ARRRcontrols">
+          <div id="pcAppLogoArea" class="pc-app-logo-area">
+            <div class="pc-app-logo">
+              <img alt="Pirate Image" src="img/data-logo.png" class="pirate-img" />
+              <div class="pc-app-logo-txt">3D</div>
+            </div>
+            <div class="pc-tagline">
+              <span>&nbsp;Live&nbsp;</span>
+              <span id="coinSymbolBox" class="coin-symbol-box"></span>
+              <span>&nbsp;data&nbsp;|&nbsp;Rank:&nbsp;</span>
+              <span id="coinRankBox"></span>
+            </div>
+          </div>
+
+          <div class="selection-buttons no-drag">
+            <span id="ARRRpriceDollar" class="s6 view-selection">Value</span>
+            <span id="ARRRpriceBTC" class="s6 view-selection">BTC</span>
+            <span id="ARRR24High" class="s6 view-selection">High</span>
+            <span id="ARRR24low" class="s6 view-selection">Low</span>
+            <span id="ARRR24Vol" class="s6 view-selection">Volume</span>
+            <span id="customText" class="s6 view-selection">Note</span>
+          </div>
+          <div class="theme-switcher no-drag">
+            <label class="s2 switch">
+              <input type="checkbox" id="themeSwitch" />
+              <span class="slider round"></span>
+            </label>
+            <div class="theme-switcher-txt">
+              <span>Controls</span>
+            </div>
+            <div class="toggle-play-pause-box"><button id="togglePlayPause">||</button></div>
+            <div class="toggle-play-pause-mbox"><button id="toggleMusicMute">♫</button></div>
+          </div>
+          <div class="theme-controls no-drag">
+            <div class="theme-header">
+              <h3>Theme</h3>
+              <div class="default-theme-buttons">
+                <div title="Set the video black & gold theme" class="s4 default-theme-button" id="videoTheme">V</div>
+                <div title="Set the gold theme" class="s4 default-theme-button" id="goldTheme"></div>
+                <div title="Set the black & gold theme" class="s4 default-theme-button" id="blackTheme"></div>
+
+              </div>
+            </div>
+
+            <div class="pirateForm">
+              <input type="text" id="textInput" placeholder="Note" value="" />
+            </div>
+
+            <div class="all-colour-pickers">
+              <div class="pc-colour-picker canvas">
+                <div class="colour-picker-title">Canvas</div>
+                <input type="color" id="backgroundColourPicker" value="#24243a" />
+                <div class="colourInfo">
+                  <div class="selected-colour" id="selectedBackgroundColour">#24243a</div>
+                </div>
+              </div>
+
+              <div class="pc-colour-picker">
+                <div class="colour-picker-title">Block</div>
+                <input type="color" id="cubeColourPicker" value="#c65f0c" />
+                <div class="colourInfo">
+                  <div class="selected-colour" id="selectedCubeColour">#c65f0c</div>
+                </div>
+              </div>
+
+              <div class="pc-colour-picker">
+                <div class="colour-picker-title">Text</div>
+                <input type="color" id="textColourPicker" value="#050505" />
+                <div class="colourInfo">
+                  <div class="selected-colour" id="selectedTextColour">#050505</div>
+                </div>
+              </div>
+            </div>
+            <div class="pc-sliders no-drag">
+              <div class="size-slider">
+                <label for="sizeSlider">Size</label>
+                <input class="pc-slider" type="range" id="sizeSlider" name="sizeSlider" min="30" max="160"
+                  value="125" />
+              </div>
+              <div class="opacity-slider">
+                <label for="opacitySlider">Opacity</label>
+                <input class="pc-slider" type="range" id="opacitySlider" name="opacitySlider" min="0" max="100"
+                  value="100" />
+              </div>
+              <div class="v-number">
+                <label for="vNumber">Vertices</label>
+                <input type="range" class="s3 pc-slider" id="vNumber" name="vNumber" value="0" min="0" max="100">
+              </div>
+            </div>
+
+            <div class="theme-actions">
+              <button title="Copy theme to the clipboard" class="s7" id="copy">Copy Theme</button>
+            </div>
+            <div class="pc-note-box">
+              <h3>Information</h3>
+              <div class="pc-note">
+                <p>Buttons focus selected data. Data updates every 2 minutes or on page refresh.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-wrapper">
+      <div id="container"></div>
+      <div class="angled-note-box">
+        <a class="coin-urls angled-note" rel="noopener" target="_blank"><span
+            class="coin-symbol-box angled-note-txt"></span></a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="credits">
+      <p>
+        <a class="version-link" href="https://github.com/QuirkyRobots/arrr3d" target="_blank" rel="noopener noreferrer"
+          title="ARRR 3D GitHub Repo"><span class="version-num">v4.0</span></a>
+        Designed and developed by
+        <a href="https://twitter.com/QuirkyRobots" target="_blank" rel="noopener noreferrer"
+          title="Visit QuirkyRobots on Twitter">QuirkyRobots</a>
+      </p>
+      <a href="https://github.com/QuirkyRobots/arrr3d" target="_blank" rel="noopener noreferrer">
+        <img id="discordLogo" src="img\assets\github-mark.svg" width="16" height="16" alt="Discord Logo" />
+      </a>
+    </div>
+
+  </footer>
+  <script src="js/object-renderer.js" type="module"></script>
+  <script src="js/ui-controller.js"></script>
+  <script src="js/api-manager.js"></script>
+
+</body>
+
+</html>
