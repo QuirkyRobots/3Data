@@ -207,10 +207,10 @@ canvas {
   max-width: 400px;
   overflow: hidden;
   z-index: 9;
-  top: 6rem;
-  left: 4rem;
+  top: clamp(5rem, 16vh, 14rem);
+  left: clamp(1rem, 10vw, 9rem);
   border-radius: 0.5rem;
-  transform: scale(0.85);
+  transform: scale(0.7);
   transform-origin: top left;
   box-shadow: 4px 10px 20px -4px rgb(0 0 0 / 57%);
 }
@@ -521,13 +521,13 @@ input:checked+.slider:before {
 }
 
 .view-selection {
-  padding: clamp(0.5rem, 1.6dvh, 2rem) 0.2rem;
   background: #24243a;
   color: #bb9645;
   border-radius: 0.2rem;
   box-shadow: var(--pirate-bs-1);
   background-image: var(--pirate-g-1);
-  font-size: 0.8rem;
+  padding: clamp(0.5rem, 1.8dvh, 2rem) 0.2rem;
+  font-size: 1rem;
   text-align: center;
   font-weight: 800;
   text-transform: uppercase;

@@ -5,8 +5,8 @@ const UI_CONFIG = {
   fadeInDuration: "1s",
   volumeLevel: 0.3,
   scaleChangeMultiplier: 0.003,
-  minScale: 0.7,
-  maxScale: 1.1
+  minScale: 0.5,
+  maxScale: 1.1,
 };
 
 // Set default theme
@@ -16,13 +16,13 @@ const THEME_PRESETS = {
   gold: {
     textColor: "#050505",
     cubeColor: "#c65f0c",
-    opacity: 93
+    opacity: 93,
   },
   black: {
     textColor: "#b34700",
     cubeColor: "#020203",
-    opacity: 93
-  }
+    opacity: 93,
+  },
 };
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -118,7 +118,10 @@ function updateFromURLParam(urlParams, param, elementId, callback) {
   const element = document.getElementById(elementId);
   if (!element) return;
 
-  element.value = param === "bg" || param === "block" || param === "txt" ? "#" + value : value;
+  element.value =
+    param === "bg" || param === "block" || param === "txt"
+      ? "#" + value
+      : value;
 
   if (callback) {
     callback(value);
@@ -154,7 +157,7 @@ function setupURLUpdateListeners() {
         updateURLParam("txt", value);
       },
       textInput: () => updateURLParam("msg", value),
-      opacitySlider: () => updateURLParam("o", value)
+      opacitySlider: () => updateURLParam("o", value),
     };
 
     const handler = urlUpdateHandlers[elementId];
@@ -189,7 +192,7 @@ function setupGetStatsButton() {
         }
       }
     } catch (error) {
-      console.error('Error occurred:', error);
+      console.error("Error occurred:", error);
     }
   });
 }
@@ -239,13 +242,33 @@ function setupVideoTheme() {
     // Toggle music button - sounds like a jumper
 
     if (riseAboveAudio.paused) {
-      riseAboveAudio.play().catch(err => console.error(err));
+      riseAboveAudio.play().catch((err) => console.error(err));
     } else {
       riseAboveAudio.pause();
     }
   });
 }
 
+// Mute the music, be a mutant
+
+function setupMusicMuteToggle() {
+  const toggleMusicMute = document.getElementById("toggleMusicMute");
+  if (!toggleMusicMute) return;
+
+  toggleMusicMute.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    riseAboveAudio.muted = !riseAboveAudio.muted;
+
+    if (riseAboveAudio.muted) {
+      toggleMusicMute.style.color = "#4d505a";
+    } else {
+      toggleMusicMute.style.color = "";
+    }
+  });
+}
+
+setupMusicMuteToggle();
 function setupThemeButtons() {
   const goldButton = document.getElementById("goldTheme");
   const blackButton = document.getElementById("blackTheme");
@@ -350,14 +373,18 @@ function setupPanelDragging() {
 
   if (!piratePanelWrapper || !piratePanel || !resizer) return;
 
-  let startMouseX, startMouseY, currentScale = 1;
+  let startMouseX,
+    startMouseY,
+    currentScale = 1;
   let posX = piratePanelWrapper.offsetLeft;
   let posY = piratePanelWrapper.offsetTop;
-  let isDragging = false, isScaling = false;
+  let isDragging = false,
+    isScaling = false;
 
   const onMouseMove = (e) => {
     if (isScaling) {
-      const scaleChange = (startMouseX - e.clientX) * UI_CONFIG.scaleChangeMultiplier;
+      const scaleChange =
+        (startMouseX - e.clientX) * UI_CONFIG.scaleChangeMultiplier;
       const newScale = Math.min(
         Math.max(currentScale - scaleChange, UI_CONFIG.minScale),
         UI_CONFIG.maxScale
@@ -405,7 +432,8 @@ function setupPanelDragging() {
     if (e.target === resizer) {
       isScaling = true;
       const transform = getComputedStyle(piratePanelWrapper).transform;
-      currentScale = transform !== 'none' ? parseFloat(transform.split("(")[1]) : 1;
+      currentScale =
+        transform !== "none" ? parseFloat(transform.split("(")[1]) : 1;
       piratePanelWrapper.classList.add("scale-active");
     } else {
       isDragging = true;
@@ -432,7 +460,10 @@ function setupBackgroundObserver() {
   });
 
   observer.observe(body, { attributes: true });
-  body.classList.toggle("hasStyle", !!(body.style.background || body.style.backgroundImage));
+  body.classList.toggle(
+    "hasStyle",
+    !!(body.style.background || body.style.backgroundImage)
+  );
 }
 
 // Play sounds
@@ -442,7 +473,7 @@ function setupSoundEffects() {
     try {
       const sound = new Audio(`audio/${soundFile}.mp3`);
       sound.volume = UI_CONFIG.volumeLevel;
-      sound.play().catch(err => console.error("Error playing sound:", err));
+      sound.play().catch((err) => console.error("Error playing sound:", err));
     } catch (error) {
       console.error("Error loading sound:", error);
     }
