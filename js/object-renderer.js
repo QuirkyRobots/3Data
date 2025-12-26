@@ -1,4 +1,5 @@
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+import { RoundedBoxGeometry } from "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/geometries/RoundedBoxGeometry.js";
 
 // Configuration variables
 
@@ -12,44 +13,44 @@ const CONFIG = {
     constantSpeedY: 0.004,
     dragMultiplier: 0.007,
     dragFallOff: 0.95,
-    maxSpeed: 0.2
+    maxSpeed: 0.2,
   },
-  
+
   // The cameraman stands here
-  
+
   camera: {
     position: 2.5,
     fov: 75,
     near: 0.1,
-    far: 1000
+    far: 1000,
   },
-  
+
   // Various scene colours
-  
+
   colors: {
     classicGold: "#BB9645",
     gold: "#ff7300",
     dark: "#090909",
     blue: "#24243a",
-    lightColor: "#555"
+    lightColor: "#555",
   },
-  
+
   // Light configuration. It's heavy work
-  
+
   lighting: {
     point: {
       intensity: 600,
       distance: 30000,
       decay: 1,
-      position: { x: 2, y: 4, z: 5 }
+      position: { x: 2, y: 4, z: 5 },
     },
     ambient: {
-      intensity: 0
-    }
+      intensity: 0,
+    },
   },
-  
+
   // Material configuration
-  
+
   material: {
     transparent: true,
     emissiveIntensity: 0,
@@ -57,46 +58,107 @@ const CONFIG = {
     reflectivity: 1,
     roughness: 0.03,
     metalness: 0.7,
-    envMapIntensity: 0.14
+    envMapIntensity: 0.14,
   },
-  
+
   // Canvas dimensions for texture rendering
-  
+
   canvas: {
     width: 512,
-    height: 512
+    height: 512,
   },
-  
+  // faceDefaults
+
+  faceDefaults: {
+    padding: 40,
+    titleSize: 7.5,
+    dataSize: 11,
+    titleSpacing: 30,
+    blockOffset: 0,
+    dataWeight: "bold",
+  },
+
   // Table layout constants
-  
+
   table: {
     columnGap: 15,
-    lineSpacing: 10
-  }
+    lineSpacing: 10,
+  },
 };
 
 // Global title styling (applies to all cube faces)
 
 const globalTitleStyle = {
-  weight: "bold"
+  weight: "bold",
 };
 
 // Face styling configuration - customize per cube side
 
 const faceStyles = {
-  0: { textAlign: "center", titleSize: 8, dataSize: 10, padding: 40, titleSpacing: 30, blockOffset: 0, dataWeight: "bold" },
-  1: { textAlign: "center", titleSize: 8, dataSize: 10, padding: 40, titleSpacing: 30, blockOffset: 0, dataWeight: "bold" },
-  2: { textAlign: "center", titleSize: 8, dataSize: 10, padding: 40, titleSpacing: 30, blockOffset: 0, dataWeight: "bold" },
-  3: { textAlign: "center", titleSize: 8, dataSize: 10, padding: 40, titleSpacing: 30, blockOffset: 0, dataWeight: "bold" },
-  4: { textAlign: "left", titleSize: 8, dataSize: 14, padding: 40, titleSpacing: 50, blockOffset: 0, dataWeight: "bold" },
-  5: { textAlign: "center", titleSize: 8, dataSize: 10, padding: 40, titleSpacing: 30, blockOffset: 0, dataWeight: "bold" },
+  0: {
+    textAlign: "center",
+    titleSize: CONFIG.faceDefaults.titleSize,
+    dataSize: CONFIG.faceDefaults.dataSize,
+    padding: CONFIG.faceDefaults.padding,
+    titleSpacing: CONFIG.faceDefaults.titleSpacing,
+    blockOffset: CONFIG.faceDefaults.blockOffset,
+    dataWeight: CONFIG.faceDefaults.dataWeight,
+  },
+  1: {
+    textAlign: "center",
+    titleSize: CONFIG.faceDefaults.titleSize,
+    dataSize: CONFIG.faceDefaults.dataSize,
+    padding: CONFIG.faceDefaults.padding,
+    titleSpacing: CONFIG.faceDefaults.titleSpacing,
+    blockOffset: CONFIG.faceDefaults.blockOffset,
+    dataWeight: CONFIG.faceDefaults.dataWeight,
+  },
+  2: {
+    textAlign: "center",
+    titleSize: CONFIG.faceDefaults.titleSize,
+    dataSize: CONFIG.faceDefaults.dataSize,
+    padding: CONFIG.faceDefaults.padding,
+    titleSpacing: CONFIG.faceDefaults.titleSpacing,
+    blockOffset: CONFIG.faceDefaults.blockOffset,
+    dataWeight: CONFIG.faceDefaults.dataWeight,
+  },
+  3: {
+    textAlign: "center",
+    titleSize: CONFIG.faceDefaults.titleSize,
+    dataSize: CONFIG.faceDefaults.dataSize,
+    padding: CONFIG.faceDefaults.padding,
+    titleSpacing: CONFIG.faceDefaults.titleSpacing,
+    blockOffset: CONFIG.faceDefaults.blockOffset,
+    dataWeight: CONFIG.faceDefaults.dataWeight,
+  },
+  4: {
+    textAlign: "left",
+    titleSize: CONFIG.faceDefaults.titleSize,
+    dataSize: 14,
+    padding: CONFIG.faceDefaults.padding,
+    titleSpacing: 50,
+    blockOffset: CONFIG.faceDefaults.blockOffset,
+    dataWeight: CONFIG.faceDefaults.dataWeight,
+  },
+  5: {
+    textAlign: "center",
+    titleSize: CONFIG.faceDefaults.titleSize,
+    dataSize: CONFIG.faceDefaults.dataSize,
+    padding: CONFIG.faceDefaults.padding,
+    titleSpacing: CONFIG.faceDefaults.titleSpacing,
+    blockOffset: CONFIG.faceDefaults.blockOffset,
+    dataWeight: CONFIG.faceDefaults.dataWeight,
+  },
 };
 
 // Scene setup variables
 
 let scene, camera, renderer, cube;
-let mouseDown = false, mouseX = 0, mouseY = 0;
-let dragSpeedX = 0, dragSpeedY = 0;
+let mouseDown = false,
+  mouseX = 0,
+  mouseY = 0;
+let dragSpeedX = 0,
+  dragSpeedY = 0;
 let ambientLight, pointLight;
 
 // Cube rotation mappings for navigation buttons
@@ -117,11 +179,11 @@ function init() {
     setupScene();
     setupCamera();
     setupRenderer();
-    
+
     createCube();
     setupLights();
     addEventListeners();
-    
+
     animate();
     handleWindowResize();
   } catch (error) {
@@ -145,8 +207,9 @@ function setupCamera() {
 
 function setupRenderer() {
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setSize(window.innerWidth, window.innerHeight);
-  
+
   const container = document.getElementById("container");
   if (container) {
     container.appendChild(renderer.domElement);
@@ -159,16 +222,20 @@ function setupRenderer() {
 
 function setupLights() {
   const pointConfig = CONFIG.lighting.point;
-  
+
   pointLight = new THREE.PointLight(
     CONFIG.colors.lightColor,
     pointConfig.intensity,
     pointConfig.distance,
     pointConfig.decay
   );
-  pointLight.position.set(pointConfig.position.x, pointConfig.position.y, pointConfig.position.z);
+  pointLight.position.set(
+    pointConfig.position.x,
+    pointConfig.position.y,
+    pointConfig.position.z
+  );
   scene.add(pointLight);
-  
+
   ambientLight = new THREE.AmbientLight(
     CONFIG.colors.lightColor,
     CONFIG.lighting.ambient.intensity
@@ -190,19 +257,22 @@ function formatPercent(value) {
 
 function getFaceData(faceIndex, coinData) {
   const textInput = document.getElementById("textInput");
-  
+
   const dataMappings = {
     0: ["", textInput ? textInput.value || "BTC" : "BTC"],
     1: ["Value USD", formatCurrency(coinData.priceUSD)],
     2: ["Value BTC", coinData.priceBTC || "No Data"],
     3: ["24 Hour Vol", formatCurrency(coinData.volume24h)],
-    4: ["Highs", [
-      `24h: ${formatCurrency(coinData.high24h)}`,
-      `7d: ${formatPercent(coinData.price_change_percentage_7d)}`,
-      `30d: ${formatPercent(coinData.price_change_percentage_30d)}`,
-      `1y: ${formatPercent(coinData.price_change_percentage_1y)}`,
-      `ATH: ${formatPercent(coinData.ath_change_percentage)}`
-    ]],
+    4: [
+      "Highs",
+      [
+        `24h: ${formatCurrency(coinData.high24h)}`,
+        `7d: ${formatPercent(coinData.price_change_percentage_7d)}`,
+        `30d: ${formatPercent(coinData.price_change_percentage_30d)}`,
+        `1y: ${formatPercent(coinData.price_change_percentage_1y)}`,
+        `ATH: ${formatPercent(coinData.ath_change_percentage)}`,
+      ],
+    ],
     5: ["24 Hour Low", formatCurrency(coinData.low24h)],
   };
 
@@ -210,17 +280,58 @@ function getFaceData(faceIndex, coinData) {
     const [title, data] = dataMappings[faceIndex];
     return { title, data };
   }
-  
+
   return { title: "Side", data: (faceIndex + 1).toString() };
 }
 
 // Cube creation functions
 
-function createCubeGeometry(size, detail) {
-  return new THREE.BoxGeometry(size, size, size, detail, detail, detail);
+// User-friendly control mapping (adjust only these values)
+
+const ROUNDED_BOX_UI = {
+  defaultSmoothness: 4, // 0 - 10 Bug... Higher numbers create leak lines on edges.
+  radiusMinFactor: 0.005, 
+  radiusMaxFactor: 0.50, // How round - max is a ball
+  segMin: 0, // minimum segments
+  segMax: 128, // maximum segments for smoothest
+};
+
+function getUserLevel(id, fallback = 0) {
+  const el = document.getElementById(id);
+  const v = el ? Number(el.value) : fallback;
+  if (isNaN(v)) return fallback;
+  return Math.min(10, Math.max(0, v));
 }
 
-// Function to load a Pirate HDRI image and create an environment map
+function createCubeGeometry(size, detail) {
+  const roundLevel = getUserLevel("rNumber", 0);
+  const smoothLevel = getUserLevel(
+    "smoothnessLevel",
+    ROUNDED_BOX_UI.defaultSmoothness
+  );
+
+  const radius =
+    roundLevel === 0
+      ? size * 0.00001
+      : size *
+        (ROUNDED_BOX_UI.radiusMinFactor +
+          (ROUNDED_BOX_UI.radiusMaxFactor - ROUNDED_BOX_UI.radiusMinFactor) *
+            (roundLevel / 10));
+
+  const segments = Math.max(
+    ROUNDED_BOX_UI.segMin,
+    Math.round(
+      ROUNDED_BOX_UI.segMin +
+        (ROUNDED_BOX_UI.segMax - ROUNDED_BOX_UI.segMin) * (smoothLevel / 10)
+    )
+  );
+
+  const geo = new RoundedBoxGeometry(size, size, size, segments, radius);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+// Function to load a HDRI image and create an environment map non GPS
 
 function createEnvironmentMap() {
   const textureLoader = new THREE.TextureLoader();
@@ -239,7 +350,7 @@ function createMaterialConfig() {
     reflectivity: CONFIG.material.reflectivity,
     roughness: CONFIG.material.roughness,
     metalness: CONFIG.material.metalness,
-    envMapIntensity: CONFIG.material.envMapIntensity
+    envMapIntensity: CONFIG.material.envMapIntensity,
   };
 }
 
@@ -247,14 +358,24 @@ function createCubeMaterials(coinData, envMap, opacity, wireframe) {
   const materialConfig = createMaterialConfig();
   const textColorPicker = document.getElementById("textColourPicker");
   const cubeColorPicker = document.getElementById("cubeColourPicker");
-  
-  const textColor = textColorPicker ? textColorPicker.value : CONFIG.colors.dark;
-  const faceColor = cubeColorPicker ? cubeColorPicker.value : CONFIG.colors.gold;
-  
+
+  const textColor = textColorPicker
+    ? textColorPicker.value
+    : CONFIG.colors.dark;
+  const faceColor = cubeColorPicker
+    ? cubeColorPicker.value
+    : CONFIG.colors.gold;
+
   return Array.from({ length: 6 }, (_, index) => {
     const { title, data } = getFaceData(index, coinData);
-    const texture = createCubeFaceTexture(title, data, textColor, faceColor, index);
-    
+    const texture = createCubeFaceTexture(
+      title,
+      data,
+      textColor,
+      faceColor,
+      index
+    );
+
     return new THREE.MeshPhysicalMaterial({
       map: texture,
       envMap: envMap,
@@ -278,14 +399,11 @@ function createCube() {
     const coinData = getCoinData();
     const cubeSize = getCubeSize();
     const opacity = getOpacity();
-    const wireframeDetail = getWireframeDetail();
-    const wireframe = getWireframeEnabled();
-    const geometry = createCubeGeometry(cubeSize, wireframeDetail);
+    const geometry = createCubeGeometry(cubeSize);
     const envMap = createEnvironmentMap();
-    const materials = createCubeMaterials(coinData, envMap, opacity, wireframe);
-    
+    const materials = createCubeMaterials(coinData, envMap, opacity, false);
+
     cube = new THREE.Mesh(geometry, materials);
-    cube.rotation.y = CONFIG.rotation.initial;
     scene.add(cube);
   } catch (error) {
     console.error("Error creating cube:", error);
@@ -313,23 +431,11 @@ function getOpacity() {
   return slider ? slider.value / 100 : 1;
 }
 
-function getWireframeDetail() {
-  const v = document.getElementById("vNumber")?.value;
-  return Math.max(Number(v) || 0, 1);
-}
-
-function getWireframeEnabled() {
-  const el = document.getElementById("vNumber");
-  return el !== null && Number(el.value) > 0 ? true : false;
-}
-
 // Cube face texture creation. Yay!
 
 function createCubeFaceTexture(title, data, textColor, faceColor, faceIndex) {
   const faceCanvas = document.createElement("canvas");
   const faceContext = faceCanvas.getContext("2d");
-
-  // Canvas dimensions - where the aliens come from
 
   faceCanvas.width = CONFIG.canvas.width;
   faceCanvas.height = CONFIG.canvas.height;
@@ -338,7 +444,7 @@ function createCubeFaceTexture(title, data, textColor, faceColor, faceIndex) {
 
   faceContext.textAlign = style.textAlign;
   faceContext.textBaseline = "middle";
-  
+
   faceContext.clearRect(0, 0, CONFIG.canvas.width, CONFIG.canvas.height);
   faceContext.fillStyle = faceColor;
   faceContext.fillRect(0, 0, CONFIG.canvas.width, CONFIG.canvas.height);
@@ -350,27 +456,65 @@ function createCubeFaceTexture(title, data, textColor, faceColor, faceIndex) {
   const smallFont = `${style.dataWeight || "bold"} ${fontSizeSmall}px Arial`;
 
   if (title) {
-    renderTextWithTitle(faceContext, title, data, textColor, style, fontSizeLarge, fontSizeSmall, largeFont, smallFont);
+    renderTextWithTitle(
+      faceContext,
+      title,
+      data,
+      textColor,
+      style,
+      fontSizeLarge,
+      fontSizeSmall,
+      largeFont,
+      smallFont
+    );
   } else {
-    renderTextWithoutTitle(faceContext, data, textColor, style, fontSizeSmall, largeFont, smallFont);
+    renderTextWithoutTitle(
+      faceContext,
+      data,
+      textColor,
+      style,
+      fontSizeSmall,
+      largeFont,
+      smallFont
+    );
   }
 
-  return new THREE.CanvasTexture(faceCanvas);
+  const texture = new THREE.CanvasTexture(faceCanvas);
+  texture.center.set(0.5, 0.5);
+  // texture.rotation = Math.PI;
+  return texture;
 }
 
-function renderTextWithTitle(faceContext, title, data, textColor, style, fontSizeLarge, fontSizeSmall, largeFont, smallFont) {
+function renderTextWithTitle(
+  faceContext,
+  title,
+  data,
+  textColor,
+  style,
+  fontSizeLarge,
+  fontSizeSmall,
+  largeFont,
+  smallFont
+) {
   faceContext.fillStyle = textColor;
   faceContext.font = largeFont;
-  
+
   const lines = Array.isArray(data) ? data : [data];
   const lineHeight = fontSizeSmall + CONFIG.table.lineSpacing;
   const totalDataHeight = lines.length * lineHeight;
-  const totalContentHeight = fontSizeLarge + style.titleSpacing + totalDataHeight;
+  const totalContentHeight =
+    fontSizeLarge + style.titleSpacing + totalDataHeight;
   const contentStartY = (CONFIG.canvas.height - totalContentHeight) / 2;
   const titleWidth = faceContext.measureText(title).width;
-  
-  let titleX = calculateTitleX(faceContext, style, titleWidth, lines, smallFont);
-  
+
+  let titleX = calculateTitleX(
+    faceContext,
+    style,
+    titleWidth,
+    lines,
+    smallFont
+  );
+
   const titleY = contentStartY + fontSizeLarge / 2;
   faceContext.fillText(title, titleX, titleY);
 
@@ -378,7 +522,14 @@ function renderTextWithTitle(faceContext, title, data, textColor, style, fontSiz
   const dataStartY = titleY + fontSizeLarge / 2 + style.titleSpacing;
 
   if (style.textAlign === "left") {
-    renderTableAlignedData(faceContext, lines, titleX, dataStartY, lineHeight, smallFont);
+    renderTableAlignedData(
+      faceContext,
+      lines,
+      titleX,
+      dataStartY,
+      lineHeight,
+      smallFont
+    );
   } else {
     renderNormalAlignedData(faceContext, lines, titleX, dataStartY, lineHeight);
   }
@@ -389,70 +540,81 @@ function renderTextWithTitle(faceContext, title, data, textColor, style, fontSiz
 function calculateTitleX(faceContext, style, titleWidth, lines, smallFont) {
   if (style.textAlign === "left") {
     faceContext.font = smallFont;
-    
-    const splitLines = lines.map(line => {
-      const parts = line.split(':');
-      return parts.length > 1 ? 
-        { label: parts[0] + ':', value: parts.slice(1).join(':').trim() } : 
-        { label: '', value: line };
+
+    const splitLines = lines.map((line) => {
+      const parts = line.split(":");
+      return parts.length > 1
+        ? { label: parts[0] + ":", value: parts.slice(1).join(":").trim() }
+        : { label: "", value: line };
     });
-    
-    const labelWidths = splitLines.map(l => faceContext.measureText(l.label).width);
+
+    const labelWidths = splitLines.map(
+      (l) => faceContext.measureText(l.label).width
+    );
     const maxLabelWidth = Math.max(...labelWidths, 0);
-    
+
     // Account for minus sign alignment in values
-    
-    const minusWidth = faceContext.measureText('-').width;
-    const valueWidths = splitLines.map(l => {
+
+    const minusWidth = faceContext.measureText("-").width;
+    const valueWidths = splitLines.map((l) => {
       const value = l.value;
-      if (value.startsWith('-')) {
+      if (value.startsWith("-")) {
         return faceContext.measureText(value.substring(1)).width + minusWidth;
       }
       return faceContext.measureText(value).width + minusWidth;
     });
-    
+
     const maxValueWidth = Math.max(...valueWidths, 0);
     const tableWidth = maxLabelWidth + maxValueWidth + CONFIG.table.columnGap;
     const contentWidth = Math.max(titleWidth, tableWidth);
-    
+
     return (CONFIG.canvas.width - contentWidth) / 2 + (style.blockOffset || 0);
   } else if (style.textAlign === "right") {
     return CONFIG.canvas.width - style.padding;
   }
-  
+
   return CONFIG.canvas.width / 2;
 }
 
 // Render table-aligned data where labels and values line up like a spreadsheet
 
-function renderTableAlignedData(faceContext, lines, titleX, dataStartY, lineHeight, smallFont) {
+function renderTableAlignedData(
+  faceContext,
+  lines,
+  titleX,
+  dataStartY,
+  lineHeight,
+  smallFont
+) {
   faceContext.font = smallFont;
-  
-  const splitLines = lines.map(line => {
-    const parts = line.split(':');
-    return parts.length > 1 ? 
-      { label: parts[0] + ':', value: parts.slice(1).join(':').trim() } : 
-      { label: '', value: line };
+
+  const splitLines = lines.map((line) => {
+    const parts = line.split(":");
+    return parts.length > 1
+      ? { label: parts[0] + ":", value: parts.slice(1).join(":").trim() }
+      : { label: "", value: line };
   });
-  
-  const labelWidths = splitLines.map(l => faceContext.measureText(l.label).width);
+
+  const labelWidths = splitLines.map(
+    (l) => faceContext.measureText(l.label).width
+  );
   const maxLabelWidth = Math.max(...labelWidths, 0);
-  const minusWidth = faceContext.measureText('-').width;
-  
+  const minusWidth = faceContext.measureText("-").width;
+
   lines.forEach((line, i) => {
     const split = splitLines[i];
     const y = dataStartY + i * lineHeight;
-    
+
     if (split.label) {
       faceContext.fillText(split.label, titleX, y);
-      
+
       const valueStartX = titleX + maxLabelWidth + CONFIG.table.columnGap;
       const value = split.value;
-      
+
       // Align minus signs separately so numbers line up
-      
-      if (value.startsWith('-')) {
-        faceContext.fillText('-', valueStartX, y);
+
+      if (value.startsWith("-")) {
+        faceContext.fillText("-", valueStartX, y);
         faceContext.fillText(value.substring(1), valueStartX + minusWidth, y);
       } else {
         faceContext.fillText(value, valueStartX + minusWidth, y);
@@ -463,23 +625,38 @@ function renderTableAlignedData(faceContext, lines, titleX, dataStartY, lineHeig
   });
 }
 
-function renderNormalAlignedData(faceContext, lines, titleX, dataStartY, lineHeight) {
+function renderNormalAlignedData(
+  faceContext,
+  lines,
+  titleX,
+  dataStartY,
+  lineHeight
+) {
   lines.forEach((line, i) => {
     faceContext.fillText(line, titleX, dataStartY + i * lineHeight);
   });
 }
 
-function renderTextWithoutTitle(faceContext, data, textColor, style, fontSizeSmall, largeFont, smallFont) {
+function renderTextWithoutTitle(
+  faceContext,
+  data,
+  textColor,
+  style,
+  fontSizeSmall,
+  largeFont,
+  smallFont
+) {
   faceContext.fillStyle = textColor;
-  
+
   const lines = Array.isArray(data) ? data : [data];
   faceContext.font = lines.length > 1 ? smallFont : largeFont;
-  const fontSize = lines.length > 1 ? fontSizeSmall : CONFIG.canvas.width / style.titleSize;
+  const fontSize =
+    lines.length > 1 ? fontSizeSmall : CONFIG.canvas.width / style.titleSize;
   const lineHeight = fontSize + 8;
-  
+
   let cx;
   if (style.textAlign === "left") {
-    const widths = lines.map(line => faceContext.measureText(line).width);
+    const widths = lines.map((line) => faceContext.measureText(line).width);
     const maxWidth = Math.max(...widths);
     cx = (CONFIG.canvas.width - maxWidth) / 2 + (style.blockOffset || 0);
   } else if (style.textAlign === "right") {
@@ -487,7 +664,7 @@ function renderTextWithoutTitle(faceContext, data, textColor, style, fontSizeSma
   } else {
     cx = CONFIG.canvas.width / 2;
   }
-  
+
   const cy = CONFIG.canvas.height / 2;
   const startY = cy - ((lines.length - 1) * lineHeight) / 2;
 
@@ -503,9 +680,8 @@ function refreshCube() {
     createCube();
     return;
   }
-  
+
   try {
-    
     // Save the current rotation of the really cool cube - so when the custom text changes, it doesn't reset.
 
     const currentRotation = {
@@ -586,19 +762,35 @@ function addEventListeners() {
     });
   };
 
-  addListenerToElement(renderer.domElement, ["mousemove", "mousedown", "mouseup"], handleMouseEvents);
+  addListenerToElement(
+    renderer.domElement,
+    ["mousemove", "mousedown", "mouseup"],
+    handleMouseEvents
+  );
   addListenerToElement(window, ["resize"], handleWindowResize);
 
-  ["cubeColourPicker", "textColourPicker", "textInput", "wfCheckbox", "vNumber", "opacitySlider", "sizeSlider"].forEach((id) => {
+  [
+    "cubeColourPicker",
+    "textColourPicker",
+    "textInput",
+    "opacitySlider",
+    "sizeSlider",
+    "rNumber",
+  ].forEach((id) => {
     const element = document.getElementById(id);
     if (element) {
       addListenerToElement(element, ["input"], refreshCube);
     }
   });
 
-  addListenerToElement(renderer.domElement, ["touchstart", "touchmove", "touchend"], handleTouchEvents, {
-    passive: false,
-  });
+  addListenerToElement(
+    renderer.domElement,
+    ["touchstart", "touchmove", "touchend"],
+    handleTouchEvents,
+    {
+      passive: false,
+    }
+  );
 
   const toggleButton = document.getElementById("togglePlayPause");
   if (toggleButton) {
@@ -606,10 +798,10 @@ function addEventListeners() {
       CONFIG.rotation.enabled = !CONFIG.rotation.enabled;
     });
   }
-  
+
   // Listen for data update events instead of polling localStorage
-  
-  document.addEventListener('cryptoDataUpdated', (event) => {
+
+  document.addEventListener("cryptoDataUpdated", (event) => {
     refreshCube();
   });
 
@@ -631,7 +823,7 @@ function setupRotationButtons() {
 
 function rotateCube(targetRotationY, targetRotationX) {
   if (!cube) return;
-  
+
   cube.rotation.y = targetRotationY;
   cube.rotation.x = targetRotationX;
 
@@ -660,13 +852,15 @@ function animate() {
 
   const maxSpeed = CONFIG.rotation.maxSpeed;
 
-  cube.rotation.x += Math.abs(newRotationX - cube.rotation.x) > maxSpeed
-    ? maxSpeed * Math.sign(newRotationX - cube.rotation.x)
-    : newRotationX - cube.rotation.x;
-    
-  cube.rotation.y += Math.abs(newRotationY - cube.rotation.y) > maxSpeed
-    ? maxSpeed * Math.sign(newRotationY - cube.rotation.y)
-    : newRotationY - cube.rotation.y;
+  cube.rotation.x +=
+    Math.abs(newRotationX - cube.rotation.x) > maxSpeed
+      ? maxSpeed * Math.sign(newRotationX - cube.rotation.x)
+      : newRotationX - cube.rotation.x;
+
+  cube.rotation.y +=
+    Math.abs(newRotationY - cube.rotation.y) > maxSpeed
+      ? maxSpeed * Math.sign(newRotationY - cube.rotation.y)
+      : newRotationY - cube.rotation.y;
 
   dragSpeedX *= CONFIG.rotation.dragFallOff;
   dragSpeedY *= CONFIG.rotation.dragFallOff;

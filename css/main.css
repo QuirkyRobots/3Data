@@ -790,9 +790,9 @@ button#copy {
   width: 100%;
 }
 
-input#vNumber:focus-visible,
-input#vNumber:active,
-input#vNumber:focus-visible {
+input#rNumber:focus-visible,
+input#rNumber:active,
+input#rNumber:focus-visible {
   outline: 1px solid #ccc;
 }
 

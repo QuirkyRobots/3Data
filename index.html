@@ -48,6 +48,16 @@
   
   <link rel="stylesheet" href="css/boilerplate.css" />
   <link rel="stylesheet" href="css/main.css" />
+
+  <!-- Add this import map BEFORE any module scripts -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/": "https://cdn.jsdelivr.net/npm/three@0.160.0/"
+    }
+  }
+  </script>
 </head>
 
 <body>
@@ -164,8 +174,8 @@
             <div class="pc-sliders no-drag">
               <div class="size-slider">
                 <label for="sizeSlider">Size</label>
-                <input class="pc-slider" type="range" id="sizeSlider" name="sizeSlider" min="30" max="160"
-                  value="140" />
+                <input class="pc-slider" type="range" id="sizeSlider" name="sizeSlider" min="30" max="190"
+                  value="145" />
               </div>
               <div class="opacity-slider">
                 <label for="opacitySlider">Opacity</label>
@@ -173,8 +183,8 @@
                   value="100" />
               </div>
               <div class="v-number">
-                <label for="vNumber">Vertices</label>
-                <input type="range" class="s3 pc-slider" id="vNumber" name="vNumber" value="0" min="0" max="100">
+                <label for="rNumber">Rounding</label>
+                <input type="range" class="s3 pc-slider" id="rNumber" name="rNumber" value="1" min="0" max="10">
               </div>
             </div>
 
