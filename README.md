@@ -1,4 +1,12 @@
-# v4 Beta is now active
+## v4.1
+
+* New rounding option added
+* Wireframe removed
+* New privacy coin check
+
+![alt text](image.png)
+
+## v4 Beta is now active
 
 Change log coming soon
 
