@@ -82,7 +82,7 @@
     </nav>
     <div class="set-coin show-hide">
       <div class="coin-select-box">
-        <img id="coinThumbBoxNav" alt="Pirate Image" src="" class="coin-img" />
+        <img id="coinThumbBoxNav" alt="Coin Image" src="" class="coin-img" />
         <input type="text" id="coin" name="coin" value="" autocomplete="off" placeholder="Enter coin name" />
         <button id="getStats" onclick="getExchangeRate()">Get Stats</button>
       </div>
@@ -98,10 +98,10 @@
     <div id="piratePanelWrapper" class="pirate-panel-wrapper">
       <div id="resizer" class="resize-handle"></div>
       <div id="piratePanel" class="pirate-panel drag-inactive">
-        <div class="ARRRcontrols">
+        <div class="coin-controls">
           <div id="pcAppLogoArea" class="pc-app-logo-area">
             <div class="pc-app-logo">
-              <img alt="Pirate Image" src="img/data-logo.png" class="pirate-img" />
+              <img alt="Coin Image" src="img/data-logo.png" class="pirate-img" />
               <div class="pc-app-logo-txt">3D</div>
             </div>
             <div class="pc-tagline">
@@ -109,15 +109,16 @@
               <span id="coinSymbolBox" class="coin-symbol-box"></span>
               <span>&nbsp;data&nbsp;|&nbsp;Rank:&nbsp;</span>
               <span id="coinRankBox"></span>
+              <span style="display:none;" id="isPrivacyCoin"> 🔒 </span>
             </div>
           </div>
 
           <div class="selection-buttons no-drag">
-            <span id="ARRRpriceDollar" class="s6 view-selection">Value</span>
-            <span id="ARRRpriceBTC" class="s6 view-selection">BTC</span>
-            <span id="ARRR24High" class="s6 view-selection">High</span>
-            <span id="ARRR24low" class="s6 view-selection">Low</span>
-            <span id="ARRR24Vol" class="s6 view-selection">Volume</span>
+            <span id="CoinPriceDollar" class="s6 view-selection">Value</span>
+            <span id="CoinPriceBTC" class="s6 view-selection">BTC</span>
+            <span id="Coin24High" class="s6 view-selection">High</span>
+            <span id="Coin24Low" class="s6 view-selection">Low</span>
+            <span id="Coin24Vol" class="s6 view-selection">Volume</span>
             <span id="customText" class="s6 view-selection">Note</span>
           </div>
           <div class="theme-switcher no-drag">

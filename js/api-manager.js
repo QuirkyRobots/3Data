@@ -70,6 +70,9 @@ function getExchangeRate() {
         updatePageElements(processedData);
         logCoinData(processedData);
         
+        // Check if coin is a privacy coin
+        checkIfPrivacyCoin(processedData.coinId, processedData.coinSymbol);
+        
         // Dispatch custom event instead of relying on localStorage polling
         
         document.dispatchEvent(createDataUpdateEvent(processedData));
@@ -91,6 +94,7 @@ function getExchangeRate() {
 function extractCoinData(data) {
   try {
     return {
+      coinId: data.id,
       priceUSD: data.market_data.current_price.usd,
       priceBTC: Number(data.market_data.current_price.btc).toFixed(8),
       volume24h: data.market_data.total_volume.usd,
@@ -115,7 +119,7 @@ function extractCoinData(data) {
 
 function storeCoinData(coinData) {
   try {
-    localStorage.setItem("arrrData", JSON.stringify(coinData));
+    localStorage.setItem("coinData", JSON.stringify(coinData));
     
     // Update global variables for backward compatibility
     
@@ -131,7 +135,7 @@ function storeCoinData(coinData) {
     if (error.name === 'QuotaExceededError') {
       console.warn("localStorage quota exceeded. Clearing old data...");
       localStorage.clear();
-      localStorage.setItem("arrrData", JSON.stringify(coinData));
+      localStorage.setItem("coinData", JSON.stringify(coinData));
     }
   }
 }
@@ -185,6 +189,43 @@ function logCoinData(coinData) {
   console.log(`Coin Rank: ${coinData.coinRank}`);
   console.log(`Coin URL: ${coinData.coinURL}`);
   console.log(`Coin Thumb: ${coinData.coinThumb}`);
+}
+
+// Check if coin is a privacy coin
+
+async function checkIfPrivacyCoin(coinId, coinSymbol) {
+  try {
+    const url = `${API_CONFIG.BASE_URL}/coins/${coinId}?x_cg_demo_api_key=${API_CONFIG.API_KEY}`;
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error(`Failed to fetch coin data for: ${coinId}`);
+    }
+    
+    const coinData = await response.json();
+    const categories = coinData.categories || [];
+    const isPrivacy = categories.includes('Privacy Coins');
+    
+    // Log to console
+
+    console.log(`${coinSymbol} - is privacy coin: ${isPrivacy}`);
+    
+    // Update HTML element
+    
+    const privacyElement = document.getElementById("isPrivacyCoin");
+    if (privacyElement) {
+      privacyElement.style.display = isPrivacy ? "block" : "none";
+    }
+    
+    return isPrivacy;
+  } catch (error) {
+    console.error("Error checking privacy coin status:", error);
+    const privacyElement = document.getElementById("isPrivacyCoin");
+    if (privacyElement) {
+      privacyElement.style.display = "none";
+    }
+    return false;
+  }
 }
 
 // Create a predictive search

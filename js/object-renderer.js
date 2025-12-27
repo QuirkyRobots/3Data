@@ -165,11 +165,11 @@ let ambientLight, pointLight;
 
 const CUBE_ROTATION_MAPPINGS = {
   customText: [29, -0.7],
-  ARRRpriceDollar: [13.1, -0.8],
-  ARRRpriceBTC: [11.5, 0.5],
-  ARRR24High: [30.3, -1.2],
-  ARRR24low: [27.3, -1.0],
-  ARRR24Vol: [5.1, -2.7],
+  CoinPriceDollar: [13.1, -0.8],
+  CoinPriceBTC: [11.5, 0.5],
+  Coin24High: [30.3, -1.2],
+  Coin24Low: [27.3, -1.0],
+  Coin24Vol: [5.1, -2.7],
 };
 
 // Initialisation function
@@ -414,7 +414,7 @@ function createCube() {
 
 function getCoinData() {
   try {
-    return JSON.parse(localStorage.getItem("arrrData") || "{}");
+    return JSON.parse(localStorage.getItem("coinData") || "{}");
   } catch (error) {
     console.error("Error parsing coin data:", error);
     return {};
@@ -808,7 +808,7 @@ function addEventListeners() {
   setupRotationButtons();
 }
 
-// Event listener for each ARRR button element
+// Event listener for each button element
 
 function setupRotationButtons() {
   Object.entries(CUBE_ROTATION_MAPPINGS).forEach(([id, params]) => {
