@@ -317,10 +317,7 @@ function updateElement(id, value, propName = "value") {
   element.dispatchEvent(new Event("input"));
 }
 
-function clearURL() {
-  const url = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
-  window.history.pushState({ path: url }, "", url);
-}
+
 
 // Only remove the theme parts of the URL. They are not wated around here. Go away.
 
