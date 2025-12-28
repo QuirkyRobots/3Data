@@ -62,7 +62,7 @@ function setupPlayPauseToggle() {
   if (!toggleButton) return;
 
   toggleButton.addEventListener("click", function () {
-    this.textContent = this.textContent === "||" ? "▶" : "||";
+    this.textContent = this.textContent === "||" ? "â–¶" : "||";
   });
 }
 
@@ -303,7 +303,7 @@ function updateTheme(theme) {
 
     // Clean the URL. It's dirty
 
-    clearURL();
+    clearThemeParams();
   } catch (error) {
     console.error("Error updating theme:", error);
   }
@@ -320,6 +320,17 @@ function updateElement(id, value, propName = "value") {
 function clearURL() {
   const url = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
   window.history.pushState({ path: url }, "", url);
+}
+
+// Only remove the theme parts of the URL. They are not wated around here. Go away.
+
+function clearThemeParams() {
+  const url = new URL(window.location);
+  url.searchParams.delete('bg');
+  url.searchParams.delete('block');
+  url.searchParams.delete('txt');
+  url.searchParams.delete('o');
+  window.history.pushState({}, "", url);
 }
 
 function setupThemeSwitch() {
