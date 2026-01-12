@@ -62,7 +62,7 @@ function setupPlayPauseToggle() {
   if (!toggleButton) return;
 
   toggleButton.addEventListener("click", function () {
-    this.textContent = this.textContent === "||" ? "â–¶" : "||";
+    this.textContent = this.textContent === "||" ? "▶" : "||";
   });
 }
 
