@@ -4,7 +4,7 @@ console.log("Hello.\n\nIf you are reading this it's because you love zk-Snarks."
 
 const API_CONFIG = {
   BASE_URL: "https://api.coingecko.com/api/v3",
-  API_KEY: "CG-7tRyvcttBwaPTyXmmRzXGtKd", // Replace with your actual API key
+  API_KEY: "CG-7tRyvcttBwaPTyXmmRzXGtKd",
   UPDATE_INTERVAL: 2 * 60 * 1000,
   DEFAULT_COIN: "bitcoin"
 };
@@ -44,7 +44,9 @@ function hideAccessWarning() {
 
 function initializeAPIManager() {
   try {
+
     // Setup close icon click handler
+
     const closeIcon = document.getElementById("closeIcon");
     if (closeIcon) {
       closeIcon.addEventListener("click", hideAccessWarning);
@@ -75,6 +77,7 @@ function getExchangeRate() {
   const coin = urlParams.get("coin") || window.currentCoin || API_CONFIG.DEFAULT_COIN;
   
   // Add API key as URL parameter to avoid CORS preflight
+
   const url = `${API_CONFIG.BASE_URL}/coins/${coin}?x_cg_demo_api_key=${API_CONFIG.API_KEY}`;
 
   return fetch(url, {
@@ -110,6 +113,7 @@ function getExchangeRate() {
       console.error("Error fetching exchange rate:", error);
       
       // Check if it's a network/CORS error (API blocked)
+
       if (error.message.includes('Failed to fetch') || 
           error.name === 'TypeError' ||
           error.message.includes('NetworkError')) {
@@ -197,10 +201,13 @@ function updatePageElements(coinData) {
     });
 
     // Update the Note field with the coin symbol
+
     const textInput = document.getElementById("textInput");
     if (textInput) {
       textInput.value = coinData.coinSymbol;
+
       // Trigger input event to refresh the cube
+
       textInput.dispatchEvent(new Event('input', { bubbles: true }));
     }
   } catch (error) {
@@ -237,7 +244,7 @@ async function checkIfPrivacyCoin(coinId, coinSymbol) {
     const categories = coinData.categories || [];
     const isPrivacy = categories.includes('Privacy Coins');
     
-    // Log to console
+    // Log to console (not Xbox)
 
     console.log(`${coinSymbol} - is privacy coin: ${isPrivacy}`);
     
@@ -364,6 +371,7 @@ async function loadCoinsList() {
     console.error("Error loading coins list:", error);
     
     // Check if it's a network/CORS error (API blocked)
+
     if (error.message.includes('Failed to fetch') || 
         error.name === 'TypeError' ||
         error.message.includes('NetworkError')) {
