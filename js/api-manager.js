@@ -26,8 +26,30 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeAPIManager();
 });
 
+// Helper functions for access warning
+
+function showAccessWarning() {
+  const warningElement = document.getElementById("accessWarning");
+  if (warningElement) {
+    warningElement.style.display = "block";
+  }
+}
+
+function hideAccessWarning() {
+  const warningElement = document.getElementById("accessWarning");
+  if (warningElement) {
+    warningElement.style.display = "none";
+  }
+}
+
 function initializeAPIManager() {
   try {
+    // Setup close icon click handler
+    const closeIcon = document.getElementById("closeIcon");
+    if (closeIcon) {
+      closeIcon.addEventListener("click", hideAccessWarning);
+    }
+    
     getExchangeRate();
     
     // Update interval. Wooo!
@@ -44,6 +66,7 @@ function initializeAPIManager() {
     initializeCoinSearch();
   } catch (error) {
     console.error("Failed to initialize API manager:", error);
+    showAccessWarning();
   }
 }
 
@@ -85,6 +108,14 @@ function getExchangeRate() {
     })
     .catch((error) => {
       console.error("Error fetching exchange rate:", error);
+      
+      // Check if it's a network/CORS error (API blocked)
+      if (error.message.includes('Failed to fetch') || 
+          error.name === 'TypeError' ||
+          error.message.includes('NetworkError')) {
+        showAccessWarning();
+      }
+      
       throw error;
     });
 }
@@ -331,6 +362,14 @@ async function loadCoinsList() {
     return coins;
   } catch (error) {
     console.error("Error loading coins list:", error);
+    
+    // Check if it's a network/CORS error (API blocked)
+    if (error.message.includes('Failed to fetch') || 
+        error.name === 'TypeError' ||
+        error.message.includes('NetworkError')) {
+      showAccessWarning();
+    }
+    
     return [];
   }
 }

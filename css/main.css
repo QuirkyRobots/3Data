@@ -10,6 +10,41 @@ header {
   background: #16161e;
 }
 
+#accessWarning {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 2rem;
+  padding-bottom: 3rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  z-index: 1000;
+}
+
+#closeIcon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: .2rem .5rem;
+  padding-top: 0.3rem;
+  cursor: pointer;
+  color: #111;
+  font-size: 1.1rem;
+  font-weight: bold;
+  line-height: 1;
+  background: var(--pirate-gold);
+  border-radius: .3rem;
+  &:hover {
+    background: rgb(51 51 75);
+    color: #c5d1eb;
+  }
+  
+}
+
 .video-container {
   position: absolute;
   filter: blur(3px) grayscale(0%) brightness(0.8);
@@ -38,7 +73,7 @@ header {
   display: flex;
 }
 
-.app-menu > ul > li {
+.app-menu>ul>li {
   position: relative;
   padding: 10px 15px;
   cursor: pointer;
@@ -65,7 +100,7 @@ header {
   display: block;
 }
 
-.app-menu > ul > li:hover,
+.app-menu>ul>li:hover,
 .app-menu ul li .submenu li:hover {
   color: var(--pirate-gold);
 }
@@ -287,7 +322,7 @@ canvas {
   /* height: calc(100% - 2.2rem);*/
 }
 
-.coin-controls > div:last-child {
+.coin-controls>div:last-child {
   margin-top: auto;
 }
 
@@ -339,11 +374,13 @@ canvas {
   width: max-content;
   border-radius: 0.2rem;
 }
+
 span#isPrivacyCoin {
   position: relative;
   top: -0.2rem;
   margin-left: 0.2rem;
 }
+
 .coin-img {
   display: flex;
   width: clamp(0.8rem, 0.9dvw, 1.2rem);
@@ -481,16 +518,16 @@ button#toggleMusicMute {
   border-radius: 50%;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: var(--pirate-blue);
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   background-color: #3c3c49;
   transform: translateX(2.3rem);
 }
 
-#themeSwitch:checked + .slider:hover:before {
+#themeSwitch:checked+.slider:hover:before {
   background: #474756;
 }
 
@@ -800,7 +837,7 @@ input#rNumber:focus-visible {
   outline: 1px solid #ccc;
 }
 
-#wfCheckbox:checked + .v-number {
+#wfCheckbox:checked+.v-number {
   display: flex;
 }
 
@@ -918,6 +955,7 @@ label,
 .coin-api {
   margin-left: 0.5rem;
 }
+
 .credits #cgLogo {
   filter: brightness(30%);
   margin-top: 2px;
