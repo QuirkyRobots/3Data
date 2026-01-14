@@ -126,7 +126,6 @@ input#coin {
   width: 100%;
   padding: 0.3rem;
   padding-left: 0.5rem;
-
   border: none;
   font-size: 0.9rem;
   background: #252534;
@@ -143,20 +142,19 @@ input#coin:focus-within {
   border: none;
 }
 
-button:disabled {
-  background-color: #bb9645;
-  color: #111;
-  cursor: not-allowed !important;
-  /*opacity: 0.4;*/
-}
-
 button#getStats {
-  background-color: #bb9645;
+  background: #bb9645;
   width: 45%;
   border: none;
   color: #111;
   cursor: pointer;
   border: 1px solid #16161e;
+}
+button:disabled {
+  background: #725b2c!important;
+  color: #111;
+  cursor: not-allowed !important;
+  /*opacity: 0.4;*/
 }
 
 .coin-select-box {
@@ -190,6 +188,11 @@ li.suggestion-item {
     cursor: pointer;
     color: #fff;
   }
+}
+li.suggestion-item.active {
+  background: #252534;
+  color: #fff;
+  outline: 1px solid var(--pirate-gold);
 }
 
 footer {

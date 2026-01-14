@@ -6,7 +6,9 @@ const API_CONFIG = {
   BASE_URL: "https://api.coingecko.com/api/v3",
   API_KEY: "CG-7tRyvcttBwaPTyXmmRzXGtKd",
   UPDATE_INTERVAL: 2 * 60 * 1000,
-  DEFAULT_COIN: "bitcoin"
+  DEFAULT_COIN: "bitcoin",
+  SUGGESTION_LIMIT: 20,
+  SEARCH_DEBOUNCE_MS: 300
 };
 
 // Global state
@@ -28,18 +30,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Helper functions for access warning
 
-function showAccessWarning() {
+function toggleAccessWarning(show) {
   const warningElement = document.getElementById("accessWarning");
-  if (warningElement) {
-    warningElement.style.display = "block";
-  }
+  warningElement && (warningElement.style.display = show ? "block" : "none");
 }
 
-function hideAccessWarning() {
-  const warningElement = document.getElementById("accessWarning");
-  if (warningElement) {
-    warningElement.style.display = "none";
-  }
+function isNetworkError(error) {
+  return error.message.includes('Failed to fetch') || 
+         error.name === 'TypeError' ||
+         error.message.includes('NetworkError');
+}
+
+function handleCoinSearch() {
+  const coinInput = document.getElementById("coin");
+  coinInput && (window.currentCoin = coinInput.value);
+  getExchangeRate();
 }
 
 function initializeAPIManager() {
@@ -48,9 +53,7 @@ function initializeAPIManager() {
     // Setup close icon click handler
 
     const closeIcon = document.getElementById("closeIcon");
-    if (closeIcon) {
-      closeIcon.addEventListener("click", hideAccessWarning);
-    }
+    closeIcon && closeIcon.addEventListener("click", () => toggleAccessWarning(false));
     
     getExchangeRate();
     
@@ -61,14 +64,12 @@ function initializeAPIManager() {
     // Event listener for changes in the coin input field, with cows
     
     const coinInput = document.getElementById("coin");
-    if (coinInput) {
-      coinInput.addEventListener("change", getExchangeRate);
-    }
+    coinInput && coinInput.addEventListener("change", getExchangeRate);
     
     initializeCoinSearch();
   } catch (error) {
     console.error("Failed to initialize API manager:", error);
-    showAccessWarning();
+    toggleAccessWarning(true);
   }
 }
 
@@ -114,10 +115,8 @@ function getExchangeRate() {
       
       // Check if it's a network/CORS error (API blocked)
 
-      if (error.message.includes('Failed to fetch') || 
-          error.name === 'TypeError' ||
-          error.message.includes('NetworkError')) {
-        showAccessWarning();
+      if (isNetworkError(error)) {
+        toggleAccessWarning(true);
       }
       
       throw error;
@@ -128,21 +127,23 @@ function getExchangeRate() {
 
 function extractCoinData(data) {
   try {
+    const { id, symbol, image, links, market_cap_rank, market_data } = data;
+    
     return {
-      coinId: data.id,
-      priceUSD: data.market_data.current_price.usd,
-      priceBTC: Number(data.market_data.current_price.btc).toFixed(8),
-      volume24h: data.market_data.total_volume.usd,
-      high24h: data.market_data.high_24h.usd,
-      low24h: data.market_data.low_24h.usd,
-      price_change_percentage_7d: data.market_data.price_change_percentage_7d,
-      price_change_percentage_30d: data.market_data.price_change_percentage_30d,
-      price_change_percentage_1y: data.market_data.price_change_percentage_1y,
-      ath_change_percentage: data.market_data.ath_change_percentage.usd,
-      coinSymbol: data.symbol.toUpperCase(),
-      coinRank: Number.isFinite(data.market_cap_rank) ? "#" + data.market_cap_rank : "",
-      coinThumb: data.image.thumb,
-      coinURL: data.links.homepage[0]
+      coinId: id,
+      priceUSD: market_data.current_price.usd,
+      priceBTC: Number(market_data.current_price.btc).toFixed(8),
+      volume24h: market_data.total_volume.usd,
+      high24h: market_data.high_24h.usd,
+      low24h: market_data.low_24h.usd,
+      price_change_percentage_7d: market_data.price_change_percentage_7d,
+      price_change_percentage_30d: market_data.price_change_percentage_30d,
+      price_change_percentage_1y: market_data.price_change_percentage_1y,
+      ath_change_percentage: market_data.ath_change_percentage.usd,
+      coinSymbol: symbol.toUpperCase(),
+      coinRank: Number.isFinite(market_cap_rank) ? `#${market_cap_rank}` : "",
+      coinThumb: image.thumb,
+      coinURL: links.homepage[0]
     };
   } catch (error) {
     console.error("Error extracting coin data:", error);
@@ -185,14 +186,10 @@ function updatePageElements(coinData) {
     });
     
     const rankElement = document.getElementById("coinRankBox");
-    if (rankElement) {
-      rankElement.textContent = coinData.coinRank;
-    }
+    rankElement && (rankElement.textContent = coinData.coinRank);
     
     const thumbElement = document.getElementById("coinThumbBoxNav");
-    if (thumbElement) {
-      thumbElement.src = coinData.coinThumb;
-    }
+    thumbElement && (thumbElement.src = coinData.coinThumb);
     
     const urlElements = document.querySelectorAll(".coin-urls");
     urlElements.forEach(link => {
@@ -231,6 +228,8 @@ function logCoinData(coinData) {
 
 // Check if coin is a privacy coin
 
+const cachedPrivacyElement = (() => document.getElementById("isPrivacyCoin"))();
+
 async function checkIfPrivacyCoin(coinId, coinSymbol) {
   try {
     const url = `${API_CONFIG.BASE_URL}/coins/${coinId}?x_cg_demo_api_key=${API_CONFIG.API_KEY}`;
@@ -250,23 +249,19 @@ async function checkIfPrivacyCoin(coinId, coinSymbol) {
     
     // Update HTML element
     
-    const privacyElement = document.getElementById("isPrivacyCoin");
-    if (privacyElement) {
-      privacyElement.style.display = isPrivacy ? "block" : "none";
-    }
+    cachedPrivacyElement && (cachedPrivacyElement.style.display = isPrivacy ? "block" : "none");
     
     return isPrivacy;
   } catch (error) {
     console.error("Error checking privacy coin status:", error);
-    const privacyElement = document.getElementById("isPrivacyCoin");
-    if (privacyElement) {
-      privacyElement.style.display = "none";
-    }
+    cachedPrivacyElement && (cachedPrivacyElement.style.display = "none");
     return false;
   }
 }
 
 // Create a predictive search
+
+let searchDebounceTimer;
 
 async function initializeCoinSearch() {
   try {
@@ -292,7 +287,7 @@ async function initializeCoinSearch() {
       coinSelectBoxParent.insertBefore(coinSelectDiv, document.querySelector(".coin-select-box").nextSibling);
     }
 
-    let coins = await loadCoinsList();
+    const coins = await loadCoinsList();
 
     // Function to check if input matches any coin name or id
 
@@ -305,17 +300,28 @@ async function initializeCoinSearch() {
     };
 
     const toggleCoinSelectDisplay = () => {
-      const shouldShow = searchInput.value.trim() && !isMatch(searchInput.value.toLowerCase());
-      coinSelectDiv.style.display = shouldShow ? "block" : "none";
+      coinSelectDiv.style.display = searchInput.value.trim() && !isMatch(searchInput.value.toLowerCase()) ? "block" : "none";
     };
 
-    searchInput.addEventListener("input", (event) => {
-      const inputText = event.target.value;
+    const selectCoin = (coin) => {
+      searchInput.value = coin.id;
+      window.currentCoin = coin.id;
+      suggestionsContainer.innerHTML = "";
+      getStatsButton.disabled = false;
+      getStatsButton.classList.remove("disabled-btn");
+      toggleCoinSelectDisplay();
+      
+      // Use shared search function
+
+      handleCoinSearch();
+    };
+
+    const updateSuggestions = (inputText) => {
       const inputLower = inputText.toLowerCase();
 
-      const filteredCoins = coins.filter((coin) => 
-        coin.name.toLowerCase().startsWith(inputLower)
-      );
+      const filteredCoins = coins
+        .filter((coin) => coin.name.toLowerCase().startsWith(inputLower))
+        .slice(0, API_CONFIG.SUGGESTION_LIMIT);
       
       suggestionsContainer.innerHTML = "";
 
@@ -329,16 +335,72 @@ async function initializeCoinSearch() {
 
       const validCoinFound = isMatch(inputText);
       getStatsButton.disabled = !validCoinFound;
+      
+      // Toggle disabled-btn class
 
-      toggleCoinSelectDisplay();
-    });
+      getStatsButton.classList.toggle("disabled-btn", !validCoinFound);
 
-    const selectCoin = (coin) => {
-      searchInput.value = coin.id;
-      suggestionsContainer.innerHTML = "";
-      getStatsButton.disabled = false;
       toggleCoinSelectDisplay();
     };
+
+    searchInput.addEventListener("input", (event) => {
+      const inputText = event.target.value;
+      
+      // Debounce the search
+
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        updateSuggestions(inputText);
+      }, API_CONFIG.SEARCH_DEBOUNCE_MS);
+    });
+
+    // Keyboard navigation for suggestions
+
+    searchInput.addEventListener("keydown", (event) => {
+      const items = suggestionsContainer.querySelectorAll(".suggestion-item");
+      
+      if (event.key === "Enter") {
+        event.preventDefault();
+        
+        // If there's an active suggestion, select it
+        const activeItem = suggestionsContainer.querySelector(".suggestion-item.active");
+        if (activeItem) {
+          const coinName = activeItem.textContent;
+          const selectedCoin = coins.find((coin) => coin.name === coinName);
+          selectedCoin && selectCoin(selectedCoin);
+          return;
+        }
+        
+        // Otherwise, click the button (it handles validation)
+
+        if (!getStatsButton.disabled) {
+          getStatsButton.click();
+        }
+        return;
+      }
+      
+      if (items.length === 0) return;
+      
+      const activeItem = suggestionsContainer.querySelector(".suggestion-item.active");
+      let currentIndex = activeItem ? Array.from(items).indexOf(activeItem) : -1;
+
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        currentIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+        items.forEach((item, idx) => {
+          item.classList.toggle("active", idx === currentIndex);
+        });
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        currentIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+        items.forEach((item, idx) => {
+          item.classList.toggle("active", idx === currentIndex);
+        });
+      } else if (event.key === "Escape") {
+        coinSelectDiv.style.display = "none";
+        suggestionsContainer.innerHTML = "";
+      }
+    });
     
     toggleCoinSelectDisplay();
   } catch (error) {
@@ -348,7 +410,7 @@ async function initializeCoinSearch() {
 
 async function loadCoinsList() {
   try {
-    let coins = JSON.parse(localStorage.getItem("coins") || "[]");
+    const coins = JSON.parse(localStorage.getItem("coins") || "[]");
 
     if (coins.length === 0) {
 
@@ -362,8 +424,9 @@ async function loadCoinsList() {
         throw new Error("Failed to fetch coins list");
       }
       
-      coins = await response.json();
-      localStorage.setItem("coins", JSON.stringify(coins));
+      const fetchedCoins = await response.json();
+      localStorage.setItem("coins", JSON.stringify(fetchedCoins));
+      return fetchedCoins;
     }
 
     return coins;
@@ -372,10 +435,8 @@ async function loadCoinsList() {
     
     // Check if it's a network/CORS error (API blocked)
 
-    if (error.message.includes('Failed to fetch') || 
-        error.name === 'TypeError' ||
-        error.message.includes('NetworkError')) {
-      showAccessWarning();
+    if (isNetworkError(error)) {
+      toggleAccessWarning(true);
     }
     
     return [];
