@@ -11,7 +11,7 @@ const API_CONFIG = {
   SEARCH_DEBOUNCE_MS: 300
 };
 
-// Global state
+// Global state - Damm globalists
 
 window.currentCoin = "";
 
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeAPIManager();
 });
 
-// Helper functions for access warning
+// Helper functions for access warning - Arrgh!
 
 function toggleAccessWarning(show) {
   const warningElement = document.getElementById("accessWarning");
@@ -50,7 +50,7 @@ function handleCoinSearch() {
 function initializeAPIManager() {
   try {
 
-    // Setup close icon click handler
+    // Setup close icon click handler - No MKUltra invloved
 
     const closeIcon = document.getElementById("closeIcon");
     closeIcon && closeIcon.addEventListener("click", () => toggleAccessWarning(false));
@@ -77,7 +77,7 @@ function getExchangeRate() {
   const urlParams = new URLSearchParams(window.location.search);
   const coin = urlParams.get("coin") || window.currentCoin || API_CONFIG.DEFAULT_COIN;
   
-  // Add API key as URL parameter to avoid CORS preflight
+  // Add API key as URL parameter to avoid CORS preflight - No aviation fuel
 
   const url = `${API_CONFIG.BASE_URL}/coins/${coin}?x_cg_demo_api_key=${API_CONFIG.API_KEY}`;
 
@@ -97,7 +97,8 @@ function getExchangeRate() {
         updatePageElements(processedData);
         logCoinData(processedData);
         
-        // Check if coin is a privacy coin
+        // Check if coin is a privacy coin - if not, chop head off
+
         checkIfPrivacyCoin(processedData.coinId, processedData.coinSymbol);
         
         // Dispatch custom event instead of relying on localStorage polling
@@ -123,7 +124,7 @@ function getExchangeRate() {
     });
 }
 
-// Data extraction
+// Data and tooth extraction
 
 function extractCoinData(data) {
   try {
@@ -166,7 +167,7 @@ function storeCoinData(coinData) {
   } catch (error) {
     console.error("Error storing coin data:", error);
     
-    // Check if localStorage is full
+    // Check if localStorage is full and if it is, you're not coming in
     
     if (error.name === 'QuotaExceededError') {
       console.warn("localStorage quota exceeded. Clearing old data...");
@@ -197,13 +198,13 @@ function updatePageElements(coinData) {
       link.title = `View the ${coinData.coinSymbol} website`;
     });
 
-    // Update the Note field with the coin symbol
+    // Update the Note field with the coin symbol - now cow here either
 
     const textInput = document.getElementById("textInput");
     if (textInput) {
       textInput.value = coinData.coinSymbol;
 
-      // Trigger input event to refresh the cube
+      // Trigger input event to refresh the Borg cube
 
       textInput.dispatchEvent(new Event('input', { bubbles: true }));
     }
@@ -212,7 +213,7 @@ function updatePageElements(coinData) {
   }
 }
 
-// Console log
+// Console log - not to be put on a fire
 
 function logCoinData(coinData) {
   console.log(`Current Price USD: ${coinData.priceUSD}`);
@@ -226,7 +227,7 @@ function logCoinData(coinData) {
   console.log(`Coin Thumb: ${coinData.coinThumb}`);
 }
 
-// Check if coin is a privacy coin
+// Check if coin is a privacy coin - again
 
 const cachedPrivacyElement = (() => document.getElementById("isPrivacyCoin"))();
 
@@ -336,7 +337,7 @@ async function initializeCoinSearch() {
       const validCoinFound = isMatch(inputText);
       getStatsButton.disabled = !validCoinFound;
       
-      // Toggle disabled-btn class
+      // Toggle disabled-btn class - Not really needed, but thought I'd add it anyway
 
       getStatsButton.classList.toggle("disabled-btn", !validCoinFound);
 
@@ -346,7 +347,7 @@ async function initializeCoinSearch() {
     searchInput.addEventListener("input", (event) => {
       const inputText = event.target.value;
       
-      // Debounce the search
+      // Debounce the search, it's not a ball
 
       clearTimeout(searchDebounceTimer);
       searchDebounceTimer = setTimeout(() => {
@@ -363,6 +364,7 @@ async function initializeCoinSearch() {
         event.preventDefault();
         
         // If there's an active suggestion, select it
+
         const activeItem = suggestionsContainer.querySelector(".suggestion-item.active");
         if (activeItem) {
           const coinName = activeItem.textContent;
@@ -402,6 +404,8 @@ async function initializeCoinSearch() {
       }
     });
     
+    // Random comment for no reason
+
     toggleCoinSelectDisplay();
   } catch (error) {
     console.error("Error initializing coin search:", error);
