@@ -160,6 +160,7 @@ let mouseDown = false,
 let dragSpeedX = 0,
   dragSpeedY = 0;
 let ambientLight, pointLight;
+let cachedEnvMap;
 
 // Cube rotation mappings for navigation buttons
 
@@ -303,7 +304,7 @@ function getUserLevel(id, fallback = 0) {
   return Math.min(10, Math.max(0, v));
 }
 
-function createCubeGeometry(size, detail) {
+function createCubeGeometry(size) {
   const roundLevel = getUserLevel("rNumber", 0);
   const smoothLevel = getUserLevel(
     "smoothnessLevel",
@@ -334,10 +335,14 @@ function createCubeGeometry(size, detail) {
 // Function to load a HDRI image and create an environment map non GPS
 
 function createEnvironmentMap() {
+  if (cachedEnvMap) {
+    return cachedEnvMap;
+  }
+
   const textureLoader = new THREE.TextureLoader();
-  const envMap = textureLoader.load("img/pc-reflection-2.jpg");
-  envMap.mapping = THREE.EquirectangularReflectionMapping;
-  return envMap;
+  cachedEnvMap = textureLoader.load("img/pc-reflection-2.jpg");
+  cachedEnvMap.mapping = THREE.EquirectangularReflectionMapping;
+  return cachedEnvMap;
 }
 
 // Shoving these material settings on to the 3D object
@@ -675,6 +680,21 @@ function renderTextWithoutTitle(
 
 // Update these please
 
+function disposeCube(targetCube) {
+  if (!targetCube) return;
+
+  targetCube.geometry?.dispose();
+
+  const materials = Array.isArray(targetCube.material)
+    ? targetCube.material
+    : [targetCube.material];
+
+  materials.forEach((material) => {
+    material?.map?.dispose();
+    material?.dispose?.();
+  });
+}
+
 function refreshCube() {
   if (!cube) {
     createCube();
@@ -692,8 +712,10 @@ function refreshCube() {
 
     // Remove the old cube and create a new one, because it's fun and trending to be new
 
-    scene.remove(cube);
+    const oldCube = cube;
+    scene.remove(oldCube);
     createCube();
+    disposeCube(oldCube);
 
     // Apply the saved rotation to the new cool cube
 
