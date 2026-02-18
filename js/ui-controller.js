@@ -38,6 +38,7 @@ function initializeUI() {
   setupPlayPauseToggle();
   setupURLManagement();
   setupThemeControls();
+  setupMusicMuteToggle();
   setupClipboardCopy();
   setupPanelDragging();
   setupBackgroundObserver();
@@ -176,20 +177,12 @@ function setupGetStatsButton() {
       const currentCoin = document.getElementById("coin")?.value;
       if (!currentCoin) return;
 
-      const exchangeRate = await window.getExchangeRate(currentCoin);
-      console.log(`Exchange Rate for ${currentCoin}: ${exchangeRate}`);
+      await window.getExchangeRate();
+      console.log(`Exchange Rate updated for ${currentCoin}`);
 
       updateURLParam("coin", currentCoin);
-
       if (window.coinSymbol) {
-        await window.getExchangeRate(window.coinSymbol);
-        console.log(`Button Press - Coin Symbol: ${window.coinSymbol}`);
-
         updateURLParam("msg", window.coinSymbol);
-        const textInput = document.getElementById("textInput");
-        if (textInput) {
-          textInput.value = window.coinSymbol;
-        }
       }
     } catch (error) {
       console.error("Error occurred:", error);
@@ -268,7 +261,6 @@ function setupMusicMuteToggle() {
   });
 }
 
-setupMusicMuteToggle();
 function setupThemeButtons() {
   const goldButton = document.getElementById("goldTheme");
   const blackButton = document.getElementById("blackTheme");

@@ -99,7 +99,7 @@ function getExchangeRate() {
         
         // Check if coin is a privacy coin - if not, chop head off
 
-        checkIfPrivacyCoin(processedData.coinId, processedData.coinSymbol);
+        updatePrivacyCoinIndicator(processedData.coinSymbol, processedData.isPrivacyCoin);
         
         // Dispatch custom event instead of relying on localStorage polling
         
@@ -128,7 +128,7 @@ function getExchangeRate() {
 
 function extractCoinData(data) {
   try {
-    const { id, symbol, image, links, market_cap_rank, market_data } = data;
+    const { id, symbol, image, links, market_cap_rank, market_data, categories = [] } = data;
     
     return {
       coinId: id,
@@ -144,7 +144,8 @@ function extractCoinData(data) {
       coinSymbol: symbol.toUpperCase(),
       coinRank: Number.isFinite(market_cap_rank) ? `#${market_cap_rank}` : "",
       coinThumb: image.thumb,
-      coinURL: links.homepage[0]
+      coinURL: links.homepage[0],
+      isPrivacyCoin: categories.includes('Privacy Coins')
     };
   } catch (error) {
     console.error("Error extracting coin data:", error);
@@ -231,33 +232,9 @@ function logCoinData(coinData) {
 
 const cachedPrivacyElement = (() => document.getElementById("isPrivacyCoin"))();
 
-async function checkIfPrivacyCoin(coinId, coinSymbol) {
-  try {
-    const url = `${API_CONFIG.BASE_URL}/coins/${coinId}?x_cg_demo_api_key=${API_CONFIG.API_KEY}`;
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      throw new Error(`Failed to fetch coin data for: ${coinId}`);
-    }
-    
-    const coinData = await response.json();
-    const categories = coinData.categories || [];
-    const isPrivacy = categories.includes('Privacy Coins');
-    
-    // Log to console (not Xbox)
-
-    console.log(`${coinSymbol} - is privacy coin: ${isPrivacy}`);
-    
-    // Update HTML element
-    
-    cachedPrivacyElement && (cachedPrivacyElement.style.display = isPrivacy ? "block" : "none");
-    
-    return isPrivacy;
-  } catch (error) {
-    console.error("Error checking privacy coin status:", error);
-    cachedPrivacyElement && (cachedPrivacyElement.style.display = "none");
-    return false;
-  }
+function updatePrivacyCoinIndicator(coinSymbol, isPrivacyCoin) {
+  console.log(`${coinSymbol} - is privacy coin: ${isPrivacyCoin}`);
+  cachedPrivacyElement && (cachedPrivacyElement.style.display = isPrivacyCoin ? "block" : "none");
 }
 
 // Create a predictive search
